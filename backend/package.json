@@ -1,0 +1,23 @@
+{
+  "name": "StratHub",
+  "version": "1.0.0",
+  "description": "StratHub backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [],
+  "author": "shadmansaleh",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.1",
+    "mongoose": "^8.2.3",
+    "socket-io": "^1.0.0"
+  }
+}
