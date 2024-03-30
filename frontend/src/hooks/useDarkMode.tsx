@@ -3,20 +3,20 @@ import useLocalStorage from "./useLocalStorage";
 
 const useDarkMode = () => {
   const [enabled, setEnabled] = useLocalStorage("dark-theme");
-  const isEnabled = typeof enabledState === "undefined" && enabled;
+  const isEnabled = typeof enabled != "undefined" && enabled;
 
   useEffect(() => {
     const className = "dark";
     const lightTheme = "light";
     const darkTheme = "dark";
     const bodyClass = window.document.body.classList;
-    const html = document.querySelector("html");
+    const html = document.querySelector<HTMLHtmlElement>("html");
     if (isEnabled) {
       bodyClass.add(className); // switch for tailwind
-      html.setAttribute("data-theme", darkTheme); // switch daisyUI theme
+      html?.setAttribute("data-theme", darkTheme); // switch daisyUI theme
     } else {
       bodyClass.remove(className);
-      html.setAttribute("data-theme", lightTheme);
+      html?.setAttribute("data-theme", lightTheme);
     }
   }, [enabled, isEnabled]);
 
