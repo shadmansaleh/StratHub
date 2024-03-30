@@ -8,12 +8,7 @@ import desc_logo3 from "./assets/desc_card_logo3.png";
 import desc_logo4 from "./assets/desc_card_logo4.png";
 import desc_logo5 from "./assets/desc_card_logo5.png";
 
-import {
-  FaFacebook,
-  FaTwitter,
-  FaInstagram,
-  FaTextWidth,
-} from "react-icons/fa";
+import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 
 const Home = () => {
   return (
@@ -44,13 +39,19 @@ const Home = () => {
                 </Link>
               </div>
             </div>
-            <img src={hero_img} className="max-w-3xl rounded-3xl shadow-2xl" />
+            <img
+              src={hero_img}
+              className="max-w-3xl rounded-3xl shadow-2xl hover-enlarge"
+            />
           </div>
         </div>
         {/* second hero section */}
         <div className="hero min-h-screen">
           <div className="hero-content flex-col lg:flex-row gap-10 lg:gap-24 max-w-[90vw]">
-            <img src={hero_img2} className="max-w-3xl rounded-3xl shadow-2xl" />
+            <img
+              src={hero_img2}
+              className="max-w-3xl rounded-3xl shadow-2xl hover-enlarge"
+            />
             <div>
               <h1 className="text-5xl font-bold text-center">
                 Find Experts for Personalized Advice or Consultation
@@ -220,10 +221,11 @@ Expertise"
           </aside>
           <nav>
             <h6 className="footer-title">Services</h6>
-            <a className="link link-hover">Branding</a>
-            <a className="link link-hover">Design</a>
-            <a className="link link-hover">Marketing</a>
-            <a className="link link-hover">Advertisement</a>
+            <a className="link link-hover">Career Counselling</a>
+            <a className="link link-hover">Business Advice</a>
+            <a className="link link-hover">Health and Wellness</a>
+            <a className="link link-hover">Engineering Solutions</a>
+            <a className="link link-hover">Education</a>
           </nav>
           <nav>
             <h6 className="footer-title">Company</h6>

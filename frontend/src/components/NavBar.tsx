@@ -10,14 +10,14 @@ function NavBar<NavBarProps>({ userToken }) {
     <>
       <div className="navbar bg-blue-200 shadow-lg">
         <div className="flex-1">
-          <img src={logo} alt="strathub-logo" className="h-12 w-12 mr-4" />
-          <Link to="" className="text-xl font-normal">
+          <img src={logo} alt="strathub-logo" className="h-12 w-12" />
+          <Link to="" className="text-xl font-normal px-4">
             StratHub
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-4">
-            <li>
+          <ul className="menu menu-horizontal px-4 uppercase">
+            <li className="">
               <Link to="">About Us</Link>
             </li>
             <li>
