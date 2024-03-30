@@ -2,16 +2,18 @@ import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 
 interface NavBarProps {
-  userToken: string;
+  userToken: string | null;
 }
 
-function NavBar<NavBarProps>({ userToken }) {
+function NavBar({ userToken }: NavBarProps) {
   return (
     <>
       <div className="navbar bg-blue-200 shadow-lg">
         <div className="flex-1">
-          <img src={logo} alt="strathub-logo" className="h-12 w-12" />
-          <Link to="" className="text-xl font-normal px-4">
+          <Link to="/" className="text-xl font-normal px-4">
+            <img src={logo} alt="strathub-logo" className="h-12 w-12" />
+          </Link>
+          <Link to="/" className="text-xl font-normal px-4">
             StratHub
           </Link>
         </div>
@@ -46,7 +48,7 @@ function NavBar<NavBarProps>({ userToken }) {
             <input
               type="text"
               placeholder="Search"
-              className="input input-bordered w-24 md:w-auto"
+              className="input input-bordered w-24 md:w-auto bg-blue-50"
             />
           </div>
           {userToken ? (
