@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const SessionSchema = new mongoose.Schema({
   id: {
@@ -12,4 +12,5 @@ const SessionSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Session", SessionSchema);
+export const Session = mongoose.model("Session", SessionSchema);
+export default Session;

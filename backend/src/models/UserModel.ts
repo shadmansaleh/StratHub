@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 import { UserRole } from "../types/LocalTypes";
 
 const UserSchema = new mongoose.Schema({
@@ -22,4 +22,5 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("User", UserSchema);
+export const User = mongoose.model("User", UserSchema);
+export default User;

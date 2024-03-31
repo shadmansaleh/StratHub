@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import * as types from "../types/LocalTypes";
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-const User = require("../models/UserModel");
-const Session = require("../models/SessionModel");
+import User from "../models/UserModel";
+import Session from "../models/SessionModel";
 
-const UserCreateController = async (req: Request, res: Response) => {
+export const UserCreateController = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
     return res.status(400).json({ message: "Please enter all fields" });
@@ -30,12 +30,12 @@ const UserCreateController = async (req: Request, res: Response) => {
   }
 };
 
-const UserLoginController = async (req: Request, res: Response) => {
+export const UserLoginController = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).json({ message: "Please enter all fields" });
   }
-  const user = await (<types.User>User.findOne({ email: email }).exec());
+  const user = <types.User>await User.findOne({ email: email }).exec();
   if (user == null)
     return res.status(400).json({ message: "User does not exist" });
 
@@ -46,10 +46,12 @@ const UserLoginController = async (req: Request, res: Response) => {
         id: user._id,
         role: user.role,
       };
-      const token = await (<String>(
-        jwt.sign(jwt_user, process.env.JWT_ACCESS_TOKEN_SECRET as string, {
+      const token = await (<String>jwt.sign(
+        jwt_user,
+        process.env.JWT_ACCESS_TOKEN_SECRET as string,
+        {
           expiresIn: "1d",
-        })
+        }
       ));
       const session = new Session({
         id: jwt_user.id,
@@ -66,27 +68,33 @@ const UserLoginController = async (req: Request, res: Response) => {
   }
 };
 
-const UserLogoutController = async (req: types.AuthRequest, res: Response) => {
+export const UserLogoutController = async (
+  req: types.AuthRequest,
+  res: Response
+) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
-  const sessions = await (<any[]>(
-    Session.find({ id: req.user.id, token: token })
-  ));
+  const sessions = <types.Session[]>(
+    await Session.find({ id: req?.user?.id, token: token })
+  );
   sessions.forEach(async (session) => {
     await Session.deleteOne({ _id: session._id });
   });
   res.status(200).json({ message: "Logout Successful" });
 };
-const UserGetController = async (req: types.AuthRequest, res: Response) => {
-  const user = await User.findById(req.user.id).select("-password").exec();
+export const UserGetController = async (
+  req: types.AuthRequest,
+  res: Response
+) => {
+  const user = await User.findById(req?.user?.id).select("-password").exec();
   res.status(200).json({ message: "User found", user: user });
 };
-const UserGetAllController = async (req: Request, res: Response) => {
+export const UserGetAllController = async (req: Request, res: Response) => {
   const users = await User.find().select("-password").exec();
   res.status(200).json({ users: users });
 };
 
-module.exports = {
+export default {
   UserLoginController,
   UserLogoutController,
   UserCreateController,

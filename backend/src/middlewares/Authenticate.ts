@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import * as types from "../types/LocalTypes";
-const jwt = require("jsonwebtoken");
-const Session = require("../models/SessionModel");
+import jwt from "jsonwebtoken";
+import Session from "../models/SessionModel";
 
-const AuthUser = async (
+export const AuthUser = async (
   req: types.AuthRequest,
   res: Response,
   next: NextFunction
@@ -28,16 +28,18 @@ const AuthUser = async (
   }
 };
 
-const AuthRole = (role: types.UserRole | types.UserRole[]) => {
+export const AuthRole = (role: types.UserRole | types.UserRole[]) => {
   return (req: types.AuthRequest, res: Response, next: NextFunction) => {
     if (!Array.isArray(role)) role = [role];
+    if (!req?.user?.role)
+      return res.status(500).json({ message: "Server Error" });
     if (!role.includes(req.user.role))
       return res.status(401).json({ message: "Unauthorized" });
     next();
   };
 };
 
-module.exports = {
+export default {
   AuthUser,
   AuthRole,
 };

@@ -1,9 +1,8 @@
 import { Application, Request, Response } from "express";
-
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
-const UserRoute = require("./routes/UserRoutes");
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+import UserRoute from "./routes/UserRoutes";
 require("dotenv").config();
 
 const port = process.env.PORT || 5000;
@@ -32,7 +31,7 @@ app.get("/", (req: Request, res: Response) => {
 
 async function main() {
   console.log("Connecting to MongoDB...");
-  await mongoose.connect(process.env.DATABASE_URL);
+  await mongoose.connect(process.env.DATABASE_URL as string);
   console.log("Connected to MongoDB");
 
   app.listen(port, () => {

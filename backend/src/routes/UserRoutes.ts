@@ -1,24 +1,24 @@
-const { Router } = require("express");
-const {
+import { Router } from "express";
+import {
   UserLoginController,
   UserLogoutController,
   UserCreateController,
   UserGetController,
   UserGetAllController,
-} = require("../controller/UserController");
-const { UserRole } = require("../types/LocalTypes");
-const { AuthUser, AuthRole } = require("../middlewares/Authenticate");
+} from "../controller/UserController";
+import { UserRole } from "../types/LocalTypes";
+import { AuthUser, AuthRole } from "../middlewares/Authenticate";
 const user = Router();
 
 user.post("/login", UserLoginController);
-user.delete("/logout", AuthUser as any, UserLogoutController as any);
-user.post("/create_user", UserCreateController);
-user.get("/get_user", AuthUser as any, UserGetController as any);
+user.delete("/logout", AuthUser, UserLogoutController);
+user.post("/register", UserCreateController);
+user.get("/get_user", AuthUser, UserGetController);
 user.get(
   "/all_users",
-  AuthUser as any,
+  AuthUser,
   AuthRole(UserRole.ADMIN),
-  UserGetAllController as any
+  UserGetAllController
 );
 
-module.exports = user;
+export default user;
