@@ -35,21 +35,22 @@ const UserLoginController = async (req: Request, res: Response) => {
   if (!email || !password) {
     return res.status(400).json({ message: "Please enter all fields" });
   }
-  const user = await User.findOne({ email: email }).exec();
+  const user = await (<types.User>User.findOne({ email: email }).exec());
   if (user == null)
     return res.status(400).json({ message: "User does not exist" });
 
   try {
     if (await bcrypt.compare(password, user.password)) {
-      const jwt_user = {
+      const jwt_user: types.JWT_USER = {
         name: user.username,
         id: user._id,
+        role: user.role,
       };
-      const token = await jwt.sign(
-        jwt_user,
-        process.env.JWT_ACCESS_TOKEN_SECRET as string,
-        { expiresIn: "1d" }
-      );
+      const token = await (<String>(
+        jwt.sign(jwt_user, process.env.JWT_ACCESS_TOKEN_SECRET as string, {
+          expiresIn: "1d",
+        })
+      ));
       const session = new Session({
         id: jwt_user.id,
         token: token,
@@ -80,10 +81,15 @@ const UserGetController = async (req: types.AuthRequest, res: Response) => {
   const user = await User.findById(req.user.id).select("-password").exec();
   res.status(200).json({ message: "User found", user: user });
 };
+const UserGetAllController = async (req: Request, res: Response) => {
+  const users = await User.find().select("-password").exec();
+  res.status(200).json({ users: users });
+};
 
 module.exports = {
   UserLoginController,
   UserLogoutController,
   UserCreateController,
   UserGetController,
+  UserGetAllController,
 };

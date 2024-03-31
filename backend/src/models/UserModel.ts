@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+import { UserRole } from "../types/LocalTypes";
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -14,9 +15,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  type: {
+  role: {
     type: String,
-    enum: ["user", "expert", "admin"],
+    enum: UserRole,
     default: "user",
   },
 });

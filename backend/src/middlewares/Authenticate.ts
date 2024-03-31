@@ -3,7 +3,7 @@ import * as types from "../types/LocalTypes";
 const jwt = require("jsonwebtoken");
 const Session = require("../models/SessionModel");
 
-const AuthenticateToken = async (
+const AuthUser = async (
   req: types.AuthRequest,
   res: Response,
   next: NextFunction
@@ -28,4 +28,16 @@ const AuthenticateToken = async (
   }
 };
 
-module.exports = AuthenticateToken;
+const AuthRole = (role: types.UserRole | types.UserRole[]) => {
+  return (req: types.AuthRequest, res: Response, next: NextFunction) => {
+    if (!Array.isArray(role)) role = [role];
+    if (!role.includes(req.user.role))
+      return res.status(401).json({ message: "Unauthorized" });
+    next();
+  };
+};
+
+module.exports = {
+  AuthUser,
+  AuthRole,
+};
