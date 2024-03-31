@@ -17,8 +17,30 @@
 
 @layer components {
   /* custom tailwind classes here */
-  .hover-enlarge {
+  .c-hover-enlarge {
     @apply hover:scale-105 duration-300 ease-in-out;
+  }
+
+  .c-text-xl {
+    @apply text-5xl font-bold text-center;
+  }
+  .c-text-lg {
+    @apply text-5xl font-normal text-center;
+  }
+
+  .c-text-md {
+    @apply text-xl font-semibold;
+  }
+
+  .c-text-sm {
+    @apply text-lg text-center;
+  }
+
+  .c-btn-fill {
+    @apply bg-black text-white rounded-3xl text-2xl font-light px-5 py-4 hover:bg-gray-600;
+  }
+  .c-btn-border {
+    @apply g-transparent text-black border-black border-4 rounded-3xl text-2xl font-light px-5 py-4 hover:bg-gray-200;
   }
 }
 

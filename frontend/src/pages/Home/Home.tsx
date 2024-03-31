@@ -15,7 +15,7 @@ const Home = () => {
         <div className="hero min-h-screen">
           <div className="hero-content flex-col lg:flex-row gap-10 lg:gap-24 max-w-[90vw]">
             <div>
-              <h1 className="text-5xl font-bold text-center">
+              <h1 className="c-text-xl">
                 Connecting users with industry experts
               </h1>
               <p className="py-6 text-center">
