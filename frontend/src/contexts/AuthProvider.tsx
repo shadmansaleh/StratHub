@@ -1,18 +1,20 @@
 import { createContext, useState } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import useSessionStorage from "../hooks/useSessionStorage";
-import { axios } from "../utils/axios";
+import Axios from "axios";
 
 export interface AuthCtxType {
   token: string;
   role: string;
 }
 
-export const AuthContext = createContext<{
+interface AuthContextProps {
   auth: AuthCtxType | null;
   setAuth: ((auth: AuthCtxType, ephemeral?: boolean) => void) | null;
   clearAuth: (() => void) | null;
-}>({
+}
+
+export const AuthContext = createContext<AuthContextProps>({
   auth: null,
   setAuth: null,
   clearAuth: null,
@@ -27,7 +29,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   const authorize = ({ token, role }: AuthCtxType, ephemeral = false) => {
-    clearAuth();
     setAuth({ token, role });
     if (!ephemeral) {
       setLsAuth({ token, role });
@@ -39,6 +40,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const clearAuth = () => {
+    const axios = Axios.create({
+      baseURL: "http://localhost:5000",
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${auth?.token}`,
+      },
+    });
     axios.delete("/user/logout").catch(console.error);
     setAuth({ token: null, role: null });
     setSsAuth(null);

@@ -1,19 +1,33 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
-interface NavBarProps {
-  userToken: string | null;
-}
-
-function NavBar({ userToken }: NavBarProps) {
+function NavBar() {
+  const { auth, clearAuth } = useContext(AuthContext);
+  const user_logged_in = auth?.token ? true : false;
+  const navigate = useNavigate();
+  const onLogout = () => {
+    if (clearAuth) {
+      clearAuth();
+      navigate("/");
+    }
+  };
   return (
     <>
       <div className="navbar bg-blue-200 shadow-lg">
         <div className="flex-1">
-          <Link to="/" className="text-xl font-normal px-4">
+          <Link
+            to={user_logged_in ? "/home" : "/"}
+            className="text-xl font-normal px-2"
+          >
             <img src={logo} alt="strathub-logo" className="h-12 w-12" />
           </Link>
-          <Link to="/" className="text-xl font-normal px-4">
+          <Link
+            to={user_logged_in ? "/home" : "/"}
+            className="text-xl font-normal px-2"
+          >
             StratHub
           </Link>
         </div>
@@ -51,7 +65,7 @@ function NavBar({ userToken }: NavBarProps) {
               className="input input-bordered w-24 md:w-auto bg-blue-50"
             />
           </div>
-          {userToken ? (
+          {user_logged_in ? (
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
@@ -79,7 +93,7 @@ function NavBar({ userToken }: NavBarProps) {
                   <Link to="">Settings</Link>
                 </li>
                 <li>
-                  <Link to="">Logout</Link>
+                  <button onClick={onLogout}>Logout</button>
                 </li>
               </ul>
             </div>

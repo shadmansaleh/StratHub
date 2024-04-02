@@ -18,7 +18,6 @@ const TextBox = ({
   value,
 }: TextBoxProps) => {
   const [showPassword, setShowPassword] = useState(false);
-  const iconClass = "";
   return (
     <div className="form-control relative">
       {label && (
@@ -30,7 +29,7 @@ const TextBox = ({
         type={type === "password" ? (showPassword ? "text" : "password") : type}
         placeholder={placeholder}
         className="input input-bordered bg-transparent"
-        value={value ? value : ""}
+        value={value}
         id={id}
         onChange={(e) => onChange && onChange(e)}
         required

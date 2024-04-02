@@ -32,7 +32,7 @@ export const UserRegisterController = async (req: Request, res: Response) => {
 };
 
 export const UserLoginController = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  const { email, password, is_short } = req.body;
   if (!email || !password) {
     return res.status(400).json({ message: "Please enter all fields" });
   }
@@ -47,13 +47,13 @@ export const UserLoginController = async (req: Request, res: Response) => {
         id: user._id,
         role: user.role,
       };
-      const token = await (<String>jwt.sign(
+      const token = await jwt.sign(
         jwt_user,
         process.env.JWT_ACCESS_TOKEN_SECRET as string,
         {
-          expiresIn: "1d",
+          expiresIn: is_short ? "1h" : "30d",
         }
-      ));
+      );
       const session = new Session({
         id: jwt_user.id,
         token: token,

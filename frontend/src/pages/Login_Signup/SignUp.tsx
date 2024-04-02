@@ -5,9 +5,9 @@ import { IoMdArrowBack } from "react-icons/io";
 
 import { enqueueSnackbar } from "notistack";
 import { AxiosResponse } from "axios";
-import { axios } from "../../utils/axios";
+import { useAxios } from "../../hooks/useAxios";
 
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 interface FormData {
   email: string;
   password: string;
@@ -25,7 +25,8 @@ const strongPasswordRegex = new RegExp(
 
 function SignUp() {
   const [stage, setStage] = useState(1);
-  const [signUpSuccess, setSignUpSuccess] = useState(false);
+  const navigate = useNavigate();
+  const { axios, axiosErrHandler } = useAxios();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -68,6 +69,20 @@ function SignUp() {
           enqueueSnackbar("Passwords do not match", { variant: "error" });
           verification_passed = false;
         }
+        if (verification_passed)
+          axios
+            .get("/user/email_taken", {
+              params: { username: formData["email"] },
+            })
+            .then((res: AxiosResponse) => {
+              if (res.data.taken) {
+                enqueueSnackbar("Email already used", {
+                  variant: "error",
+                });
+                verification_passed = false;
+              }
+            })
+            .catch(axiosErrHandler);
         break;
       case 2:
         if (usernameRegex.test(formData["username"]) == false) {
@@ -97,7 +112,7 @@ function SignUp() {
                 verification_passed = false;
               }
             })
-            .catch(console.error);
+            .catch(axiosErrHandler);
         break;
     }
     if (!verification_passed) return;
@@ -111,19 +126,19 @@ function SignUp() {
             password: formData.password,
             role: formData.accountType == "regular" ? "user" : "expert",
           })
-          .then((res: AxiosResponse) => {
-            setSignUpSuccess(true);
+          .then(() => {
+            enqueueSnackbar("Account created successfully", {
+              variant: "success",
+            });
+            navigate("/login");
           })
-          .catch(console.error);
+          .catch(axiosErrHandler);
       } catch (e) {
-        console.error(e);
+        axiosErrHandler(e);
       }
     }
   };
 
-  if (signUpSuccess) {
-    return <Navigate to="/login" />;
-  }
   return (
     <>
       <div className="hero min-h-screen">

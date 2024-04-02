@@ -2,17 +2,22 @@ import { Link } from "react-router-dom";
 import { FaGoogle, FaTwitter, FaApple, FaFacebook } from "react-icons/fa";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthProvider";
-import { axios } from "../../utils/axios";
+import { useAxios } from "../../hooks/useAxios";
+import { enqueueSnackbar } from "notistack";
+import TextBox from "../../components/TextBox";
+import { useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
 
 function Login() {
   const { setAuth } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { axios } = useAxios();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const email = e.target.elements["input-email"].value;
     const password = e.target.elements["input-password"].value;
     const remember = e.target.elements["input-remember-me"].checked;
-    console.log(e);
     try {
       const res = await axios.post("/user/login", {
         email: email,
@@ -28,7 +33,12 @@ function Login() {
           },
           !remember
         );
-    } catch (error) {
+      enqueueSnackbar("Login successful", { variant: "success" });
+      navigate("/home");
+    } catch (error: AxiosError | any) {
+      enqueueSnackbar(`Login failed: ${error?.response?.data?.message}`, {
+        variant: "error",
+      });
       console.error(error);
     }
   };
@@ -72,30 +82,18 @@ function Login() {
           </div>
           <div className="divider w-[70%] mx-auto mt-6">or</div>
           <form className="card-body pt-4" onSubmit={handleSubmit}>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Email</span>
-              </label>
-              <input
-                type="email"
-                placeholder="email"
-                className="input input-bordered bg-transparent"
-                id="input-email"
-                required
-              />
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Password</span>
-              </label>
-              <input
-                type="password"
-                placeholder="password"
-                className="input input-bordered bg-transparent"
-                id="input-password"
-                required
-              />
-            </div>
+            <TextBox
+              type="email"
+              label="Email"
+              placeholder="email"
+              id="input-email"
+            />
+            <TextBox
+              type="password"
+              label="Password"
+              placeholder="password"
+              id="input-password"
+            />
             <div className="form-control">
               <label htmlFor="remember-me" className="">
                 <input
