@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import LoginPage from "./pages/Login_Signup/Login";
 import SignUpPage from "./pages/Login_Signup/SignUp";
+import { SnackbarProvider } from "notistack";
 
 function App() {
   useEffect(() => {
@@ -21,15 +22,17 @@ function App() {
   return (
     <>
       <div className="bg-blue-100">
-        <NavBar userToken={null} />
-        <div className="w-[80%] m-auto">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignUpPage />} />
-          </Routes>
-        </div>
-        <Footer />
+        <SnackbarProvider autoHideDuration={2000}>
+          <NavBar userToken={null} />
+          <div className="w-[80%] m-auto">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignUpPage />} />
+            </Routes>
+          </div>
+          <Footer />
+        </SnackbarProvider>
       </div>
     </>
   );

@@ -1,26 +1,27 @@
-import { Application, Request, Response } from "express";
+import { Request, Response } from "express";
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import UserRoute from "./routes/UserRoutes";
-require("dotenv").config();
+import dotenv from "dotenv";
+import LogRequest from "./middlewares/LogRequests";
 
-const port = process.env.PORT || 5000;
-
-const app: Application = express();
+const app = express();
 
 // middleware
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    // origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000",
+//     // origin: "*",
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//   })
+// );
 
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.static("public"));
 app.use(express.json());
+// app.use(LogRequest);
 
 // routes
 app.use("/user", UserRoute);
@@ -30,6 +31,8 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 async function main() {
+  dotenv.config();
+  const port = process.env.PORT || 5000;
   console.log("Connecting to MongoDB...");
   await mongoose.connect(process.env.DATABASE_URL as string);
   console.log("Connected to MongoDB");

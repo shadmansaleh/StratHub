@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-const useLocalStorage = (key: string, initialValue?: any) => {
+const useSessionStorage = (key: string, initialValue?: any) => {
   const [storedValue, setStoredValue] = useState(() => {
     try {
-      const item = window.localStorage.getItem(key);
+      const item = window.sessionStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
       console.log(error);
@@ -19,9 +19,9 @@ const useLocalStorage = (key: string, initialValue?: any) => {
       setStoredValue(valueToStore);
 
       if (valueToStore === null) {
-        window.localStorage.removeItem(key);
+        window.sessionStorage.removeItem(key);
       } else {
-        window.localStorage.setItem(key, JSON.stringify(valueToStore));
+        window.sessionStorage.setItem(key, JSON.stringify(valueToStore));
       }
     } catch (error) {
       console.log(error);
@@ -30,4 +30,4 @@ const useLocalStorage = (key: string, initialValue?: any) => {
   return [storedValue, setValue];
 };
 
-export default useLocalStorage;
+export default useSessionStorage;

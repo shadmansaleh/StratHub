@@ -6,9 +6,9 @@ import jwt from "jsonwebtoken";
 import User from "../models/UserModel";
 import Session from "../models/SessionModel";
 
-export const UserCreateController = async (req: Request, res: Response) => {
-  const { username, email, password } = req.body;
-  if (!username || !email || !password) {
+export const UserRegisterController = async (req: Request, res: Response) => {
+  const { username, email, password, role } = req.body;
+  if (!username || !email || !password || !role) {
     return res.status(400).json({ message: "Please enter all fields" });
   }
   const user = await User.findOne({ email: email }).exec();
@@ -21,6 +21,7 @@ export const UserCreateController = async (req: Request, res: Response) => {
       username,
       email,
       password: hashedPassword,
+      role,
     });
     await newUser.save();
     res.status(201).json({ message: "User created" });
@@ -58,7 +59,9 @@ export const UserLoginController = async (req: Request, res: Response) => {
         token: token,
       });
       await session.save();
-      res.status(200).json({ message: "Login successful", token: token });
+      res
+        .status(200)
+        .json({ message: "Login successful", token: token, role: user.role });
     } else {
       res.status(400).json({ message: "Invalid credentials" });
     }
@@ -94,10 +97,35 @@ export const UserGetAllController = async (req: Request, res: Response) => {
   res.status(200).json({ users: users });
 };
 
+export const UserCheckUsernameTakenController = async (
+  req: Request,
+  res: Response
+) => {
+  const { username } = req.query;
+  if (!username)
+    return res.status(400).json({ message: "Please enter all fields" });
+
+  const user = await User.findOne({ username: username as string }).exec();
+  res.status(200).json({ taken: user != null });
+};
+export const UserCheckEmailTakenController = async (
+  req: Request,
+  res: Response
+) => {
+  const { email } = req.query;
+  if (!email)
+    return res.status(400).json({ message: "Please enter all fields" });
+
+  const user = await User.findOne({ email: email as string }).exec();
+  res.status(200).json({ taken: user != null });
+};
+
 export default {
   UserLoginController,
   UserLogoutController,
-  UserCreateController,
+  UserRegisterController,
   UserGetController,
   UserGetAllController,
+  UserCheckUsernameTakenController,
+  UserCheckEmailTakenController,
 };
