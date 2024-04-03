@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import UserRoute from "./routes/UserRoutes";
 import dotenv from "dotenv";
 import LogRequest from "./middlewares/LogRequests";
+// import bodyParser from "body-parser";
 
 const app = express();
 
@@ -21,6 +22,13 @@ const app = express();
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.static("public"));
 app.use(express.json());
+
+// parse application/x-www-form-urlencoded
+// app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+// app.use(bodyParser.json());
+
 // app.use(LogRequest);
 
 // routes

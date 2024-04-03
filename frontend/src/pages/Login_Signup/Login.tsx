@@ -6,7 +6,7 @@ import { useAxios } from "../../hooks/useAxios";
 import { enqueueSnackbar } from "notistack";
 import TextBox from "../../components/TextBox";
 import { useNavigate } from "react-router-dom";
-import { AxiosError } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 
 function Login() {
   const { setAuth } = useContext(AuthContext);
@@ -19,10 +19,21 @@ function Login() {
     const password = e.target.elements["input-password"].value;
     const remember = e.target.elements["input-remember-me"].checked;
     try {
-      const res = await axios.post("/user/login", {
-        email: email,
-        password: password,
-      });
+      const emailRegex = new RegExp(
+        "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$"
+      );
+      let res: AxiosResponse | null = null;
+      if (emailRegex.test(email)) {
+        res = await axios.post("/user/login", {
+          email: email,
+          password: password,
+        });
+      } else {
+        res = await axios.post("/user/login", {
+          username: email,
+          password: password,
+        });
+      }
       const token = res?.data?.token;
       const role = res?.data?.role;
       setAuth &&
@@ -83,9 +94,9 @@ function Login() {
           <div className="divider w-[70%] mx-auto mt-6">or</div>
           <form className="card-body pt-4" onSubmit={handleSubmit}>
             <TextBox
-              type="email"
-              label="Email"
-              placeholder="email"
+              type="text"
+              label="Email/Username"
+              placeholder="email/username"
               id="input-email"
             />
             <TextBox

@@ -11,10 +11,11 @@ import {
 } from "../controller/UserController";
 import { UserRole } from "../types/LocalTypes";
 import { AuthUser, AuthRole } from "../middlewares/Authenticate";
+import { addEmailIfUsername } from "../middlewares/AddData";
 
 const user = Router();
 
-user.post("/login", UserLoginController);
+user.post("/login", addEmailIfUsername, UserLoginController);
 user.delete("/logout", AuthUser, UserLogoutController);
 user.post("/register", UserRegisterController);
 user.get("/get_user", AuthUser, UserGetController);
