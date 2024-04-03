@@ -7,14 +7,11 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import LoginPage from "./pages/Login_Signup/Login";
 import SignUpPage from "./pages/Login_Signup/SignUp";
+import ResetPasswordPage from "./pages/Login_Signup/ResetPassword";
 import { SnackbarProvider } from "notistack";
 import { Role, ProtectedRoute } from "./components/ProtectedRoute";
 
 function App() {
-  useEffect(() => {
-    document.title = "StratHub";
-  }, []);
-
   // force set to light mode until we get toggle
   const [_, setDarkMode] = useDarkMode();
   useEffect(() => {
@@ -49,6 +46,14 @@ function App() {
                 element={
                   <ProtectedRoute role={Role.NOAUTH}>
                     <LoginPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/forgot_password"
+                element={
+                  <ProtectedRoute role={Role.NOAUTH}>
+                    <ResetPasswordPage />
                   </ProtectedRoute>
                 }
               />

@@ -43,7 +43,7 @@ function SignUp() {
       setFormData({ ...formData, [field]: e.target[dataName] });
     };
 
-  const handleSteps = (e: any) => {
+  const handleSteps = async (e: any) => {
     e.preventDefault();
     let verification_passed = true;
     switch (stage) {
@@ -69,20 +69,22 @@ function SignUp() {
           enqueueSnackbar("Passwords do not match", { variant: "error" });
           verification_passed = false;
         }
-        if (verification_passed)
-          axios
-            .get("/user/email_taken", {
-              params: { username: formData["email"] },
-            })
-            .then((res: AxiosResponse) => {
-              if (res.data.taken) {
-                enqueueSnackbar("Email already used", {
-                  variant: "error",
-                });
-                verification_passed = false;
-              }
-            })
-            .catch(axiosErrHandler);
+        if (verification_passed) {
+          try {
+            const res = await axios.get("/user/email_taken", {
+              params: { email: formData["email"] },
+            });
+            if (res.data.taken === true) {
+              enqueueSnackbar("Email already used", {
+                variant: "error",
+              });
+              verification_passed = false;
+            }
+          } catch (e) {
+            axiosErrHandler(e);
+            verification_passed = false;
+          }
+        }
         break;
       case 2:
         if (usernameRegex.test(formData["username"]) == false) {
@@ -99,20 +101,22 @@ function SignUp() {
           );
           verification_passed = false;
         }
-        if (verification_passed)
-          axios
-            .get("/user/username_taken", {
+        if (verification_passed) {
+          try {
+            const res = await axios.get("/user/username_taken", {
               params: { username: formData["username"] },
-            })
-            .then((res: AxiosResponse) => {
-              if (res.data.taken) {
-                enqueueSnackbar("Username already exists", {
-                  variant: "error",
-                });
-                verification_passed = false;
-              }
-            })
-            .catch(axiosErrHandler);
+            });
+            if (res.data.taken) {
+              enqueueSnackbar("Username already exists", {
+                variant: "error",
+              });
+              verification_passed = false;
+            }
+          } catch (e) {
+            axiosErrHandler(e);
+            verification_passed = false;
+          }
+        }
         break;
     }
     if (!verification_passed) return;

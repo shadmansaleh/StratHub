@@ -112,7 +112,7 @@ function Login() {
                 className="bg-black text-white rounded-3xl text-2xl font-light px-5 py-4 hover:bg-gray-600 shadow-xl uppercase"
               />
             </div>
-            <Link to="" className="hover:underline">
+            <Link to="/forgot_password" className="hover:underline">
               forgot password
             </Link>
             <p>

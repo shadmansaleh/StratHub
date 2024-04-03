@@ -31,6 +31,28 @@ export const UserRegisterController = async (req: Request, res: Response) => {
   }
 };
 
+export const UserUpdatePasswordController = async (
+  req: Request,
+  res: Response
+) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ message: "Please enter all fields" });
+  }
+  const user = await User.findOne({ email: email }).exec();
+  if (user == null) return res.status(400).json({ message: "Email Not found" });
+  try {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    user.password = hashedPassword;
+    await user.save();
+    res.status(200).json({ message: "Password Updated" });
+  } catch (error) {
+    console.error("Error: ", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 export const UserLoginController = async (req: Request, res: Response) => {
   const { email, password, is_short } = req.body;
   if (!email || !password) {
@@ -128,4 +150,5 @@ export default {
   UserGetAllController,
   UserCheckUsernameTakenController,
   UserCheckEmailTakenController,
+  UserUpdatePasswordController,
 };

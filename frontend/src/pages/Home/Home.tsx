@@ -6,6 +6,7 @@ import desc_logo2 from "./assets/desc_card_logo2.png";
 import desc_logo3 from "./assets/desc_card_logo3.png";
 import desc_logo4 from "./assets/desc_card_logo4.png";
 import desc_logo5 from "./assets/desc_card_logo5.png";
+import { scrollTo } from "../../utils/ScrollUtils";
 
 const Home = () => {
   return (
@@ -23,17 +24,17 @@ const Home = () => {
               </p>
               <div className="flex justify-center gap-10">
                 <Link
-                  to=""
+                  to="/login"
                   className="bg-black text-white rounded-3xl text-2xl font-light px-5 py-4 hover:bg-gray-600"
                 >
                   Get Started
                 </Link>
-                <Link
-                  to=""
+                <button
+                  onClick={scrollTo("FAQ")}
                   className="bg-transparent text-black border-black border-4 rounded-3xl text-2xl font-light px-5 py-4 hover:bg-gray-200"
                 >
                   Learn More
-                </Link>
+                </button>
               </div>
             </div>
             <img
@@ -59,18 +60,18 @@ const Home = () => {
                 specific needs.
               </p>
               <div className="flex justify-center gap-10">
-                <Link
-                  to=""
+                <button
+                  onClick={scrollTo("FAQ")}
                   className="bg-black text-white rounded-3xl text-2xl font-light px-5 py-4 hover:bg-gray-600"
                 >
                   Learn More
-                </Link>
+                </button>
               </div>
             </div>
           </div>
         </div>
         {/* card pointers for attraction */}
-        <div className="grid place-items-center min-h-screen w-[80%] m-auto">
+        <div className="grid place-items-center min-h-screen m-auto">
           <div className="flex flex-col justify-evenly h-full w-full gap-5">
             <div className="flex sm:flex-col lg:flex-row items-center justify-evenly gap-5">
               <DescCard
@@ -113,7 +114,7 @@ Expertise"
           </div>
         </div>
         {/* FAQ */}
-        <div className="hero min-h-screen">
+        <div className="hero min-h-screen" id="FAQ">
           <div className="hero-content flex-col lg:flex-row gap-10 lg:gap-24 max-w-[90vw]">
             <div>
               <h1 className="text-5xl font-bold text-center">
@@ -124,12 +125,12 @@ Expertise"
                 and how to engage with our experts.
               </p>
               <div className="flex justify-center gap-10">
-                <Link
-                  to=""
+                <button
+                  onClick={scrollTo("Footer")}
                   className="bg-black text-white rounded-3xl text-2xl font-light px-5 py-4 hover:bg-gray-600"
                 >
                   Contact Us
-                </Link>
+                </button>
               </div>
             </div>
             <ul className="list-disc">

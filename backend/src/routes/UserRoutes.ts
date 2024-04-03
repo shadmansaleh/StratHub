@@ -7,6 +7,7 @@ import {
   UserGetAllController,
   UserCheckUsernameTakenController,
   UserCheckEmailTakenController,
+  UserUpdatePasswordController,
 } from "../controller/UserController";
 import { UserRole } from "../types/LocalTypes";
 import { AuthUser, AuthRole } from "../middlewares/Authenticate";
@@ -25,6 +26,7 @@ user.get(
 );
 
 user.get("/username_taken", UserCheckUsernameTakenController);
-user.get("/username_taken", UserCheckEmailTakenController);
+user.get("/email_taken", UserCheckEmailTakenController);
+user.post("/update_password", UserUpdatePasswordController);
 
 export default user;
