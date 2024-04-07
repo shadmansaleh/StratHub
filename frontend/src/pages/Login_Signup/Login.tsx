@@ -45,7 +45,7 @@ function Login() {
           !remember
         );
       enqueueSnackbar("Login successful", { variant: "success" });
-      navigate("/home");
+      navigate("/user");
     } catch (error: AxiosError | any) {
       enqueueSnackbar(`Login failed: ${error?.response?.data?.message}`, {
         variant: "error",

@@ -19,6 +19,7 @@ interface FormData {
 
 const emailRegex = new RegExp("^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$");
 let usernameRegex = new RegExp("^[a-z][a-zA-Z0-9_]{5,}$");
+// const strongPasswordRegex = new RegExp(".*");
 const strongPasswordRegex = new RegExp(
   "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*-_]).{8,}"
 );

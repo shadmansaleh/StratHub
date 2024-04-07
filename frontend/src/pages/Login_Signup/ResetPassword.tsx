@@ -13,6 +13,7 @@ interface FormData {
 }
 
 const emailRegex = new RegExp("^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$");
+// const strongPasswordRegex = new RegExp(".*");
 const strongPasswordRegex = new RegExp(
   "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*-_]).{8,}"
 );
