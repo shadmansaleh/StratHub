@@ -1,18 +1,48 @@
 import { useEffect, useContext } from "react";
 import { useRoutes } from "react-router-dom";
-import HomePage from "./pages/Home";
-import UserHomePage from "./pages/UserHome";
 import useDarkMode from "./hooks/useDarkMode";
-import NavBar from "./components/NavBar";
-import Footer from "./components/Footer";
-import LoginPage from "./pages/Login_Signup/Login";
-import SignUpPage from "./pages/Login_Signup/SignUp";
-import ResetPasswordPage from "./pages/Login_Signup/ResetPassword";
 import { SnackbarProvider } from "notistack";
 import { Role, ProtectedRoute } from "./components/ProtectedRoute";
-import NotFound404 from "./pages/NotFound404";
 import { AuthContext } from "./contexts/AuthProvider";
-import { UserInfo } from "./pages/UserHome/UserHome";
+
+// components
+import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
+
+// General-pages
+import LandingPage from "./pages/General/Landing";
+import LoginPage from "./pages/General/Auth/Login";
+import SignUpPage from "./pages/General/Auth/SignUp";
+import ResetPasswordPage from "./pages/General/Auth/ResetPassword";
+import HomePage from "./pages/General/Home";
+import NotFound404 from "./pages/General/NotFound404";
+
+// User-pages
+import UserAppointmentsPage from "./pages/User/Appointments";
+import UserConsultantPage from "./pages/User/Consultant";
+import UserDashboardPage from "./pages/User/Dashboard";
+import UserFavoritesPage from "./pages/User/Favorites";
+import UserHistoryPage from "./pages/User/History";
+import UserMeetPage from "./pages/User/Meet";
+import UserProfilePage from "./pages/User/Profile";
+import UserSearchPage from "./pages/User/Search";
+import UserSettingsPage from "./pages/User/Settings";
+
+// Expert-pages
+import ExpertDashboardPage from "./pages/Expert/Dashboard";
+import ExpertClientsPage from "./pages/Expert/Clients";
+import ExpertMeetPage from "./pages/Expert/Meet";
+import ExpertProfilePage from "./pages/Expert/Profile";
+import ExpertRecentPage from "./pages/Expert/Recent";
+import ExpertSettingsPage from "./pages/Expert/Settings";
+
+// Admin-pages
+import AdminDashboardPage from "./pages/Admin/Dashboard";
+import AdminExpertsPage from "./pages/Admin/Experts";
+import AdminReportsPage from "./pages/Admin/Reports";
+import AdminSettingsPage from "./pages/Admin/Settings";
+import AdminUsersPage from "./pages/Admin/Users";
+import AdminVerifyPage from "./pages/Admin/Verify";
 
 function App() {
   // force set to light mode until we get toggle
@@ -29,7 +59,7 @@ function App() {
       path: "/",
       element: <ProtectedRoute role={Role.NOAUTH} />,
       children: [
-        { index: true, element: <HomePage /> },
+        { index: true, element: <LandingPage /> },
         { path: "login", element: <LoginPage /> },
         { path: "signup", element: <SignUpPage /> },
         { path: "forgot_password", element: <ResetPasswordPage /> },
@@ -39,54 +69,54 @@ function App() {
       path: "/user",
       element: (
         <ProtectedRoute role={Role.USER}>
-          <UserHomePage />
+          <HomePage />
         </ProtectedRoute>
       ),
       children: [
-        { index: true, element: <UserInfo /> },
-        { path: "dashboard", element: <UserInfo /> },
-        { path: "profile", element: <UserInfo /> },
-        { path: "search", element: <UserInfo /> },
-        { path: "appointments", element: <UserInfo /> },
-        { path: "favorites", element: <UserInfo /> },
-        { path: "history", element: <UserInfo /> },
-        { path: "settings", element: <UserInfo /> },
-        { path: "consultant/:id", element: <UserInfo /> },
-        { path: "meet/:id", element: <UserInfo /> },
+        { index: true, element: <UserDashboardPage /> },
+        { path: "dashboard", element: <UserDashboardPage /> },
+        { path: "profile", element: <UserProfilePage /> },
+        { path: "search", element: <UserSearchPage /> },
+        { path: "appointments", element: <UserAppointmentsPage /> },
+        { path: "favorites", element: <UserFavoritesPage /> },
+        { path: "history", element: <UserHistoryPage /> },
+        { path: "settings", element: <UserSettingsPage /> },
+        { path: "consultant/:id", element: <UserConsultantPage /> },
+        { path: "meet/:id", element: <UserMeetPage /> },
       ],
     },
     {
       path: "/expert",
       element: (
         <ProtectedRoute role={Role.EXPERT}>
-          <UserHomePage />
+          <HomePage />
         </ProtectedRoute>
       ),
       children: [
-        { index: true, element: <UserInfo /> },
-        { path: "dashboard", element: <UserInfo /> },
-        { path: "profile", element: <UserInfo /> },
-        { path: "clients", element: <UserInfo /> },
-        { path: "recent", element: <UserInfo /> },
-        { path: "settings", element: <UserInfo /> },
-        { path: "meet/:id", element: <UserInfo /> },
+        { index: true, element: <ExpertDashboardPage /> },
+        { path: "dashboard", element: <ExpertDashboardPage /> },
+        { path: "profile", element: <ExpertProfilePage /> },
+        { path: "clients", element: <ExpertClientsPage /> },
+        { path: "recent", element: <ExpertRecentPage /> },
+        { path: "settings", element: <ExpertSettingsPage /> },
+        { path: "meet/:id", element: <ExpertMeetPage /> },
       ],
     },
     {
       path: "/admin",
       element: (
         <ProtectedRoute role={Role.ADMIN}>
-          <UserHomePage />
+          <HomePage />
         </ProtectedRoute>
       ),
       children: [
-        { index: true, element: <UserInfo /> },
-        { path: "dashboard", element: <UserInfo /> },
-        { path: "users", element: <UserInfo /> },
-        { path: "experts", element: <UserInfo /> },
-        { path: "verify", element: <UserInfo /> },
-        { path: "reports", element: <UserInfo /> },
-        { path: "settings", element: <UserInfo /> },
+        { index: true, element: <AdminDashboardPage /> },
+        { path: "dashboard", element: <AdminDashboardPage /> },
+        { path: "users", element: <AdminUsersPage /> },
+        { path: "experts", element: <AdminExpertsPage /> },
+        { path: "verify", element: <AdminVerifyPage /> },
+        { path: "reports", element: <AdminReportsPage /> },
+        { path: "settings", element: <AdminSettingsPage /> },
       ],
     },
     { path: "*", element: <NotFound404 /> },

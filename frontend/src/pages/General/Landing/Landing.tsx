@@ -6,7 +6,7 @@ import desc_logo2 from "./assets/desc_card_logo2.png";
 import desc_logo3 from "./assets/desc_card_logo3.png";
 import desc_logo4 from "./assets/desc_card_logo4.png";
 import desc_logo5 from "./assets/desc_card_logo5.png";
-import { scrollTo } from "../../utils/ScrollUtils";
+import { scrollTo } from "../../../utils/ScrollUtils";
 
 const Home = () => {
   return (
