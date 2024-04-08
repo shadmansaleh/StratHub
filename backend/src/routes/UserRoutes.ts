@@ -11,12 +11,14 @@ import {
 } from "../controller/UserController";
 import { UserRole } from "../types/LocalTypes";
 import { AuthUser, AuthRole } from "../middlewares/Authenticate";
-import { addEmailIfUsername } from "../middlewares/AddData";
 
 const user = Router();
 
-user.post("/login", addEmailIfUsername, UserLoginController);
+user.post("/login", UserLoginController);
 user.delete("/logout", AuthUser, UserLogoutController);
+user.get("/verify_token", AuthUser, (_req, res) =>
+  res.status(200).json({ message: "Token is valid" })
+);
 user.post("/register", UserRegisterController);
 user.get("/get_user", AuthUser, UserGetController);
 user.get(

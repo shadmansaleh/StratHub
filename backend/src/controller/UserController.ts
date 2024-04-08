@@ -54,11 +54,13 @@ export const UserUpdatePasswordController = async (
 };
 
 export const UserLoginController = async (req: Request, res: Response) => {
-  const { email, password, is_short } = req.body;
-  if (!email || !password) {
+  const { username, email, password, is_short } = req.body;
+  if (!(email || username) || !password) {
     return res.status(400).json({ message: "Please enter all fields" });
   }
-  const user = <types.User>await User.findOne({ email: email }).exec();
+  let user: types.User;
+  if (email) user = <types.User>await User.findOne({ email: email }).exec();
+  else user = <types.User>await User.findOne({ username: username }).exec();
   if (user == null)
     return res.status(400).json({ message: "User does not exist" });
 

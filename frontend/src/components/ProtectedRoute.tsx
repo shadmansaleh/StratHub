@@ -22,7 +22,7 @@ export function ProtectedRoute({
   const retAccept = children ? children : <Outlet />;
   const { auth } = useContext(AuthContext);
   if (role === Role.NOAUTH) {
-    if (auth?.token) return <Navigate to="/user" />;
+    if (auth?.token) return <Navigate to={`/${auth.role}`} />;
     return retAccept;
   }
   if (!auth?.token) {
@@ -34,7 +34,7 @@ export function ProtectedRoute({
   enqueueSnackbar("You do not have permission to access this page", {
     variant: "error",
   });
-  return <Navigate to="/user" />;
+  return <Navigate to={`/${auth.role}`} />;
 }
 
 export default ProtectedRoute;

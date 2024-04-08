@@ -1,5 +1,5 @@
 import { useEffect, useContext } from "react";
-import { Route, Routes, useRoutes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import HomePage from "./pages/Home";
 import UserHomePage from "./pages/UserHome";
 import useDarkMode from "./hooks/useDarkMode";
@@ -45,9 +45,48 @@ function App() {
       children: [
         { index: true, element: <UserInfo /> },
         { path: "dashboard", element: <UserInfo /> },
-        { path: "settings", element: <UserInfo /> },
-        { path: "home", element: <UserInfo /> },
         { path: "profile", element: <UserInfo /> },
+        { path: "search", element: <UserInfo /> },
+        { path: "appointments", element: <UserInfo /> },
+        { path: "favorites", element: <UserInfo /> },
+        { path: "history", element: <UserInfo /> },
+        { path: "settings", element: <UserInfo /> },
+        { path: "consultant/:id", element: <UserInfo /> },
+        { path: "meet/:id", element: <UserInfo /> },
+      ],
+    },
+    {
+      path: "/expert",
+      element: (
+        <ProtectedRoute role={Role.EXPERT}>
+          <UserHomePage />
+        </ProtectedRoute>
+      ),
+      children: [
+        { index: true, element: <UserInfo /> },
+        { path: "dashboard", element: <UserInfo /> },
+        { path: "profile", element: <UserInfo /> },
+        { path: "clients", element: <UserInfo /> },
+        { path: "recent", element: <UserInfo /> },
+        { path: "settings", element: <UserInfo /> },
+        { path: "meet/:id", element: <UserInfo /> },
+      ],
+    },
+    {
+      path: "/admin",
+      element: (
+        <ProtectedRoute role={Role.ADMIN}>
+          <UserHomePage />
+        </ProtectedRoute>
+      ),
+      children: [
+        { index: true, element: <UserInfo /> },
+        { path: "dashboard", element: <UserInfo /> },
+        { path: "users", element: <UserInfo /> },
+        { path: "experts", element: <UserInfo /> },
+        { path: "verify", element: <UserInfo /> },
+        { path: "reports", element: <UserInfo /> },
+        { path: "settings", element: <UserInfo /> },
       ],
     },
     { path: "*", element: <NotFound404 /> },

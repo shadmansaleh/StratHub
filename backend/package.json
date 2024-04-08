@@ -1,8 +1,9 @@
 {
-  "name": "StratHub",
+  "name": "strathub-backend",
+  "private": true,
   "version": "1.0.0",
   "description": "StratHub backend",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/server.js",
@@ -11,7 +12,7 @@
   },
   "keywords": [],
   "author": "shadmansaleh",
-  "license": "ISC",
+  "license": "GPL-3.0-only",
   "devDependencies": {
     "@swc/core": "^1.4.11",
     "@types/bcrypt": "^5.0.2",

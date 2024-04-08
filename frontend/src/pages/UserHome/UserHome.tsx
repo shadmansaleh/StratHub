@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useAxios } from "../../hooks/useAxios";
 import { AxiosResponse } from "axios";
 import SideBar from "../../components/SideBar";
-import { Outlet, Route } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 interface User {
   username?: string;
@@ -11,12 +11,16 @@ interface User {
 }
 
 function UserHome() {
+  const { axios, axiosErrHandler } = useAxios();
+  useEffect(() => {
+    axios.get("/user/verify_token").catch(axiosErrHandler);
+  }, []);
+
   return (
     <>
       <div className="flex flex-row">
         <SideBar />
         <Outlet />
-        {/* <Route path="/dashboard" element={<UserInfo />} /> */}
       </div>
     </>
   );

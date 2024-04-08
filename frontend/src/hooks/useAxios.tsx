@@ -30,11 +30,6 @@ export const useAxios = () => {
     const msg = err?.response?.data?.message;
     const code = err?.response?.status;
     if (code === 401) {
-      enqueueSnackbar(`Request Error: Blame Dev :| ${msg}`, {
-        variant: "error",
-      });
-      navigate("/login");
-    } else if (code === 403) {
       if (clearAuth) {
         clearAuth();
         navigate("/login");
@@ -42,6 +37,11 @@ export const useAxios = () => {
       enqueueSnackbar(`Login Expired`, {
         variant: "info",
       });
+    } else if (code === 403) {
+      enqueueSnackbar(`Request Error: Blame Dev :| ${msg}`, {
+        variant: "error",
+      });
+      navigate("/login");
     } else if (msg) {
       enqueueSnackbar(msg, { variant: "error" });
     }

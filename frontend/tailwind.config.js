@@ -26,6 +26,10 @@ module.exports = {
     },
     extend: {
       colors: {},
+      transitionProperty: {
+        width: "width",
+        "min-width": "min-width",
+      },
     },
   },
   plugins: [require("daisyui")],
