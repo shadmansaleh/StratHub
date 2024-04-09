@@ -97,10 +97,10 @@ function SignUp() {
               Lets get started
             </h1>
           </div>
-          <div className="card max-w-[30rem] lg:w-[30vw] md:w-[35vw] sm:w-[50vw] shadow-2xl bg-blue-50">
+          <div className="card max-w-[30rem] lg:w-[30vw] md:w-[35vw] sm:w-[50vw] shadow-2xl bg-base-100">
             <IoMdArrowBack
               onClick={() => navigate("/login")}
-              className="h-10 w-10 text-gray-800 absolute top-4 left-4"
+              className="h-10 w-10 text-primary absolute top-4 left-4"
             />
             <p className="py-6 text-center text-2xl mt-8">Forgot Password</p>
             <form className="card-body" onSubmit={handleSteps}>
@@ -134,7 +134,7 @@ function SignUp() {
                 <input
                   type="submit"
                   value="Update Password"
-                  className="bg-black text-white rounded-3xl text-2xl font-light px-5 py-4 hover:bg-gray-600 shadow-xl uppercase"
+                  className="btn btn-lg btn-primary text-2xl font-light px-5 py-4 shadow-xl uppercase"
                 />
               </div>
             </form>

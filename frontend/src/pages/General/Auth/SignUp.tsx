@@ -153,18 +153,18 @@ function SignUp() {
               Lets get started
             </h1>
           </div>
-          <div className="card max-w-[30rem] lg:w-[30vw] md:w-[35vw] sm:w-[50vw] shadow-2xl bg-blue-50">
+          <div className="card max-w-[30rem] lg:w-[30vw] md:w-[35vw] sm:w-[50vw] shadow-2xl bg-base-100">
             {stage != 1 && (
               <IoMdArrowBack
                 onClick={() => setStage(stage - 1)}
-                className="h-10 w-10 text-gray-800 absolute top-2 left-2"
+                className="h-10 w-10 text-primary absolute top-2 left-2"
               />
             )}
             <p className="py-6 text-center text-xl mt-8">
               Create a new account
             </p>
             <progress
-              className="progress progress-primary w-[70%] mx-auto"
+              className="progress progress-accent w-[70%] mx-auto"
               value={(stage / max_stage) * 100}
               max="100"
             ></progress>
@@ -249,12 +249,12 @@ function SignUp() {
                 <input
                   type="submit"
                   value={stage != max_stage ? "Next" : "Sign Up"}
-                  className="bg-black text-white rounded-3xl text-2xl font-light px-5 py-4 hover:bg-gray-600 shadow-xl uppercase"
+                  className="btn btn-lg btn-primary text-2xl font-light px-5 py-4 shadow-xl uppercase"
                 />
               </div>
               <p>
                 Already have an account?{" "}
-                <Link to="/login" className="text-blue-600 hover:underline">
+                <Link to="/login" className="text-accent hover:underline">
                   Sign in
                 </Link>
               </p>

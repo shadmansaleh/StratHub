@@ -124,7 +124,7 @@ function App() {
 
   return (
     <>
-      <div className="bg-blue-100">
+      <div className="bg-base-100">
         <SnackbarProvider autoHideDuration={2000}>
           {!user_logged_in && <NavBar />}
           {AppRoutes}

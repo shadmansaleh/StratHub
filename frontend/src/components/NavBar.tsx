@@ -4,7 +4,7 @@ import logo from "../assets/logo.png";
 function NavBar() {
   return (
     <>
-      <div className="navbar bg-blue-200 shadow-lg">
+      <div className="navbar bg-base-200 shadow-lg">
         <div className="flex-1">
           <Link to="/" className="text-xl font-normal px-2">
             <img src={logo} alt="strathub-logo" className="h-12 w-12" />
@@ -44,12 +44,12 @@ function NavBar() {
             <input
               type="text"
               placeholder="Search"
-              className="input input-bordered w-24 md:w-auto bg-blue-50"
+              className="input input-bordered w-24 md:w-auto bg-base-100"
             />
           </div>
           <Link
             to="/login"
-            className="bg-black text-white rounded-2xl text-xl font-light px-6 py-2 hover:bg-gray-600"
+            className="btn btn-md btn-primary text-xl font-light px-6 py-2"
           >
             Login
           </Link>

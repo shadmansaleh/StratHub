@@ -81,12 +81,14 @@ function SideBar() {
   return (
     <>
       <div
-        className={`h-screen flex flex-col bg-blue-200 duration-100 transition-min-width ease-in-out ${
+        className={`h-screen flex flex-col bg-base-200 duration-100 transition-min-width ease-in-out ${
           sidebarCollapsed ? "min-w-0" : "min-w-64"
         }`}
       >
         <div
-          className={"flex flex-row gap-2 p-4 items-center hover:bg-blue-300"}
+          className={
+            "flex flex-row gap-2 p-4 items-center hover:bg-accent hover:text-accent-content"
+          }
           onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
         >
           <img src={logo} className="aspect-square w-[3rem]" />
@@ -97,7 +99,7 @@ function SideBar() {
         {sidebar_items.map((item, index) => (
           <div
             key={index}
-            className="hover:bg-blue-300 last:mt-auto last:pb-4 first:pt-4"
+            className="hover:bg-accent hover:text-accent-content last:mt-auto last:pb-4 first:pt-4"
             onClick={item.onClick ? item.onClick : onSidebarItemClick(index)}
           >
             <div
@@ -105,10 +107,13 @@ function SideBar() {
                 !sidebarCollapsed && "pl-8"
               }`}
             >
-              <item.icon size="2rem" />
+              <item.icon
+                size="2rem"
+                className={`${sidebarCollapsed && "mx-auto"}`}
+              />
               <span className={`text-xl ${shrinkOnClose}`}>{item.name}</span>
               {sidebarCollapsed && (
-                <span className="absolute w-auto p-2 m-2 min-w-max left-20 rounded-md shadow-md text-white bg-gray-800 text-sm transition-all duration-100 scale-0 origin-left group-hover:scale-100">
+                <span className="absolute w-auto p-2 m-2 min-w-max left-20 rounded-md shadow-md text-primary-content bg-primary text-sm transition-all duration-100 scale-0 origin-left group-hover:scale-100">
                   {item.name}
                 </span>
               )}

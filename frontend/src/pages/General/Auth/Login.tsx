@@ -61,7 +61,7 @@ function Login() {
             Welcome Back
           </h1>
         </div>
-        <div className="card max-w-[30rem] lg:w-[30vw] md:w-[35vw] sm:w-[50vw] shadow-2xl bg-blue-50">
+        <div className="card max-w-[30rem] lg:w-[30vw] md:w-[35vw] sm:w-[50vw] shadow-2xl bg-base-100">
           <p className="py-6 text-center text-xl mt-8">
             Login using social networks
           </p>
@@ -120,7 +120,7 @@ function Login() {
               <input
                 type="submit"
                 value="Login"
-                className="bg-black text-white rounded-3xl text-2xl font-light px-5 py-4 hover:bg-gray-600 shadow-xl uppercase"
+                className="btn btn-lg btn-primary text-2xl font-light px-5 py-4 shadow-xl uppercase"
               />
             </div>
             <Link to="/forgot_password" className="hover:underline">
@@ -128,7 +128,7 @@ function Login() {
             </Link>
             <p>
               New to StratHub?{" "}
-              <Link to="/signup" className="text-blue-600 hover:underline">
+              <Link to="/signup" className="text-accent hover:underline">
                 Create Account
               </Link>
             </p>

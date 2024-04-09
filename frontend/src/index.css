@@ -43,10 +43,10 @@ img {
   }
 
   .c-btn-fill {
-    @apply bg-black text-white rounded-3xl text-2xl font-light px-5 py-4 hover:bg-gray-600;
+    @apply bg-primary text-primary-content rounded-3xl text-2xl font-light px-5 py-4 hover:bg-gray-600;
   }
   .c-btn-border {
-    @apply g-transparent text-black border-black border-4 rounded-3xl text-2xl font-light px-5 py-4 hover:bg-gray-200;
+    @apply g-transparent bg-primary-content text-primary border-primary border-4 rounded-3xl text-2xl font-light px-5 py-4 hover:bg-gray-200;
   }
 }
 
