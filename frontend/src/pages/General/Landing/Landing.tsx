@@ -200,7 +200,7 @@ const DescCard = ({ icon, title, content, bg_color }: DescCardProps) => {
   return (
     <>
       <div
-        className={`flex flex-col max-w-80 h-full rounded-2xl p-10 shadow-xl hover:scale-105 cursor-default hover-enlarge text-black ${bg_color}`}
+        className={`flex flex-col max-w-80 h-full rounded-2xl p-10 shadow-xl hover:scale-105 cursor-default hover-enlarge text-black dark:brightness-90 ${bg_color}`}
       >
         <img
           src={icon}

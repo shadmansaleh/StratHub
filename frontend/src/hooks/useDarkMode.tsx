@@ -8,7 +8,7 @@ const useDarkMode = () => {
   useEffect(() => {
     const className = "dark";
     const lightTheme = "strathub-light";
-    const darkTheme = "dark";
+    const darkTheme = "strathub-dark";
     const bodyClass = window.document.body.classList;
     const html = document.querySelector<HTMLHtmlElement>("html");
     if (isEnabled) {
