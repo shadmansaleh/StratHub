@@ -207,7 +207,7 @@ const DescCard = ({ icon, title, content, bg_color }: DescCardProps) => {
           alt="desc card icon"
           className="mx-auto max-h-8 max-w-8"
         />
-        <h1 className="text-2xl font-semibold text-center py-4">{title}</h1>
+        <h1 className="text-2xl font-semibold text-center py-4 ">{title}</h1>
         <p className="text-lg text-center">{content}</p>
       </div>
     </>

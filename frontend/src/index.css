@@ -54,7 +54,7 @@ img {
 
 ::-webkit-scrollbar {
   background-color: transparent;
-  width: 8px;
+  width: 0.25rem;
 }
 
 ::-webkit-scrollbar-thumb {
