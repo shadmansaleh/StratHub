@@ -1,8 +1,10 @@
 import React from "react";
 
 function Dashboard() {
-  return <div className="bg-black">
-    DashBoard
+  return <div className="w-full bg-black">
+    <div className="w-full bg-black">
+
+    </div>
   </div>;
 }
 
