@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import UserRoute from "./routes/UserRoutes";
+import UserRoute from "./routes/UserRoute";
+import AuthRoute from "./routes/AuthRoute";
 import dotenv from "dotenv";
 import LogRequest from "./middlewares/LogRequests";
 // import bodyParser from "body-parser";
@@ -32,6 +33,7 @@ app.use(express.json());
 // app.use(LogRequest);
 
 // routes
+app.use("/auth", AuthRoute);
 app.use("/user", UserRoute);
 
 app.get("/", (req: Request, res: Response) => {

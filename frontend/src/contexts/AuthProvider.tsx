@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         Authorization: `Bearer ${auth?.token}`,
       },
     });
-    axios.delete("/user/logout").catch(console.error);
+    axios.delete("/auth/logout").catch(console.error);
     setAuth({ token: null, role: null });
     setSsAuth(null);
     setLsAuth(null);

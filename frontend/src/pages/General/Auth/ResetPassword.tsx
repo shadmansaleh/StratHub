@@ -59,7 +59,7 @@ function SignUp() {
     }
     if (verification_passed) {
       try {
-        const res = await axios.get("/user/email_taken", {
+        const res = await axios.get("/auth/email_taken", {
           params: { email: formData["email"] },
         });
         if (res.data.taken === false) {
@@ -75,7 +75,7 @@ function SignUp() {
     }
     if (!verification_passed) return;
     axios
-      .post("/user/update_password", {
+      .post("/auth/update_password", {
         email: formData.email,
         password: formData.password,
       })

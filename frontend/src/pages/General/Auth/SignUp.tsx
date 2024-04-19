@@ -72,7 +72,7 @@ function SignUp() {
         }
         if (verification_passed) {
           try {
-            const res = await axios.get("/user/email_taken", {
+            const res = await axios.get("/auth/email_taken", {
               params: { email: formData["email"] },
             });
             if (res.data.taken === true) {
@@ -104,7 +104,7 @@ function SignUp() {
         }
         if (verification_passed) {
           try {
-            const res = await axios.get("/user/username_taken", {
+            const res = await axios.get("/auth/username_taken", {
               params: { username: formData["username"] },
             });
             if (res.data.taken) {
@@ -125,7 +125,7 @@ function SignUp() {
     if (stage == max_stage) {
       try {
         axios
-          .post("/user/register", {
+          .post("/auth/register", {
             username: formData.username,
             email: formData.email,
             password: formData.password,

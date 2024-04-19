@@ -13,7 +13,7 @@ interface User {
 function UserHome() {
   const { axios, axiosErrHandler } = useAxios();
   useEffect(() => {
-    axios.get("/user/verify_token").catch(axiosErrHandler);
+    axios.get("/auth/verify_token").catch(axiosErrHandler);
   }, []);
 
   return (

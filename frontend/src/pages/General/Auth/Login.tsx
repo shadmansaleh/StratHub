@@ -24,12 +24,12 @@ function Login() {
       );
       let res: AxiosResponse | null = null;
       if (emailRegex.test(email)) {
-        res = await axios.post("/user/login", {
+        res = await axios.post("/auth/login", {
           email: email,
           password: password,
         });
       } else {
-        res = await axios.post("/user/login", {
+        res = await axios.post("/auth/login", {
           username: email,
           password: password,
         });
