@@ -29,8 +29,8 @@ module.exports = {
         // "blue-200": "#CAD2E3",
       },
       transitionProperty: {
-        width: "width",
-        "min-width": "min-width",
+        // width: "width",
+        // "min-width": "min-width",
       },
     },
   },

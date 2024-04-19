@@ -20,7 +20,6 @@ interface SideBarItem {
 
 function SideBar() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-
   const { auth, clearAuth } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -86,12 +85,12 @@ function SideBar() {
   return (
     <>
       <div
-        className={`h-screen flex flex-col bg-base-200 duration-100 transition-min-width ease-in-out ${
-          sidebarCollapsed ? "min-w-0" : "min-w-64"
+        className={`h-screen flex flex-col bg-base-200 duration-200 transition-[width] ease-in-out ${
+          sidebarCollapsed ? "w-20" : ""
         }`}
       >
         <div
-          className={"flex flex-row gap-2 p-4 items-center"}
+          className={"flex flex-row gap-2 p-4 items-center cursor-pointer"}
           onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
         >
           <img src={logo} className="aspect-square w-[3rem]" />
@@ -106,7 +105,7 @@ function SideBar() {
             onClick={item.onClick ? item.onClick : onSidebarItemClick(index)}
           >
             <div
-              className={`flex flex-row gap-2 p-4 items-center group hover:text-accent ${
+              className={`flex flex-row gap-2 p-4 items-center group hover:text-accent cursor-pointer ${
                 item.key == cur_key && "bg-base-100 rounded-l-badge"
               } ${!sidebarCollapsed && "pl-8"}`}
             >

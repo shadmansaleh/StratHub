@@ -61,7 +61,7 @@ function Login() {
             Welcome Back
           </h1>
         </div>
-        <div className="card max-w-[30rem] lg:w-[30vw] md:w-[35vw] sm:w-[50vw] shadow-2xl bg-base-100">
+        <div className="card shadow-2xl bg-base-100">
           <p className="py-6 text-center text-xl mt-8">
             Login using social networks
           </p>

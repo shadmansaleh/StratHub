@@ -24,7 +24,7 @@ img {
 @layer components {
   /* custom tailwind classes here */
   .c-hover-enlarge {
-    @apply hover:scale-105 duration-300 ease-in-out;
+    @apply hover:scale-105 duration-200 ease-in-out transition-transform;
   }
 
   .c-text-xl {

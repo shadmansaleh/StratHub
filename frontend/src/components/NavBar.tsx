@@ -27,14 +27,14 @@ function NavBar() {
             <li>
               <details>
                 <summary>More</summary>
-                <ul className="p-2">
+                {/* <ul className="p-2">
                   <li>
                     <Link to="">Submenu 1</Link>
                   </li>
                   <li>
                     <Link to="">Submenu 2</Link>
                   </li>
-                </ul>
+                </ul> */}
               </details>
             </li>
           </ul>

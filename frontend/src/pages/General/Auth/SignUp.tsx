@@ -153,7 +153,7 @@ function SignUp() {
               Lets get started
             </h1>
           </div>
-          <div className="card max-w-[30rem] lg:w-[30vw] md:w-[35vw] sm:w-[50vw] shadow-2xl bg-base-100">
+          <div className="card shadow-2xl bg-base-100">
             {stage != 1 && (
               <IoMdArrowBack
                 onClick={() => setStage(stage - 1)}
