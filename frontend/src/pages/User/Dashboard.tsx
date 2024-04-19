@@ -1,7 +1,9 @@
 import React from "react";
 
 function Dashboard() {
-  return <div>Dashborad</div>;
+  return <div className="bg-black">
+    DashBoard
+  </div>;
 }
 
 export default Dashboard;
