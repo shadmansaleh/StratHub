@@ -50,10 +50,6 @@ function App() {
   const { auth } = useContext(AuthContext);
   const user_logged_in = auth?.token ? true : false;
 
-  useEffect(() => {
-    setDarkMode(false);
-  }, []);
-
   const AppRoutes = useRoutes([
     {
       path: "/",
