@@ -3,6 +3,7 @@ import { useAxios } from "../../hooks/useAxios";
 import { AxiosResponse } from "axios";
 import SideBar from "../../components/SideBar";
 import { Outlet } from "react-router-dom";
+import NavBarFloating from "../../components/NavBarfloating";
 
 interface User {
   username?: string;
@@ -20,7 +21,12 @@ function UserHome() {
     <>
       <div className="flex flex-row">
         <SideBar />
-        <Outlet />
+        <div className="flex flex-col w-full bg-base-100">
+          <NavBarFloating />
+          <div className="mx-auto my-6 w-[98%] h-full overflow-y-auto overflow-x-hidden">
+            <Outlet />
+          </div>
+        </div>
       </div>
     </>
   );

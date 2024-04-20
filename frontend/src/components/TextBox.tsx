@@ -3,19 +3,21 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 interface TextBoxProps {
   type: string;
-  label: string;
   placeholder: string;
+  className?: string;
+  label?: string;
   value?: string;
   id?: string;
   onChange?: (value: any) => void;
 }
 const TextBox = ({
   type,
-  label,
   placeholder,
+  label,
   id,
   onChange,
   value,
+  className,
 }: TextBoxProps) => {
   const [showPassword, setShowPassword] = useState(false);
   return (
@@ -28,7 +30,7 @@ const TextBox = ({
       <input
         type={type === "password" ? (showPassword ? "text" : "password") : type}
         placeholder={placeholder}
-        className="input input-bordered bg-transparent"
+        className={`input input-bordered bg-transparent ${className}`}
         value={value}
         id={id}
         onChange={(e) => onChange && onChange(e)}

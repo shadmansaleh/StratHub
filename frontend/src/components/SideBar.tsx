@@ -85,7 +85,7 @@ function SideBar() {
   return (
     <>
       <div
-        className={`h-screen flex flex-col bg-base-200 duration-200 transition-[width] ease-in-out ${
+        className={`h-screen flex flex-col bg-base-200 duration-200 transition-[width] ease-in-out sticky top-0 ${
           sidebarCollapsed ? "w-20" : ""
         }`}
       >
@@ -101,7 +101,7 @@ function SideBar() {
         {sidebar_items.map((item, index) => (
           <div
             key={index}
-            className="last:mt-auto last:pb-4 first:pt-4"
+            className="last:mt-auto last:pb-4 first:pt-4 "
             onClick={item.onClick ? item.onClick : onSidebarItemClick(index)}
           >
             <div

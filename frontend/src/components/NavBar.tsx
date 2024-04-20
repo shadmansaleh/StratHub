@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
+import { IoSunnyOutline, IoMoonOutline } from "react-icons/io5";
+import useDarkMode from "../hooks/useDarkMode";
 
 function NavBar() {
+  const [darkMode, setDarkMode] = useDarkMode();
   return (
     <>
       <div className="navbar bg-base-200 shadow-lg">
@@ -14,7 +17,7 @@ function NavBar() {
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-4 uppercase">
+          <ul className="menu menu-horizontal  uppercase">
             <li className="">
               <Link to="">About Us</Link>
             </li>
@@ -38,6 +41,10 @@ function NavBar() {
               </details>
             </li>
           </ul>
+          <div onClick={() => setDarkMode(!darkMode)}>
+            {!darkMode && <IoMoonOutline size="3.5rem" className="px-4" />}
+            {darkMode && <IoSunnyOutline size="3.5rem" className="px-4" />}
+          </div>
         </div>
         <div className="flex-none gap-4">
           <div className="form-control">

@@ -1,0 +1,41 @@
+import { FaSearch } from "react-icons/fa";
+import { IoSunnyOutline, IoMoonOutline } from "react-icons/io5";
+import { IoIosNotificationsOutline } from "react-icons/io";
+import { CgProfile } from "react-icons/cg";
+import TextBox from "../components/TextBox";
+import useDarkMode from "../hooks/useDarkMode";
+import { useLocation } from "react-router-dom";
+
+const NavBarFloating = () => {
+  const [darkMode, setDarkMode] = useDarkMode();
+  const loc = useLocation();
+  const breadCrumbItems = loc.pathname.split("/");
+
+  return (
+    <nav className="mx-2 w-3/50 flex justify-between shadow-md bg-white dark:bg-gray-700 sticky top-2 z-10 rounded-full">
+      <div className="nav-left justify-left max-w-xs text-sm breadcrumbs px-5 ">
+        <ul>
+          {breadCrumbItems.map((item, idx) => (
+            <li key={idx}>
+              <a>{item}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="flex justify-center items-center">
+        <TextBox type="text" placeholder="Search" className="h-10" />
+        <FaSearch size="1rem" className="-translate-x-8" />
+      </div>
+      <div className="nav-right flex items-center">
+        <div onClick={() => setDarkMode(!darkMode)}>
+          {!darkMode && <IoMoonOutline size="2.5rem" className="p-2" />}
+          {darkMode && <IoSunnyOutline size="2.5rem" className="p-2" />}
+        </div>
+        <IoIosNotificationsOutline size="2.5rem" className="p-2" />
+        <CgProfile size="2.5rem" className="p-2" />
+      </div>
+    </nav>
+  );
+};
+
+export default NavBarFloating;
