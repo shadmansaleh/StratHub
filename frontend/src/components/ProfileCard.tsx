@@ -6,7 +6,7 @@ import { useState } from 'react';
 function ProfileCard() {
     const [rating, setRating] = React.useState(4.5);
     return (
-        <div className=" bg-gradient-to-tl from-blue-400 to-neutral w-1/4 min-h-80 m-5 p-2 rounded-box">
+        <div className=" bg-gradient-to-tl from-blue-400 to-neutral w-1/5 min-h-80 m-5 p-2 rounded-box">
             <div className="flex justify-center items-start">
                 <div className="w-20 aspect-square rounded-full ml-2 my-2">
                     <img src={demo_profile} alt="profile pic" />
