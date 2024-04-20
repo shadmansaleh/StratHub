@@ -86,7 +86,7 @@ function SideBar() {
     <>
       <div
         className={`h-screen flex flex-col bg-base-200 duration-200 transition-[width] ease-in-out sticky top-0 ${
-          sidebarCollapsed ? "w-20" : ""
+          sidebarCollapsed ? "min-w-20" : "min-w-56"
         }`}
       >
         <div

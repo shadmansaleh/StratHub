@@ -48,6 +48,13 @@ img {
   .c-btn-border {
     @apply g-transparent bg-primary-content text-primary border-primary border-4 rounded-3xl text-2xl font-light px-5 py-4 hover:bg-gray-200;
   }
+
+  .bg-base-50 {
+    @apply bg-white dark:bg-gray-700;
+  }
+  .text-base-50 {
+    @apply text-white dark:text-gray-700;
+  }
 }
 
 @tailwind utilities;
