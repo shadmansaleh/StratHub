@@ -20,7 +20,7 @@ import NotFound404 from "./pages/General/NotFound404";
 // User-pages
 import UserAppointmentsPage from "./pages/User/Appointments";
 import UserConsultantPage from "./pages/User/Consultant";
-import UserDashboardPage from "./pages/User/Dashboard";
+// import UserDashboardPage from "./pages/User/Dashboard";
 import UserFavoritesPage from "./pages/User/Favorites";
 import UserHistoryPage from "./pages/User/History";
 import UserMeetPage from "./pages/User/Meet";
@@ -69,8 +69,8 @@ function App() {
         </ProtectedRoute>
       ),
       children: [
-        { index: true, element: <UserDashboardPage /> },
-        { path: "dashboard", element: <UserDashboardPage /> },
+        { index: true, element: <UserProfilePage /> },
+        // { path: "dashboard", element: <UserDashboardPage /> },
         { path: "profile", element: <UserProfilePage /> },
         { path: "search", element: <UserSearchPage /> },
         { path: "appointments", element: <UserAppointmentsPage /> },

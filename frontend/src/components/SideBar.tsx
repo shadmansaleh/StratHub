@@ -36,7 +36,7 @@ function SideBar() {
   };
 
   const user_sidebar_items: SideBarItem[] = [
-    { name: "Dashboard", icon: MdDashboard, key: "dashboard" },
+    // { name: "Dashboard", icon: MdDashboard, key: "dashboard" },
     { name: "Profile", icon: FaUser, key: "profile" },
     { name: "Search", icon: FaSearch, key: "search" },
     { name: "Appointments", icon: AiFillSchedule, key: "appointments" },
