@@ -82,7 +82,7 @@ module.exports = {
           "base-200": "#B6C8EA",
           "base-300": "#95ACD7",
           "base-content": "black",
-          neutral: "#F7F4E9",
+          neutral: "#ff9d66",
           "neutral-content": "black",
 
           "--rounded-box": "1rem", // border radius rounded-box utility class, used in card and other large boxes

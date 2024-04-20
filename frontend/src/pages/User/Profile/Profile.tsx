@@ -10,7 +10,7 @@ const Profile = () => {
 
   return (
     <div className="w-full">
-      <h1 className="text-3xl text-primary py-2">Profile</h1>
+      <h1 className="text-3xl text-primary pt-2 pb-0">Profile</h1>
       <hr className="divider w-[6rem]" />
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-row">

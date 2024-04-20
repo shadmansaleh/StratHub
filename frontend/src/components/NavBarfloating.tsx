@@ -12,7 +12,7 @@ const NavBarFloating = () => {
   const breadCrumbItems = loc.pathname.split("/");
 
   return (
-    <nav className="mx-2 w-3/50 h-14 flex justify-between items-center shadow-md bg-base-50 dark:bg-gray-700 sticky top-4 z-10 rounded-full">
+    <nav className="mx-2 w-3/50 h-14 flex justify-between items-center shadow-md bg-base-50 dark:bg-gray-700 sticky top-4 z-10 rounded-box">
       <div className="nav-left justify-left max-w-xs text-sm breadcrumbs px-5 ">
         <ul>
           {breadCrumbItems.map((item, idx) => (
