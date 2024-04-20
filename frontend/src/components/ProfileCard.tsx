@@ -29,7 +29,7 @@ function ProfileCard() {
                         <div className="w-10 h-3 bg-cyan-900 rounded-full"></div>
                         <div className="w-10 h-3 bg-cyan-900 rounded-full"></div>
                     </div>
-                    <p className="text-sm text-cyan-900">{rating}</p>
+                    <p className="text-sm text-cyan-900 m-2">{rating}</p>
                 </div>
             </div>
             <div>
