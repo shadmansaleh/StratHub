@@ -2,7 +2,7 @@ import ProfileCard from "../../components/ProfileCard";
 
 function Clients() {
   return (
-    <div className="flex justify-left items-center flex-wrap w-[80%] m-auto gap-[2rem]">
+    <div className="flex justify-center items-center flex-wrap w-[90%] m-auto gap-[1rem]">
       <ProfileCard />
       <ProfileCard />
       <ProfileCard />
