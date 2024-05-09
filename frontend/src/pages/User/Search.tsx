@@ -76,7 +76,7 @@ function Search() {
           label=""
           className="w-[70%] mx-auto"
         />
-        <div className="flex justify-center items-center flex-wrap w-[90%] m-auto gap-[1rem]">
+        <div className="flex justify-center items-center flex-wrap w-[90%] m-auto gap-[1rem] my-20">
           {experts.map((client, idx) => (
             <ExpertCard
               key={idx}
