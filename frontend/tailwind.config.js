@@ -20,9 +20,11 @@ module.exports = {
     //   black: 900,
     // },
     fontFamily: {
-      sans: ["Poppins", "Merriweather", "sans-serif"],
-
-      poppins: ["Poppins", "Merriweather", "sans-serif"],
+      serif: ["Lora", "serif"],
+      sans: ["Poppins", "sans-serif"],
+      poppins: ["Poppins", "sans-serif"],
+      playfair_display: ["Playfair Display", "serif"],
+      lora: ["Lora", "serif"],
     },
     extend: {
       colors: {

@@ -95,7 +95,7 @@ function SideBar() {
         >
           <img src={logo} className="aspect-square w-[3rem]" />
           <span className={`text-3xl font-medium ${shrinkOnClose}`}>
-            StratHub
+            <h1 className="">StratHub</h1>
           </span>
         </div>
         {sidebar_items.map((item, index) => (

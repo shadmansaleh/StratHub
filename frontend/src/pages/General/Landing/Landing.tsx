@@ -23,7 +23,7 @@ const Hero_1 = () => (
   <div className="hero min-h-screen">
     <div className="hero-content flex-col lg:flex-row gap-10 lg:gap-24 max-w-[90vw]">
       <div>
-        <h1 className="text-3xl font-semibold xl:text-4xl text-center">
+        <h1 className="text-3xl font-semibold xl:text-6xl text-center">
           Connecting users with industry experts
         </h1>
         <p className="py-6 text-center xl:text-lg lg:text-md">

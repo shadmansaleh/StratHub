@@ -12,8 +12,8 @@ function NavBar() {
           <Link to="/" className="text-xl font-normal px-2">
             <img src={logo} alt="strathub-logo" className="h-12 w-12" />
           </Link>
-          <Link to="/" className="text-xl font-normal px-2">
-            StratHub
+          <Link to="/">
+            <h1 className="text-4xl font-normal px-2">StratHub</h1>
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
