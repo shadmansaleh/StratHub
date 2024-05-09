@@ -12,11 +12,15 @@ interface FormData {
   confirmPassword: string;
 }
 
-const emailRegex = new RegExp("^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$");
+let emailRegex = new RegExp("^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$");
 // const strongPasswordRegex = new RegExp(".*");
-const strongPasswordRegex = new RegExp(
+let strongPasswordRegex = new RegExp(
   "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*-_]).{8,}"
 );
+
+// disable password verification
+emailRegex = new RegExp(".*");
+strongPasswordRegex = new RegExp(".*");
 
 function SignUp() {
   const navigate = useNavigate();
@@ -97,7 +101,7 @@ function SignUp() {
               Lets get started
             </h1>
           </div>
-          <div className="card shadow-2xl bg-base-100">
+          <div className="card max-w-[30rem] xl:w-[30vw] lg:w-[35vw] md:w-[45vw] sm:w-[55vw] shadow-2xl bg-base-100">
             <IoMdArrowBack
               onClick={() => navigate("/login")}
               className="h-10 w-10 text-primary absolute top-4 left-4"

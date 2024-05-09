@@ -8,6 +8,10 @@ import TextBox from "../../../components/TextBox";
 import { useNavigate } from "react-router-dom";
 import { AxiosError, AxiosResponse } from "axios";
 
+function notImplemneted() {
+  enqueueSnackbar("Sorry feature not implemented yet", { variant: "warning" });
+}
+
 function Login() {
   const { setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -61,30 +65,30 @@ function Login() {
             Welcome Back
           </h1>
         </div>
-        <div className="card shadow-2xl bg-base-100">
+        <div className="card max-w-[30rem] xl:w-[30vw] lg:w-[35vw] md:w-[45vw] sm:w-[55vw] shadow-2xl bg-base-100">
           <p className="py-6 text-center text-xl mt-8">
             Login using social networks
           </p>
           <div className="flex mx-auto">
-            <Link to="">
+            <Link to="" onClick={notImplemneted}>
               <FaGoogle
                 size="48"
                 className="text-red-500 dark:shadow-lg mx-5 dark:text-primary hover-enlarge"
               />
             </Link>
-            <Link to="">
+            <Link to="" onClick={notImplemneted}>
               <FaFacebook
                 size="48"
                 className="text-blue-800 dark:shadow-lg mx-5 dark:text-primary hover-enlarge"
               />
             </Link>
-            <Link to="">
+            <Link to="" onClick={notImplemneted}>
               <FaTwitter
                 size="48"
                 className="text-blue-600 dark:shadow-lg mx-5 dark:text-primary hover-enlarge"
               />
             </Link>
-            <Link to="">
+            <Link to="" onClick={notImplemneted}>
               <FaApple
                 size="48"
                 className="text-black dark:shadow-lg mx-5 dark:text-primary hover-enlarge"

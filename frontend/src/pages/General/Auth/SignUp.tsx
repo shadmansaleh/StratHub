@@ -156,7 +156,7 @@ function SignUp() {
               Lets get started
             </h1>
           </div>
-          <div className="card shadow-2xl bg-base-100">
+          <div className="card max-w-[30rem] xl:w-[30vw] lg:w-[35vw] md:w-[45vw] sm:w-[55vw] shadow-2xl bg-base-100 ">
             {stage != 1 && (
               <IoMdArrowBack
                 onClick={() => setStage(stage - 1)}
@@ -224,15 +224,17 @@ function SignUp() {
                     </select>
                   </div>
                   <div className="form-control">
-                    <label htmlFor="remember-me" className="">
-                      <input
-                        type="checkbox"
-                        name="concent"
-                        id="input-concent"
-                        onChange={formDataFollow("consentChecked", "checked")}
-                      />
-                      <span className="px-2 text-sm">
-                        I have read and agree with StratHubs{" "}
+                    <div className="flex flex-row">
+                      <label htmlFor="remember-me" className="">
+                        <input
+                          type="checkbox"
+                          name="concent"
+                          id="input-concent"
+                          onChange={formDataFollow("consentChecked", "checked")}
+                        />
+                      </label>
+                      <div className="px-2 text-xsm">
+                        I have read and agree with StratHubs <br />
                         <Link to="" className="hover:underline">
                           {" "}
                           Terms & Conditions{" "}
@@ -243,8 +245,8 @@ function SignUp() {
                           Privacy Policy
                         </Link>
                         .
-                      </span>
-                    </label>
+                      </div>
+                    </div>
                   </div>
                 </>
               )}
