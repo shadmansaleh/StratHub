@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { twMerge } from "tailwind-merge";
 
 interface TextBoxProps {
-  type: string;
+  type?: string;
   placeholder: string;
   className?: string;
   label?: string;
@@ -11,7 +12,7 @@ interface TextBoxProps {
   onChange?: (value: any) => void;
 }
 const TextBox = ({
-  type,
+  type = "text",
   placeholder,
   label,
   id,
@@ -21,7 +22,7 @@ const TextBox = ({
 }: TextBoxProps) => {
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <div className={`form-control relative ${className}`}>
+    <div className={twMerge("form-control relative", className)}>
       {label && (
         <label className="label">
           <span className={`label-text`}>{label}</span>
