@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TextBox from "../../components/TextBox";
+import ExpertCard from "../../components/ExpertCard";
 
 function Search() {
   const categories = [
@@ -22,6 +23,19 @@ function Search() {
   const [categoryActive, setCategoryActive] = useState(
     categories.map(() => false)
   );
+
+  let experts = [];
+  for (let i = 0; i < 15; i++) {
+    experts.push({
+      name: "John Doe",
+      expert_in: "Web Development",
+      experience: 5,
+      rating: 3.5,
+      price: 50,
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    });
+  }
 
   return (
     <>
@@ -62,6 +76,21 @@ function Search() {
           label=""
           className="w-[70%] mx-auto"
         />
+        <div className="flex justify-center items-center flex-wrap w-[90%] m-auto gap-[1rem]">
+          {experts.map((client, idx) => (
+            <ExpertCard
+              key={idx}
+              name={client.name}
+              profile_pic={client.profile_pic}
+              expert_in={client.expert_in}
+              experience={client.experience}
+              rating={client.rating}
+              price={client.price}
+              description={client.description}
+            />
+          ))}
+        </div>
+        ``
       </div>
     </>
   );

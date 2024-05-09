@@ -30,7 +30,7 @@ function ClientCard({
         name={`rating-${i}`}
         className={`mask mask-star-2 bg-orange-400`}
         checked={i === Math.round(rating)}
-        // readOnly
+        readOnly
       />
     );
   }

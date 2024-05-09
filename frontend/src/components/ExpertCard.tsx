@@ -1,8 +1,6 @@
-import React from "react";
-import demo_profile from "../assets/profile_demo.png";
-import { useState } from "react";
+import ProfileCard from "./ProfileCard";
 
-interface ClientCardProps {
+interface ExpertCardProps {
   name: string;
   profile_pic: string;
   expert_in: string;
@@ -12,7 +10,7 @@ interface ClientCardProps {
   description: string;
 }
 
-function ClientCard({
+function ExpertCard({
   name,
   profile_pic,
   expert_in,
@@ -20,70 +18,33 @@ function ClientCard({
   price,
   rating,
   description,
-}: ClientCardProps) {
+}: ExpertCardProps) {
   return (
-    <div className=" bg-gradient-to-tl from-primary-content to-neutral w-1/5 min-h-80 m-5 p-2 rounded-box">
-      <div className="flex justify-center items-start">
-        <div className="w-20 aspect-square rounded-full ml-2 my-2">
-          <img src={profile_pic} alt="profile pic" />
-        </div>
-        <div className=" ml-3 my-2">
-          <h2 className="text-lg font-bold">{name}</h2>
-          <p className="text-sm text-secodary">
+    <ProfileCard
+      name={name}
+      profile_pic={profile_pic}
+      info={
+        <>
+          <p className="text-sm">
             Expert in: <span className=" text-primary">{expert_in}</span>
           </p>
-          <p className="text-sm text-secodary">
-            Experience: <span className=" text-primary">{experience}</span>
+          <p className="text-sm">
+            Experience:{" "}
+            <span className=" text-primary">{experience} years</span>
           </p>
           {/* <p className="text-sm text-secondary">Rating: <span className=" text-primary">4.5</span></p> */}
-          <p className="text-sm text-secodary">
+          <p className="text-sm">
             Price: <span className=" text-primary">${price}/hr</span>
           </p>
-        </div>
-      </div>
-      {/* rating bar */}
-      <div className="m-2 flex justify-center items-center">
-        <div className="rating">
-          <input
-            type="radio"
-            name="rating-2"
-            className="mask mask-star-2 bg-orange-400"
-          />
-          <input
-            type="radio"
-            name="rating-2"
-            className="mask mask-star-2 bg-orange-400"
-            checked
-          />
-          <input
-            type="radio"
-            name="rating-2"
-            className="mask mask-star-2 bg-orange-400"
-          />
-          <input
-            type="radio"
-            name="rating-2"
-            className="mask mask-star-2 bg-orange-400"
-          />
-          <input
-            type="radio"
-            name="rating-2"
-            className="mask mask-star-2 bg-orange-400"
-          />
-          <p className="text-sm text-primary m-2">{rating}</p>
-        </div>
-      </div>
-      <div>
-        <h2 className="text-sm font-bold">Description</h2>
-        <p className="text-sm text-primary">{description}</p>
-        <div className="flex justify-center">
-          <button className="bg-primary text-white rounded-box p-2 m-2">
-            Attend
-          </button>
-        </div>
-      </div>
-    </div>
+        </>
+      }
+      rating={rating}
+      description={description}
+    >
+      <button className="btn btn-primary mx-auto my-5 p-4">More Info</button>
+      <button className="btn btn-accent mx-auto my-5 p-4">Hire</button>
+    </ProfileCard>
   );
 }
 
-export default ClientCard;
+export default ExpertCard;
