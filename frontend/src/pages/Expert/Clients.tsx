@@ -9,7 +9,7 @@ function Clients() {
       profile_pic: demo_profile,
       expert_in: "Web Development",
       experience: 5,
-      rating: 3.5,
+      rating: 4,
       price: 50,
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
