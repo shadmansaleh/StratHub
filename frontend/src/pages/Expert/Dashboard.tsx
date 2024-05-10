@@ -29,13 +29,13 @@ const Dashboard = () => {
   // Function to dynamically add "hour" or "minute" based on the activity count
   const getActivityDisplay = (count: number): string => {
     if (count === 1) {
-      return "1 hour";
+      return "1 h";
     } else if (count < 60) {
-      return `${count} hours`;
+      return `${count} h`;
     } else {
       const minutes = count % 60;
       const hours = Math.floor(count / 60);
-      return `${hours} hours ${minutes} minutes`;
+      return `${hours} h ${minutes} m`;
     }
   };
 
