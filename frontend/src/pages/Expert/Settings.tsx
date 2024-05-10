@@ -51,48 +51,39 @@ const Settings = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-base-100 dark:bg-base-800 text-base-content dark:text-base-100">
       <h1 className="text-4xl text-primary pt-2 pb-4">Settings</h1>
       <hr className="divider w-[12rem]" />
 
-      {/* Profile Settings */}
-      {/* Code for profile settings */}
-
-      {/* Location and Timezone Settings */}
-      {/* Code for location and timezone settings */}
-
-      {/* Password Settings */}
-      {/* Code for password settings */}
-
       {/* Notification Settings */}
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Notification Settings</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-primary dark:text-primary-light">Notification Settings</h2>
         <div className="flex items-center">
           <input
             id="notification"
             type="checkbox"
-            className="focus:ring-indigo-500 h-6 w-6 text-indigo-600 border-gray-300 rounded"
+            className="focus:ring-primary dark:focus:ring-primary-light h-6 w-6 text-primary dark:text-primary-light border-gray-300 dark:border-gray-600 rounded"
             checked={notification}
             onChange={(e) => setNotification(e.target.checked)}
           />
-          <label htmlFor="notification" className="ml-4 block text-lg text-gray-900">
+          <label htmlFor="notification" className="ml-4 block text-lg text-gray-900 dark:text-gray-100">
             Receive notifications
           </label>
         </div>
 
         {/* Email Notification */}
         <div className="mt-4">
-          <h2 className="text-2xl font-semibold mb-4">Email Notification Preferences</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-primary dark:text-primary-light">Email Notification Preferences</h2>
           <div className="mt-2">
             <div className="flex items-center">
               <input
                 id="emailNotification"
                 type="checkbox"
-                className="focus:ring-indigo-500 h-6 w-6 text-indigo-600 border-gray-300 rounded"
+                className="focus:ring-primary dark:focus:ring-primary-light h-6 w-6 text-primary dark:text-primary-light border-gray-300 dark:border-gray-600 rounded"
                 checked={emailNotification}
                 onChange={(e) => setEmailNotification(e.target.checked)}
               />
-              <label htmlFor="emailNotification" className="ml-4 block text-lg text-gray-900">
+              <label htmlFor="emailNotification" className="ml-4 block text-lg text-gray-900 dark:text-gray-100">
                 Receive email notifications
               </label>
             </div>
@@ -103,11 +94,11 @@ const Settings = () => {
                   <input
                     id="importantEmails"
                     type="checkbox"
-                    className="focus:ring-indigo-500 h-6 w-6 text-indigo-600 border-gray-300 rounded"
+                    className="focus:ring-primary dark:focus:ring-primary-light h-6 w-6 text-primary dark:text-primary-light border-gray-300 dark:border-gray-600 rounded"
                     checked={importantEmails}
                     onChange={(e) => setImportantEmails(e.target.checked)}
                   />
-                  <label htmlFor="importantEmails" className="ml-4 block text-lg text-gray-900">
+                  <label htmlFor="importantEmails" className="ml-4 block text-lg text-gray-900 dark:text-gray-100">
                     Receive notifications for important emails only
                   </label>
                 </div>
@@ -115,11 +106,11 @@ const Settings = () => {
                   <input
                     id="emailDigest"
                     type="checkbox"
-                    className="focus:ring-indigo-500 h-6 w-6 text-indigo-600 border-gray-300 rounded"
+                    className="focus:ring-primary dark:focus:ring-primary-light h-6 w-6 text-primary dark:text-primary-light border-gray-300 dark:border-gray-600 rounded"
                     checked={emailDigest}
                     onChange={(e) => setEmailDigest(e.target.checked)}
                   />
-                  <label htmlFor="emailDigest" className="ml-4 block text-lg text-gray-900">
+                  <label htmlFor="emailDigest" className="ml-4 block text-lg text-gray-900 dark:text-gray-100">
                     Receive daily email digest
                   </label>
                 </div>
@@ -131,11 +122,11 @@ const Settings = () => {
 
       {/* Availability Settings */}
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Availability Settings</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-primary dark:text-primary-light">Availability Settings</h2>
         <div className="flex items-center">
-          <label className="block text-lg font-medium text-gray-700 mr-4">Availability</label>
+          <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mr-4">Availability</label>
           <select
-            className="mt-2 focus:ring-indigo-500 focus:border-indigo-500 block w-1/2 h-10 shadow-sm sm:text-lg border-gray-300 rounded-box"
+            className="mt-2 focus:ring-primary dark:focus:ring-primary-light focus:border-primary dark:focus:border-primary-light block w-1/2 h-10 shadow-sm sm:text-lg border-gray-300 dark:border-gray-600 rounded-box"
             value={availability}
             onChange={(e) => setAvailability(e.target.value)}
           >
@@ -148,16 +139,16 @@ const Settings = () => {
 
       {/* Two-factor Authentication Settings */}
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Two-factor Authentication</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-primary dark:text-primary-light">Two-factor Authentication</h2>
         <div className="flex items-center">
           <input
             id="twoFactorAuth"
             type="checkbox"
-            className="focus:ring-indigo-500 h-6 w-6 text-indigo-600 border-gray-300 rounded"
+            className="focus:ring-primary dark:focus:ring-primary-light h-6 w-6 text-primary dark:text-primary-light border-gray-300 dark:border-gray-600 rounded"
             checked={twoFactorAuth}
             onChange={(e) => setTwoFactorAuth(e.target.checked)}
           />
-          <label htmlFor="twoFactorAuth" className="ml-4 block text-lg text-gray-900">
+          <label htmlFor="twoFactorAuth" className="ml-4 block text-lg text-gray-900 dark:text-gray-100">
             Enable Two-factor Authentication
           </label>
         </div>
@@ -165,11 +156,11 @@ const Settings = () => {
 
       {/* Language Preference */}
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Language Preference</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-primary dark:text-primary-light">Language Preference</h2>
         <div className="flex items-center">
-          <label className="block text-lg font-medium text-gray-700 mr-4">Language</label>
+          <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mr-4">Language</label>
           <select
-            className="mt-2 focus:ring-indigo-500 focus:border-indigo-500 block w-1/2 h-10 shadow-sm sm:text-lg border-gray-300 rounded-box"
+            className="mt-2 focus:ring-primary dark:focus:ring-primary-light focus:border-primary dark:focus:border-primary-light block w-1/2 h-10 shadow-sm sm:text-lg border-gray-300 dark:border-gray-600 rounded-box"
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
           >
@@ -183,7 +174,7 @@ const Settings = () => {
 
       {/* Data Export */}
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Data Export</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-primary dark:text-primary-light">Data Export</h2>
         <button className="btn btn-primary text-lg" onClick={exportData}>
           Export Data
         </button>
@@ -191,8 +182,8 @@ const Settings = () => {
 
       {/* Account Deletion */}
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Account Deletion</h2>
-        <p className="text-lg text-gray-700 mb-4">
+        <h2 className="text-2xl font-semibold mb-4 text-primary dark:text-primary-light">Account Deletion</h2>
+        <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
           Please note that account deletion is irreversible and all your data will be lost.
         </p>
         <button className="btn btn-danger text-lg" onClick={deleteAccount}>
