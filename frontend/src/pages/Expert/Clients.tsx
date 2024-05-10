@@ -16,6 +16,10 @@ function Clients() {
     });
   }
   return (
+    <div>
+    <div>
+    <h1 className="text-3xl text-primary pt-2 pb-0">Clients</h1></div>
+      <hr className="divider w-[12rem]" />
     <div className="flex justify-center items-center flex-wrap w-[90%] m-auto gap-[1rem]">
       {clients.map((client, idx) => (
         <ClientCard
@@ -29,6 +33,7 @@ function Clients() {
           description={client.description}
         />
       ))}
+    </div>
     </div>
   );
 }
