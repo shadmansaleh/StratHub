@@ -18,6 +18,10 @@
   "author": "shadmansaleh",
   "license": "GPL-3.0-only",
   "devDependencies": {
+    "@types/react-datepicker": "^6.2.0",
     "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "react-datepicker": "^6.9.0"
   }
 }
