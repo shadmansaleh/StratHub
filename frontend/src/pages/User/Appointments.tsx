@@ -140,12 +140,13 @@ function Appointments() {
   return (
     <div className="m-10">
       <div className="flex mb-4">
-        <h3 className="text-2xl font-normal">Appointments</h3>
+        <h1 className="text-3xl text-primary pt-2 pb-0">Appointments</h1>
         <button className="btn btn-sm btn-ghost ml-auto font-light">
           <CiExport size={20} />
           Export CSV
         </button>
       </div>
+      <hr className="divider w-[12rem]" />
       <div className="">
         <div className="flex">
           <TextBox
