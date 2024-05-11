@@ -1,6 +1,7 @@
 import { useState } from "react";
 import TextBox from "../../components/TextBox";
 import ExpertCard from "../../components/ExpertCard";
+import demo_profile from "./Profile/assets/profile_demo.svg"
 
 function Search() {
   const categories = [
@@ -28,6 +29,7 @@ function Search() {
   for (let i = 0; i < 15; i++) {
     experts.push({
       name: "John Doe",
+      profile_pic: demo_profile,
       expert_in: "Web Development",
       experience: 5,
       rating: 3.5,

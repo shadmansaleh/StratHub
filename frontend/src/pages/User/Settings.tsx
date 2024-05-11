@@ -5,7 +5,7 @@ const Settings: React.FC = () => {
   const [userData, setUserData] = useState({
     name: "John Doe",
     email: "john@example.com",
-    profilePicture: "profile.jpg",
+    profilePicture: "Profile/assets/profile_demo.svg",
     theme: "light",
     language: "English",
     receiveNotifications: true,
@@ -55,9 +55,9 @@ const Settings: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto mt-8 px-4">
-      <h1 className="text-3xl font-semibold text-primary mb-4">User Settings</h1>
-      
+    <div className="container">
+      <h1 className="text-3xl text-primary pt-2 pb-0">User Setting</h1>
+      <hr className="divider w-[12rem]" />
       {/* Profile Information */}
       <div className="bg-base-200 dark:bg-base-800 p-4 rounded-lg mb-4">
         <h2 className="text-lg font-semibold text-primary mb-2">Profile Information</h2>
@@ -68,6 +68,7 @@ const Settings: React.FC = () => {
             <p className="text-sm text-gray-500">{userData.email}</p>
           </div>
         </div>
+        {/* If someone click here it will redirect to the profile page */}
         <button className="btn btn-primary">Edit Profile</button>
       </div>
       
