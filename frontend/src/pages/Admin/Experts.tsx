@@ -58,7 +58,7 @@ function Experts() {
         />
         <button className="btn btn-accent m-2">Search</button>
       </div>
-      <table className="table">
+      <table className="table w-[90%] m-auto">
         <thead>
           <tr>
             {["ID", "Name", "Email", "Operations"].map((item, idx) => (
@@ -75,8 +75,8 @@ function Experts() {
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td className="flex gap-2">
-                <MdEdit />
-                <MdDelete />
+                <MdEdit className="text-accent" />
+                <MdDelete className="text-error" />
               </td>
             </tr>
           ))}
