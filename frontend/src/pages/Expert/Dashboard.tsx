@@ -69,7 +69,10 @@ const Dashboard: React.FC = () => {
       <div className="container mx-auto mt-8 px-4">
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center">
-            <label htmlFor="fromDate" className="text-lg font-semibold text-primary mr-4">
+            <label
+              htmlFor="fromDate"
+              className="text-lg font-semibold text-primary mr-4"
+            >
               From:
             </label>
             <DatePicker
@@ -81,7 +84,10 @@ const Dashboard: React.FC = () => {
             />
           </div>
           <div className="flex items-center">
-            <label htmlFor="toDate" className="text-lg font-semibold text-primary mr-4">
+            <label
+              htmlFor="toDate"
+              className="text-lg font-semibold text-primary mr-4"
+            >
               To:
             </label>
             <DatePicker
@@ -94,9 +100,13 @@ const Dashboard: React.FC = () => {
           </div>
           <div className="flex items-center ml-auto">
             <p className="text-lg font-semibold text-primary mr-4">
-              {currentTime.toLocaleDateString()} {currentTime.toLocaleTimeString()}
+              {currentTime.toLocaleDateString()}{" "}
+              {currentTime.toLocaleTimeString()}
             </p>
-            <label htmlFor="timezone" className="text-lg font-semibold text-primary mr-4">
+            <label
+              htmlFor="timezone"
+              className="text-lg font-semibold text-primary mr-4"
+            >
               Timezone:
             </label>
             <select
@@ -118,7 +128,9 @@ const Dashboard: React.FC = () => {
           <div className="flex justify-between">
             {/* Today's Activity */}
             <div className="flex flex-col items-center">
-              <h2 className="text-lg font-semibold text-primary mb-2">Today's Activity</h2>
+              <h2 className="text-lg font-semibold text-primary mb-2">
+                Today's Activity
+              </h2>
               <p className="text-3xl font-bold text-primary">
                 {getActivityDisplay(todayActivity)}
               </p>
@@ -127,7 +139,9 @@ const Dashboard: React.FC = () => {
 
             {/* Weekly Activity */}
             <div className="flex flex-col items-center">
-              <h2 className="text-lg font-semibold text-primary mb-2">Weekly Activity</h2>
+              <h2 className="text-lg font-semibold text-primary mb-2">
+                Weekly Activity
+              </h2>
               <p className="text-3xl font-bold text-primary">
                 {getActivityDisplay(weeklyActivity)}
               </p>
@@ -136,7 +150,9 @@ const Dashboard: React.FC = () => {
 
             {/* Monthly Activity */}
             <div className="flex flex-col items-center">
-              <h2 className="text-lg font-semibold text-primary mb-2">Monthly Activity</h2>
+              <h2 className="text-lg font-semibold text-primary mb-2">
+                Monthly Activity
+              </h2>
               <p className="text-3xl font-bold text-primary">
                 {getActivityDisplay(monthlyActivity)}
               </p>
@@ -145,7 +161,9 @@ const Dashboard: React.FC = () => {
 
             {/* Active Clients */}
             <div className="flex flex-col items-center">
-              <h2 className="text-lg font-semibold text-primary mb-2">Active Clients</h2>
+              <h2 className="text-lg font-semibold text-primary mb-2">
+                Active Clients
+              </h2>
               <p className="text-3xl font-bold text-primary">{activeClients}</p>
             </div>
           </div>
@@ -154,11 +172,21 @@ const Dashboard: React.FC = () => {
         {/* Currently Active */}
         {activeMember && (
           <div className="mt-8 border border-gray-300 rounded-md p-4 bg-base-200 dark:bg-base-700">
-            <h2 className="text-lg font-semibold text-primary mb-2">Currently Active</h2>
-            <p className="text-xl font-semibold text-primary">Name: {activeMember.name}</p>
-            <p className="text-lg text-primary">Today's Time: {activeMember.todayTime} hours</p>
-            <p className="text-lg text-primary">This Week's Time: {activeMember.weeklyTime} hours</p>
-            <p className="text-lg text-primary">This Month's Time: {activeMember.monthlyTime} hours</p>
+            <h2 className="text-lg font-semibold text-primary mb-2">
+              Currently Active
+            </h2>
+            <p className="text-xl font-semibold text-primary">
+              Name: {activeMember.name}
+            </p>
+            <p className="text-lg text-primary">
+              Today's Time: {activeMember.todayTime} hours
+            </p>
+            <p className="text-lg text-primary">
+              This Week's Time: {activeMember.weeklyTime} hours
+            </p>
+            <p className="text-lg text-primary">
+              This Month's Time: {activeMember.monthlyTime} hours
+            </p>
           </div>
         )}
       </div>
