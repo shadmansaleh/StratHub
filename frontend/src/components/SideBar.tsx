@@ -19,7 +19,7 @@ interface SideBarItem {
 }
 
 function SideBar() {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
   const { auth, clearAuth } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -37,8 +37,8 @@ function SideBar() {
 
   const user_sidebar_items: SideBarItem[] = [
     // { name: "Dashboard", icon: MdDashboard, key: "dashboard" },
-    { name: "Profile", icon: FaUser, key: "profile" },
     { name: "Search", icon: FaSearch, key: "search" },
+    { name: "Profile", icon: FaUser, key: "profile" },
     { name: "Appointments", icon: AiFillSchedule, key: "appointments" },
     {
       name: "Favorites",

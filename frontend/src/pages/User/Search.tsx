@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TextBox from "../../components/TextBox";
 import ExpertCard from "../../components/ExpertCard";
-import demo_profile from "./Profile/assets/profile_demo.svg"
+import demo_profile from "./Profile/assets/profile_demo.svg";
 
 function Search() {
   const categories = [
@@ -45,6 +45,11 @@ function Search() {
         <div className="bg-gradient-to-r from-blue-500 to-slate-300 text-transparent bg-clip-text m-4 p-4 flex justify-center items-center">
           <p className=" font-bold p-2 m-2 text-7xl">FIND YOUR EXPERT</p>
         </div>
+        <TextBox
+          placeholder="Search For Expert Advice"
+          label=""
+          className="w-[70%] mx-auto my-10 h-16 [&>input]:h-16 [&>input]:border-2 [&>input]:border-primary"
+        />
         <div className="flex justify-center items-center">
           <ul className=" ml-32 mr-32 flex justify-center items-center flex-wrap">
             {categories.map((item, idx) => (
@@ -73,11 +78,6 @@ function Search() {
             Explore, and choose the best advisor for you and Glorify Your Skill
           </p>
         </div>
-        <TextBox
-          placeholder="Search For Expert Advice"
-          label=""
-          className="w-[70%] mx-auto"
-        />
         <div className="flex justify-center items-center flex-wrap w-[90%] m-auto gap-[1rem] my-20">
           {experts.map((client, idx) => (
             <ExpertCard

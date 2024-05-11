@@ -69,10 +69,10 @@ function App() {
         </ProtectedRoute>
       ),
       children: [
-        { index: true, element: <UserProfilePage /> },
+        { index: true, element: <UserSearchPage /> },
         // { path: "dashboard", element: <UserDashboardPage /> },
-        { path: "profile", element: <UserProfilePage /> },
         { path: "search", element: <UserSearchPage /> },
+        { path: "profile", element: <UserProfilePage /> },
         { path: "appointments", element: <UserAppointmentsPage /> },
         { path: "favorites", element: <UserFavoritesPage /> },
         { path: "history", element: <UserHistoryPage /> },
