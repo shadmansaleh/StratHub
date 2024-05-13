@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import ProfileCard from "./ProfileCard";
 
 interface ExpertCardProps {
@@ -41,7 +42,9 @@ function ExpertCard({
       rating={rating}
       description={description}
     >
-      <button className="btn btn-primary mx-auto my-5 p-4">More Info</button>
+      <Link to="/user/consultant" className="btn btn-primary mx-auto my-5 p-4">
+        More Info
+      </Link>
       <button className="btn btn-accent mx-auto my-5 p-4">Hire</button>
     </ProfileCard>
   );

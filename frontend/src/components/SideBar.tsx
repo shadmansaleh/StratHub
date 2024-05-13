@@ -8,7 +8,7 @@ import { FaUser, FaHeart, FaHistory, FaSearch } from "react-icons/fa";
 import { MdLogout, MdDashboard, MdManageAccounts } from "react-icons/md";
 import { IoMdSettings, IoIosPeople } from "react-icons/io";
 import { AiFillSchedule } from "react-icons/ai";
-import { BsPersonFillCheck } from "react-icons/bs";
+import { BsPersonFillCheck, BsChatDotsFill } from "react-icons/bs";
 import { TbReport } from "react-icons/tb";
 
 interface SideBarItem {
@@ -46,6 +46,7 @@ function SideBar() {
       key: "favorites",
     },
     { name: "History", icon: FaHistory, key: "history" },
+    { name: "Chat", icon: BsChatDotsFill, key: "chat" },
     { name: "Settings", icon: IoMdSettings, key: "settings" },
     { name: "Logout", icon: MdLogout, key: "logout", onClick: onLogout },
   ];
@@ -55,6 +56,7 @@ function SideBar() {
     { name: "Profile", icon: FaUser, key: "profile" },
     { name: "Clients", icon: MdManageAccounts, key: "clients" },
     { name: "Recent", icon: FaHistory, key: "recent" },
+    { name: "Chat", icon: BsChatDotsFill, key: "chat" },
     { name: "Settings", icon: IoMdSettings, key: "settings" },
     { name: "Logout", icon: MdLogout, key: "logout", onClick: onLogout },
   ];

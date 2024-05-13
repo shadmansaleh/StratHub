@@ -15,6 +15,7 @@ import LoginPage from "./pages/General/Auth/Login";
 import SignUpPage from "./pages/General/Auth/SignUp";
 import ResetPasswordPage from "./pages/General/Auth/ResetPassword";
 import HomePage from "./pages/General/Home";
+import ChatPage from "./pages/General/Chat";
 import NotFound404 from "./pages/General/NotFound404";
 
 // User-pages
@@ -76,9 +77,10 @@ function App() {
         { path: "appointments", element: <UserAppointmentsPage /> },
         { path: "favorites", element: <UserFavoritesPage /> },
         { path: "history", element: <UserHistoryPage /> },
+        { path: "chat", element: <ChatPage /> },
         { path: "settings", element: <UserSettingsPage /> },
-        { path: "consultant/:id", element: <UserConsultantPage /> },
-        { path: "meet/:id", element: <UserMeetPage /> },
+        { path: "consultant", element: <UserConsultantPage /> },
+        { path: "meet", element: <UserMeetPage /> },
       ],
     },
     {
@@ -94,8 +96,9 @@ function App() {
         { path: "profile", element: <ExpertProfilePage /> },
         { path: "clients", element: <ExpertClientsPage /> },
         { path: "recent", element: <ExpertRecentPage /> },
+        { path: "chat", element: <ChatPage /> },
         { path: "settings", element: <ExpertSettingsPage /> },
-        { path: "meet/:id", element: <ExpertMeetPage /> },
+        { path: "meet", element: <ExpertMeetPage /> },
       ],
     },
     {
