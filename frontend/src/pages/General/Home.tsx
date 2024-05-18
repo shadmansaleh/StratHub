@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { useAxios } from "../../hooks/useAxios";
 import { AxiosResponse } from "axios";
 import SideBar from "../../components/SideBar";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import NavBarFloating from "../../components/NavBarfloating";
 import { BsChatDotsFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -20,6 +20,9 @@ function UserHome() {
     axios.get("/auth/verify_token").catch(axiosErrHandler);
   }, []);
 
+  const loc = useLocation();
+  const path_split = loc.pathname.split("/");
+  const cur_key = path_split[2];
   const { auth } = useContext(AuthContext);
 
   return (
@@ -29,11 +32,12 @@ function UserHome() {
         <div className="flex flex-col w-full bg-base-100">
           <NavBarFloating />
           <div className="mx-auto my-6 w-[98%] h-full overflow-y-auto overflow-x-hidden">
-            {(auth?.role === "user" || auth?.role === "expert") && (
-              <Link to={`/${auth.role}/chat`}>
-                <BsChatDotsFill className="fixed bottom-8 right-8 text-4xl text-accent cursor-pointer shadow-xl z-10" />
-              </Link>
-            )}
+            {(auth?.role === "user" || auth?.role === "expert") &&
+              !["chat", "consultant"].includes(cur_key) && (
+                <Link to={`/${auth.role}/chat`}>
+                  <BsChatDotsFill className="fixed bottom-8 right-8 text-4xl text-accent cursor-pointer shadow-xl z-10" />
+                </Link>
+              )}
             <Outlet />
           </div>
         </div>
