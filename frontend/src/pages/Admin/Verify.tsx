@@ -1,6 +1,5 @@
-import React from "react";
 import TextBox from "../../components/TextBox";
-import { MdDelete, MdEdit, MdInfo } from "react-icons/md";
+import { MdCheck, MdDelete, MdEdit, MdInfo } from "react-icons/md";
 
 function Verify() {
   let verification_requests = [
@@ -74,9 +73,15 @@ function Verify() {
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td className="flex gap-2">
-                <MdEdit className="text-accent cursor-pointer" />
-                <MdDelete className="text-error  cursor-pointer" />
-                <MdInfo className="text-info  cursor-pointer" />
+                <div className="tooltip tooltip-primary" data-tip="Accept">
+                  <MdCheck className="text-accent cursor-pointer" />
+                </div>
+                <div className="tooltip tooltip-primary" data-tip="Decline">
+                  <MdDelete className="text-error cursor-pointer" />
+                </div>
+                <div className="tooltip tooltip-primary" data-tip="More info">
+                  <MdInfo className="text-info cursor-pointer" />
+                </div>
               </td>
             </tr>
           ))}

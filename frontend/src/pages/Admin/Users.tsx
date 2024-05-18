@@ -48,8 +48,8 @@ function Users() {
   ];
 
   return (
-    <div>
-      <h1 className="text-3xl text-primary pt-2 pb-0 w-[95%] mx-auto">Users</h1>
+    <div className="w-[95%] mx-auto">
+      <h1 className="text-3xl text-primary pt-2 pb-0">Users</h1>
       <hr className="divider w-[12rem]" />
       <div className="flex p-10">
         <TextBox
@@ -75,8 +75,12 @@ function Users() {
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td className="flex gap-2">
-                <MdEdit className="text-accent" />
-                <MdDelete className="text-error" />
+                <div className="tooltip tooltip-primary" data-tip="Edit">
+                  <MdEdit className="text-accent cursor-pointer" />
+                </div>
+                <div className="tooltip tooltip-primary" data-tip="Delete">
+                  <MdDelete className="text-error cursor-pointer" />
+                </div>
               </td>
             </tr>
           ))}

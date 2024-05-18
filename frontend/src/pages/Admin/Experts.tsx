@@ -75,8 +75,12 @@ function Experts() {
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td className="flex gap-2">
-                <MdEdit className="text-accent" />
-                <MdDelete className="text-error" />
+                <div className="tooltip tooltip-primary" data-tip="Edit">
+                  <MdEdit className="text-accent cursor-pointer" />
+                </div>
+                <div className="tooltip tooltip-primary" data-tip="Delete">
+                  <MdDelete className="text-error cursor-pointer" />
+                </div>
               </td>
             </tr>
           ))}
