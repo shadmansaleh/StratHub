@@ -73,7 +73,7 @@ function Consultant() {
   return (
     <>
       <div className="flex gap-10 h-full overflow-hidden">
-        <div className="flex flex-col h-full w-[25%] overflow-y-scroll overflow-x-clip">
+        <div className="flex flex-col h-[90vh] w-[25%] overflow-y-scroll overflow-x-clip no-scrollbar">
           <img
             src={profile_pic}
             alt=""
