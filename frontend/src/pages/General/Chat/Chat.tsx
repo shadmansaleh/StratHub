@@ -76,20 +76,24 @@ function Chat() {
             {messages["John Doe"].map((msg, idx) => (
               <div
                 key={idx}
-                className={`card card-compact p-2 shadow-md my-2 max-w-[50%]  ${
-                  msg.user ? "ml-auto bg-secondary" : "mr-auto"
+                className={` chat ${
+                  msg.user ? "chat-end" : "mr-auto chat-start"
                 }`}
               >
-                <div className="flex p-2">
+                <div className="chat-image">
                   <img
                     src={msg.sender === "John Doe" ? avater1 : avater2}
                     alt="user"
                     className="h-10 w-10 rounded-full"
                   />
-                  <div className="flex flex-col ml-2">
-                    <h3 className="text-lg card-title">{msg.sender}</h3>
-                    <p className="text-sm">{msg.message}</p>
-                  </div>
+                </div>
+                {/* <div className="chat-header">{msg.sender}</div> */}
+                <div
+                  className={`chat-bubble ${
+                    msg.user ? "chat-bubble-primary" : "chat-bubble-secondary"
+                  }`}
+                >
+                  <p className="p-1">{msg.message}</p>
                 </div>
               </div>
             ))}
