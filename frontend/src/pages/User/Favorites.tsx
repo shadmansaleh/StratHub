@@ -1,7 +1,7 @@
 import React from "react";
 import TextBox from "../../components/TextBox";
 import ExpertCard from "../../components/ExpertCard";
-import demo_profile from "./Profile/assets/profile_demo.svg"
+import demo_profile from "./Profile/assets/profile_demo.svg";
 
 function Favorites() {
   let experts = [];
@@ -19,7 +19,7 @@ function Favorites() {
   }
   return (
     <>
-      <div className="">
+      <div className=" w-[95%] mx-auto">
         <h1 className="text-3xl text-primary pt-2 pb-0">Favorites</h1>
         <hr className="divider w-[12rem]" />
         <div className="flex justify-center items-center flex-wrap w-[90%] m-auto gap-[1rem] my-20">

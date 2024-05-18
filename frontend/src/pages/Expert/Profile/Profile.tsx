@@ -9,7 +9,7 @@ const Profile = () => {
   const companies = ["ProCrew", "Noon", "LamasaTech"];
 
   return (
-    <div className="w-full">
+    <div className="w-[95%] mx-auto">
       <h1 className="text-3xl text-primary pt-2 pb-0">Expert Profile</h1>
       <hr className="divider w-[12rem]" />
       <div className="flex flex-row justify-between items-center">

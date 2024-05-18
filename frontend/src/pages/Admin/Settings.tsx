@@ -1,7 +1,7 @@
 import React from "react";
 
 function Settings() {
-  return <div>Settings</div>;
+  return <div className="w-[95%] mx-auto">Settings</div>;
 }
 
 export default Settings;

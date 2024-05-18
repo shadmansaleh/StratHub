@@ -48,7 +48,7 @@ function Experts() {
   ];
 
   return (
-    <div>
+    <div className="w-[95%] mx-auto">
       <h1 className="text-3xl text-primary pt-2 pb-0">Experts</h1>
       <hr className="divider w-[12rem]" />
       <div className="flex p-10">

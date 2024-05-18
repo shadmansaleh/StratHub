@@ -49,7 +49,7 @@ function Users() {
 
   return (
     <div>
-      <h1 className="text-3xl text-primary pt-2 pb-0">Users</h1>
+      <h1 className="text-3xl text-primary pt-2 pb-0 w-[95%] mx-auto">Users</h1>
       <hr className="divider w-[12rem]" />
       <div className="flex p-10">
         <TextBox
