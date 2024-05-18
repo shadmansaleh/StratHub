@@ -38,9 +38,9 @@ function Chat() {
   };
   return (
     <div className="flex gap-10">
-      <div className="flex flex-col w-1/4 border-r-primary border-r-2 border-opacity-50 overflow-hidden">
+      <div className="flex flex-col w-1/5 border-r-primary border-r-2 border-opacity-50 overflow-hidden">
         <h2 className="text-3xl p-2 text-accent">Conversations</h2>
-        <div className="flex flex-col h-[85vh] overflow-x-hidden overflow-y-auto ">
+        <div className="flex flex-col h-[85vh] overflow-x-hidden overflow-y-auto no-scrollbar">
           {/* conversation list */}
           {thread_list.map((thread, idx) => (
             <div
@@ -71,7 +71,7 @@ function Chat() {
       <div className="flex flex-col flex-1">
         <div className="flex flex-col overflow-hidden">
           <h2 className="text-3xl p-2 text-accent">Messages</h2>
-          <div className="flex flex-col h-[80vh] overflow-x-hidden overflow-y-auto">
+          <div className="flex flex-col h-[80vh] overflow-x-hidden overflow-y-auto no-scrollbar">
             {/* messages */}
             {messages["John Doe"].map((msg, idx) => (
               <div
