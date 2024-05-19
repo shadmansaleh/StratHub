@@ -22,7 +22,7 @@ const Recent: React.FC = () => {
   ];
 
   return (
-    <div className="w-full bg-base-100 dark:bg-base-800 text-base-content dark:text-base-100 w-[95%] mx-auto">
+    <div className="bg-base-100 dark:bg-base-800 text-base-content dark:text-base-100 w-[95%] mx-auto">
       <h1 className="text-3xl text-primary pt-2 pb-0">Recent Activity</h1>
       <hr className="divider w-[12rem]" />
 
