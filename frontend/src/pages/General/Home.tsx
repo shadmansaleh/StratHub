@@ -1,12 +1,12 @@
 import { useState, useEffect, useContext } from "react";
-import { useAxios } from "../../hooks/useAxios";
+import { useAxios } from "@/hooks/useAxios";
 import { AxiosResponse } from "axios";
-import SideBar from "../../components/SideBar";
+import SideBar from "@/components/SideBar";
 import { Outlet, useLocation } from "react-router-dom";
-import NavBarFloating from "../../components/NavBarfloating";
+import NavBarFloating from "@/components/NavBarfloating";
 import { BsChatDotsFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthProvider";
+import { AuthContext } from "@/contexts/AuthProvider";
 
 interface User {
   username?: string;

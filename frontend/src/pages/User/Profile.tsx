@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import useAxios from "@/hooks/useAxios";
-import demo_profile from "./assets/profile_demo.svg";
+import demo_profile from "@/assets/profile_demo.svg";
 import TextBox from "@/components/TextBox";
 import { strCapitalize } from "@/utils/utils";
 

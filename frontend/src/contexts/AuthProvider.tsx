@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
-import useLocalStorage from "../hooks/useLocalStorage";
-import useSessionStorage from "../hooks/useSessionStorage";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import useSessionStorage from "@/hooks/useSessionStorage";
 import Axios from "axios";
 
 export interface AuthCtxType {

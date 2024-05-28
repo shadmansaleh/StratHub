@@ -1,5 +1,5 @@
-import ClientCard from "../../components/ClientCard";
-import demo_profile from "../../assets/profile_demo.png";
+import ClientCard from "@/components/ClientCard";
+import demo_profile from "@/assets/profile_demo.png";
 
 function Clients() {
   let clients = [];

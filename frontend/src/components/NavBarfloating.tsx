@@ -2,8 +2,8 @@ import { FaSearch } from "react-icons/fa";
 import { IoSunnyOutline, IoMoonOutline } from "react-icons/io5";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
-import TextBox from "../components/TextBox";
-import useDarkMode from "../hooks/useDarkMode";
+import TextBox from "@/components/TextBox";
+import useDarkMode from "@/hooks/useDarkMode";
 import { useLocation } from "react-router-dom";
 
 const NavBarFloating = () => {

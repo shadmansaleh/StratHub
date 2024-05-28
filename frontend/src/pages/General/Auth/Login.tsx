@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { FaGoogle, FaTwitter, FaApple, FaFacebook } from "react-icons/fa";
 import { useContext } from "react";
-import { AuthContext } from "../../../contexts/AuthProvider";
-import { useAxios } from "../../../hooks/useAxios";
+import { AuthContext } from "@/contexts/AuthProvider";
+import { useAxios } from "@/hooks/useAxios";
 import { enqueueSnackbar } from "notistack";
-import TextBox from "../../../components/TextBox";
+import TextBox from "@/components/TextBox";
 import { useNavigate } from "react-router-dom";
 import { AxiosError, AxiosResponse } from "axios";
 

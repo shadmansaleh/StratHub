@@ -1,6 +1,6 @@
 import avater1 from "./assets/man.png";
 import avater2 from "./assets/woman.png";
-import TextBox from "../../../components/TextBox";
+import TextBox from "@/components/TextBox";
 import { IoIosAddCircle } from "react-icons/io";
 
 function Chat() {

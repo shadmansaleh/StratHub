@@ -1,7 +1,5 @@
-import React from "react";
-import TextBox from "../../components/TextBox";
-import ExpertCard from "../../components/ExpertCard";
-import demo_profile from "./Profile/assets/profile_demo.svg";
+import ExpertCard from "@/components/ExpertCard";
+import demo_profile from "@/assets/profile_demo.svg";
 
 function Favorites() {
   let experts = [];

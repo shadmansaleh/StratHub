@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { CiExport } from "react-icons/ci";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
-import TextBox from "../../components/TextBox";
+import TextBox from "@/components/TextBox";
 
 function Appointments() {
   const appointments = [

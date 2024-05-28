@@ -1,6 +1,4 @@
-import React from "react";
-import demo_profile from "../assets/profile_demo.png";
-import { useState } from "react";
+import demo_profile from "@/assets/profile_demo.png";
 
 interface ClientCardProps {
   name: string;

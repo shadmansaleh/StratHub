@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import profilePicture from "./Profile/assets/profile_demo.svg";
+import profilePicture from "@/assets/profile_demo.svg";
 
 const Settings: React.FC = () => {
   // Sample user data

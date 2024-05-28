@@ -1,4 +1,4 @@
-import demo_profile from "../assets/profile_demo.png";
+import demo_profile from "@/assets/profile_demo.png";
 import { ReactNode } from "react";
 
 interface ProfileCard {

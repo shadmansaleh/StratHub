@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import ProfileCard from "./ProfileCard";
+import ProfileCard from "@/components/ProfileCard";
 
 interface ExpertCardProps {
   name: string;

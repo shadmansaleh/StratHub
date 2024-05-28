@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useContext } from "react";
-import { AuthContext } from "../contexts/AuthProvider";
-import logo from "../assets/logo.png";
+import { AuthContext } from "@/contexts/AuthProvider";
+import logo from "@/assets/logo.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IconType } from "react-icons";
 import { FaUser, FaHeart, FaHistory, FaSearch } from "react-icons/fa";

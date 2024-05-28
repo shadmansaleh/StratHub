@@ -1,20 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import useAxios from "../../../hooks/useAxios";
-import demo_profile from "./assets/profile_demo.png";
-import TextBox from "../../../components/TextBox";
+import useAxios from "@/hooks/useAxios";
+import demo_profile from "@/assets/profile_demo.png";
+import TextBox from "@/components/TextBox";
 import { BsSuitcaseLgFill } from "react-icons/bs";
-import { ProfileInfoType } from "@/pages/User/Profile/Profile";
-import {
-  MdAddCircle,
-  MdAddCircleOutline,
-  MdAddIcCall,
-  MdRemove,
-  MdRemoveCircle,
-} from "react-icons/md";
+import { ProfileInfoType } from "@/pages/User/Profile";
+import { MdAddCircle, MdRemoveCircle } from "react-icons/md";
 import { strCapitalize } from "@/utils/utils";
 
 const Profile = () => {
-  const companies = ["ProCrew", "Noon", "LamasaTech"];
   const [loading, setLoading] = useState(true);
   const [profile_info, setProfileInfo] = useState<ProfileInfoType>({
     username: "",

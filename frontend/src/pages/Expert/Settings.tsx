@@ -1,5 +1,5 @@
 import { useState } from "react";
-import TextBox from "../../components/TextBox";
+import TextBox from "@/components/TextBox";
 
 const Settings = () => {
   const [name, setName] = useState("");

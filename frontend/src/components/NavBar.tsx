@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import logo from "../assets/logo.png";
+import logo from "@/assets/logo.png";
 import { IoSunnyOutline, IoMoonOutline } from "react-icons/io5";
-import useDarkMode from "../hooks/useDarkMode";
+import useDarkMode from "@/hooks/useDarkMode";
 
 function NavBar() {
   const [darkMode, setDarkMode] = useDarkMode();

@@ -33,7 +33,7 @@ import UserSettingsPage from "./pages/User/Settings";
 import ExpertDashboardPage from "./pages/Expert/Dashboard";
 import ExpertClientsPage from "./pages/Expert/Clients";
 import ExpertMeetPage from "./pages/Expert/Meet";
-import ExpertProfilePage from "./pages/Expert/Profile/Profile";
+import ExpertProfilePage from "./pages/Expert/Profile";
 import ExpertRecentPage from "./pages/Expert/Recent";
 import ExpertSettingsPage from "./pages/Expert/Settings";
 

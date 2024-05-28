@@ -1,6 +1,6 @@
 import Axios, { AxiosError } from "axios";
 import { enqueueSnackbar } from "notistack";
-import { AuthContext } from "../contexts/AuthProvider";
+import { AuthContext } from "@/contexts/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 
