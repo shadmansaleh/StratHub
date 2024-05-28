@@ -8,7 +8,10 @@ const storage = multer.diskStorage({
     cb(null, "./public/uploads");
   },
   filename: function (_req: Request, file: Express.Multer.File, cb: any) {
-    cb(null, `${uuidv4()}_${path.extname(file.originalname)}`);
+    const fname = `${uuidv4()}_${path.extname(file.originalname)}`;
+    _req.body.fname = fname;
+    _req.body.url = `http://localhost:5000/uploads/${fname}`;
+    cb(null, fname);
   },
 });
 

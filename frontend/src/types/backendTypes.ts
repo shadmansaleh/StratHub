@@ -1,10 +1,3 @@
-import { Request } from "express";
-import { Document } from "mongoose";
-
-export type AuthRequest = Request & {
-  user?: JWT_USER;
-};
-
 export type JWT_USER = {
   name: string;
   id: string;

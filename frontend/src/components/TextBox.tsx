@@ -10,6 +10,8 @@ interface TextBoxProps {
   value?: string;
   id?: string;
   onChange?: (value: any) => void;
+  nobox?: boolean | undefined;
+  required?: boolean;
 }
 const TextBox = ({
   type = "text",
@@ -19,6 +21,8 @@ const TextBox = ({
   onChange,
   value,
   className,
+  nobox,
+  required,
 }: TextBoxProps) => {
   const [showPassword, setShowPassword] = useState(false);
   return (
@@ -28,31 +32,42 @@ const TextBox = ({
           <span className={`label-text`}>{label}</span>
         </label>
       )}
-      <input
-        type={type === "password" ? (showPassword ? "text" : "password") : type}
-        placeholder={placeholder}
-        className={`input input-bordered bg-transparent `}
-        value={value}
-        id={id}
-        onChange={(e) => onChange && onChange(e)}
-        required
-      />
-      <div
-        className={type === "password" ? "" : "hidden"}
-        onClick={() => setShowPassword((prev) => !prev)}
-      >
-        {showPassword ? (
-          <FaEyeSlash
-            size="20"
-            className="absolute cursor-pointer right-2 top-[50%] translate-y-[50%] opacity-50 hover:opacity-100"
+      {nobox && (
+        <div className={twMerge("text-xl font-lora px-6 py-3", className)}>
+          {value}
+        </div>
+      )}
+      {!nobox && (
+        <>
+          <input
+            type={
+              type === "password" ? (showPassword ? "text" : "password") : type
+            }
+            placeholder={placeholder}
+            className={`input input-bordered bg-transparent `}
+            value={value}
+            id={id}
+            onChange={(e) => onChange && onChange(e)}
+            required={required ? true : false}
           />
-        ) : (
-          <FaEye
-            size="20"
-            className="absolute cursor-pointer right-2 top-[50%] translate-y-[50%] opacity-50 hover:opacity-100"
-          />
-        )}
-      </div>
+          <div
+            className={type === "password" ? "" : "hidden"}
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
+            {showPassword ? (
+              <FaEyeSlash
+                size="20"
+                className="absolute cursor-pointer right-2 top-[50%] translate-y-[50%] opacity-50 hover:opacity-100"
+              />
+            ) : (
+              <FaEye
+                size="20"
+                className="absolute cursor-pointer right-2 top-[50%] translate-y-[50%] opacity-50 hover:opacity-100"
+              />
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 };

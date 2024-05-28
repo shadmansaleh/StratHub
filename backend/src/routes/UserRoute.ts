@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   UserGetController,
   UserGetAllController,
+  UserUpdateController,
 } from "../controller/UserController";
 import { UserRole } from "../types/LocalTypes";
 import { AuthUser, AuthRole } from "../middlewares/Authenticate";
@@ -15,5 +16,6 @@ user.get(
   AuthRole(UserRole.ADMIN),
   UserGetAllController
 );
+user.post("/update_profile", AuthUser, UserUpdateController);
 
 export default user;

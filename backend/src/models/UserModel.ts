@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import { UserRole } from "../types/LocalTypes";
+import { profile } from "console";
+import { userInfo } from "os";
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -20,6 +22,42 @@ const UserSchema = new mongoose.Schema({
     enum: UserRole,
     default: "user",
     required: true,
+  },
+  profile_pic: {
+    type: String,
+    default: "",
+  },
+  first_name: {
+    type: String,
+    default: "",
+  },
+  last_name: {
+    type: String,
+    default: "",
+  },
+  designation: {
+    type: String,
+    default: "",
+  },
+  email: {
+    type: String,
+    default: "",
+  },
+  phone: {
+    type: String,
+    default: "",
+  },
+  location: {
+    type: String,
+    default: "",
+  },
+  timezone: {
+    type: String,
+    default: "",
+  },
+  companies: {
+    type: [String],
+    default: [],
   },
 });
 

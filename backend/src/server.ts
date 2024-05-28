@@ -6,6 +6,7 @@ import UserRoute from "./routes/UserRoute";
 import AuthRoute from "./routes/AuthRoute";
 import dotenv from "dotenv";
 import LogRequest from "./middlewares/LogRequests";
+import upload from "./middlewares/MulterMiddleware";
 // import bodyParser from "body-parser";
 
 const app = express();
@@ -21,7 +22,6 @@ const app = express();
 // );
 
 app.use(cors({ origin: true, credentials: true }));
-app.use(express.static("public"));
 app.use(express.json());
 
 // parse application/x-www-form-urlencoded
@@ -35,6 +35,10 @@ app.use(express.json());
 // routes
 app.use("/auth", AuthRoute);
 app.use("/user", UserRoute);
+app.use("/uploads", express.static("public/uploads"));
+app.post("/upload", upload.single("file"), (req, res) => {
+  res.json({ message: "File uploaded", url: req.body.url });
+});
 
 app.get("/", (req: Request, res: Response) => {
   res.json({ status: "success" });
