@@ -107,6 +107,7 @@ const Profile = () => {
                 <h3 className="text-xl text-primary">
                   {profile_info.designation}
                 </h3>
+                <p className="text-md text-primary">{profile_info.timezone}</p>
               </div>
             </div>
             <div className="flex flex-row gap-6">
@@ -179,7 +180,7 @@ const Profile = () => {
             <hr className="divider w-[90%] mx-auto" />
             <div className="flex flex-row gap-[1%]">
               <TextBox
-                type="text"
+                type="email"
                 placeholder="eg. ala@mail.com"
                 label="Email"
                 className="flex-1 [&>label>span]:text-xl [&>label>span]:text-primary [&>label>span]:font-semibold [&>input]:bg-base-50"
