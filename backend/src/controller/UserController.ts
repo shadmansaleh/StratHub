@@ -25,6 +25,7 @@ export const UserUpdateController = async (
 
   for (let key in req.body) {
     if (User.schema.obj.hasOwnProperty(key)) {
+      // @ts-ignore
       user[key] = req.body[key];
     }
   }

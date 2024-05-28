@@ -2,14 +2,22 @@ import { useEffect, useState, useRef } from "react";
 import useAxios from "@/hooks/useAxios";
 import demo_profile from "./assets/profile_demo.svg";
 import TextBox from "@/components/TextBox";
-import { BsSuitcaseLgFill } from "react-icons/bs";
-import { User } from "@/types/backendTypes";
 
+export type ProfileInfoType = {
+  username: string;
+  email: string;
+  profile_pic: string;
+  first_name: string;
+  last_name: string;
+  designation: string;
+  phone: string;
+  location: string;
+  timezone: string;
+  companies: string[];
+};
 const Profile = () => {
-  // const { axios, axiosErrHandler } = useAxios();
-  const companies = ["ProCrew", "Noon", "LamasaTech"];
   const [loading, setLoading] = useState(true);
-  const [profile_info, setProfileInfo] = useState<User>({
+  const [profile_info, setProfileInfo] = useState<ProfileInfoType>({
     username: "",
     email: "",
     profile_pic: "",

@@ -4,7 +4,7 @@ export type JWT_USER = {
   role: UserRole;
 };
 
-export type User = Document & {
+export interface User {
   username: string;
   email: string;
   password: string;
@@ -17,9 +17,9 @@ export type User = Document & {
   location: string;
   timezone: string;
   companies: string[];
-};
+}
 
-export type Session = Document & {
+export type Session = {
   id: string;
   token: string;
 };

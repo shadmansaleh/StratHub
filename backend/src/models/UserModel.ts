@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
 import { UserRole } from "../types/LocalTypes";
-import { profile } from "console";
-import { userInfo } from "os";
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -36,10 +34,6 @@ const UserSchema = new mongoose.Schema({
     default: "",
   },
   designation: {
-    type: String,
-    default: "",
-  },
-  email: {
     type: String,
     default: "",
   },
