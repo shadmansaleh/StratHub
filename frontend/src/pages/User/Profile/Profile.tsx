@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import useAxios from "@/hooks/useAxios";
 import demo_profile from "./assets/profile_demo.svg";
 import TextBox from "@/components/TextBox";
+import { strCapitalize } from "@/utils/utils";
 
 export type ProfileInfoType = {
   username: string;
@@ -102,7 +103,7 @@ const Profile = () => {
               </div>
               <div className="flex flex-col justify-evenly">
                 <h2 className="text-2xl text-primary font-semibold">
-                  {profile_info.username}
+                  {strCapitalize(profile_info.username)}
                 </h2>
                 <h3 className="text-xl text-primary">
                   {profile_info.designation}
