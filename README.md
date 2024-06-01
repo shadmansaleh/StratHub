@@ -35,6 +35,11 @@ npm run setup
 npm run dev
 ```
 
+### Demo
+
+You can checkout the frontend at [https://shadmansaleh.github.io/StratHub/](https://shadmansaleh.github.io/StratHub/).
+However currently the backend isn't hosted anywhere so full functionality can't be observed through this link.
+
 ### Credits
 
 Web project for CSE-326 (Internet Programming)
