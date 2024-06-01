@@ -97,11 +97,11 @@ function SignUp() {
       <div className="hero min-h-screen">
         <div className="hero-content flex-col">
           <div className="text-center lg:text-left">
-            <h1 className="text-5xl font-normal m-5 tracking-wider capitalize">
+            <h1 className="text-3xl lg:text-5xl font-normal m-5 tracking-wider capitalize">
               Lets get started
             </h1>
           </div>
-          <div className="card max-w-[30rem] xl:w-[30vw] lg:w-[35vw] md:w-[45vw] sm:w-[55vw] shadow-2xl bg-base-100">
+          <div className="card max-w-[30rem] xl:w-[30vw] lg:w-[35vw] md:w-[45vw] sm:w-[55vw] w-[90vw] shadow-2xl bg-base-100">
             <IoMdArrowBack
               onClick={() => navigate(`${__BASE_URL__}/login`)}
               className="h-10 w-10 text-primary absolute top-4 left-4"

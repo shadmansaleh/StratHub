@@ -152,7 +152,7 @@ function SignUp() {
       <div className="hero min-h-screen">
         <div className="hero-content flex-col">
           <div className="text-center lg:text-left">
-            <h1 className="text-5xl font-normal m-5 tracking-wider capitalize">
+            <h1 className="text-3xl lg:text-5xl font-normal m-5 tracking-wider capitalize">
               Lets get started
             </h1>
           </div>

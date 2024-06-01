@@ -13,11 +13,11 @@ function NavBar() {
             <img src={logo} alt="strathub-logo" className="h-12 w-12" />
           </Link>
           <Link to={`${__BASE_URL__}/`}>
-            <h1 className="text-4xl font-normal px-2">StratHub</h1>
+            <h1 className="text-2xl lg:text-4xl font-normal px-2">StratHub</h1>
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal  uppercase">
+          <ul className="menu menu-horizontal uppercase">
             <li className="">
               <Link to="">About Us</Link>
             </li>
@@ -47,7 +47,7 @@ function NavBar() {
           </div>
         </div>
         <div className="flex-none gap-4">
-          <div className="form-control">
+          <div className="form-control hidden md:block">
             <input
               type="text"
               placeholder="Search"
@@ -56,7 +56,7 @@ function NavBar() {
           </div>
           <Link
             to={`${__BASE_URL__}/login`}
-            className="btn btn-md btn-primary text-xl font-light px-6 py-2"
+            className="btn btn-md btn-primary text-md md:text-xl font-light px-6 py-2"
           >
             Login
           </Link>

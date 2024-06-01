@@ -29,7 +29,7 @@ const Hero_1 = () => (
         <p className="py-6 text-center xl:text-lg lg:text-md">
           Discover and engage with top professionals in various fields.
         </p>
-        <div className="flex justify-center gap-10">
+        <div className="flex justify-center gap-4 flex-col sm:flex-row md:gap-10">
           <Link
             to="/login"
             className="btn btn:md xl:btn-lg btn-primary text-xl xl:text-2xl font-light c-hover-enlarge"

@@ -61,37 +61,37 @@ function Login() {
     <div className="hero min-h-screen">
       <div className="hero-content flex-col">
         <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-normal m-5 tracking-wider capitalize">
+          <h1 className="text-3xl lg:text-5xl font-normal m-5 tracking-wider capitalize">
             Welcome Back
           </h1>
         </div>
-        <div className="card max-w-[30rem] xl:w-[30vw] lg:w-[35vw] md:w-[45vw] sm:w-[55vw] shadow-2xl bg-base-100">
+        <div className="card max-w-[30rem] xl:w-[30vw] lg:w-[35vw] md:w-[45vw] sm:w-[55vw] w-[90vw] shadow-2xl bg-base-100">
           <p className="py-6 text-center text-xl mt-8">
             Login using social networks
           </p>
           <div className="flex mx-auto">
             <Link to="" onClick={notImplemneted}>
               <FaGoogle
-                size="48"
-                className="text-red-500 dark:shadow-lg mx-5 dark:text-primary hover-enlarge"
+                // size="48"
+                className="text-red-500 dark:shadow-lg mx-5 dark:text-primary hover-enlarge w-[2rem] h-[2rem] sm:w-[3rem] sm:h-[3rem]"
               />
             </Link>
             <Link to="" onClick={notImplemneted}>
               <FaFacebook
-                size="48"
-                className="text-blue-800 dark:shadow-lg mx-5 dark:text-primary hover-enlarge"
+                // size="48"
+                className="text-blue-800 dark:shadow-lg mx-5 dark:text-primary hover-enlarge w-[2rem] h-[2rem] sm:w-[3rem] sm:h-[3rem]"
               />
             </Link>
             <Link to="" onClick={notImplemneted}>
               <FaTwitter
-                size="48"
-                className="text-blue-600 dark:shadow-lg mx-5 dark:text-primary hover-enlarge"
+                // size="48"
+                className="text-blue-600 dark:shadow-lg mx-5 dark:text-primary hover-enlarge w-[2rem] h-[2rem] sm:w-[3rem] sm:h-[3rem]"
               />
             </Link>
             <Link to="" onClick={notImplemneted}>
               <FaApple
-                size="48"
-                className="text-black dark:shadow-lg mx-5 dark:text-primary hover-enlarge"
+                // size="48"
+                className="text-black dark:shadow-lg mx-5 dark:text-primary hover-enlarge w-[2rem] h-[2rem] sm:w-[3rem] sm:h-[3rem]"
               />
             </Link>
           </div>

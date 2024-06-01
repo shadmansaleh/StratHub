@@ -26,7 +26,7 @@ jobs:
         working-directory: ./frontend
         env:
           BASE_URL: /StratHub
-          BACKEND_URL: /
+          BACKEND_URL: http://localhost:5000
         run: npm run build
 
       - name: Upload production-ready build files
