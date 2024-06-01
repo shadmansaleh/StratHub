@@ -49,7 +49,7 @@ const Recent: React.FC = () => {
 
       <footer className="mt-8">
         <a
-          href="/profile"
+          href="http://localhost:3000/StratHub/expert/profile"
           className="btn btn-outline text-lg text-primary dark:text-primary-light"
         >
           Back to Profile
