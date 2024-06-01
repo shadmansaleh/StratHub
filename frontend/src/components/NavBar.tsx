@@ -41,10 +41,10 @@ function NavBar() {
               </details>
             </li>
           </ul>
-          <div onClick={() => setDarkMode(!darkMode)}>
-            {!darkMode && <IoMoonOutline size="3.5rem" className="px-4" />}
-            {darkMode && <IoSunnyOutline size="3.5rem" className="px-4" />}
-          </div>
+        </div>
+        <div onClick={() => setDarkMode(!darkMode)}>
+          {!darkMode && <IoMoonOutline size="3.5rem" className="px-4" />}
+          {darkMode && <IoSunnyOutline size="3.5rem" className="px-4" />}
         </div>
         <div className="flex-none gap-4">
           <div className="form-control hidden md:block">
