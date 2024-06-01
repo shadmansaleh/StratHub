@@ -18,7 +18,7 @@ export const useAxios = () => {
   };
 
   const axios = Axios.create({
-    baseURL: "http://localhost:5000",
+    baseURL: __BACKEND_URL__,
     withCredentials: true,
     headers: {
       "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export const useAxios = () => {
     if (code === 401) {
       if (clearAuth) {
         clearAuth();
-        navigate("/login");
+        navigate(`${__BASE_URL__}/login`);
       }
       enqueueSnackbar(`Login Expired`, {
         variant: "info",
@@ -41,7 +41,7 @@ export const useAxios = () => {
       enqueueSnackbar(`Request Error: Blame Dev :| ${msg}`, {
         variant: "error",
       });
-      navigate("/login");
+      navigate(`${__BASE_URL__}/login`);
     } else if (msg) {
       enqueueSnackbar(msg, { variant: "error" });
     }

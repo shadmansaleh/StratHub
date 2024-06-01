@@ -10,7 +10,7 @@ export default defineConfig(({ command, mode }) => {
   return {
     server: { port: 3000 },
     plugins: [react()],
-    base: env.VITE_BASE_URL || "/",
+    base: env.BASE_URL || "/StratHub",
     resolve: {
       alias: {
         "@": resolve(__dirname, "src"),
@@ -18,7 +18,10 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     define: {
-      __VITE_BASE_URL__: JSON.stringify(env.VITE_BASE_URL || "/"),
+      __BASE_URL__: JSON.stringify(env.BASE_URL || "/StratHub"),
+      __BACKEND_URL__: JSON.stringify(
+        env.BACKEND_URL || "http://localhost:5000"
+      ),
     },
   };
 });

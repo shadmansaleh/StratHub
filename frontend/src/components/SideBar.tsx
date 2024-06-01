@@ -27,7 +27,7 @@ function SideBar() {
   const onLogout = () => {
     if (clearAuth) {
       clearAuth();
-      navigate("/");
+      navigate(`${__BASE_URL__}/`);
     }
   };
 

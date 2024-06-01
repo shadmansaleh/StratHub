@@ -4,7 +4,7 @@ function NotFound404() {
   const navigate = useNavigate();
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigate("/");
+      navigate(`${__BASE_URL__}/`);
     }, 3000);
     return () => {
       clearTimeout(timeout);

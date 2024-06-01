@@ -34,7 +34,7 @@ function UserHome() {
           <div className="mx-auto my-6 w-[98%] h-full overflow-y-auto overflow-x-hidden">
             {(auth?.role === "user" || auth?.role === "expert") &&
               !["chat", "consultant"].includes(cur_key) && (
-                <Link to={`/${auth.role}/chat`}>
+                <Link to={`${__BASE_URL__}/${auth.role}/chat`}>
                   <BsChatDotsFill className="fixed bottom-8 right-8 text-4xl text-accent cursor-pointer shadow-xl z-10" />
                 </Link>
               )}

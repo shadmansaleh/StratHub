@@ -87,7 +87,7 @@ function SignUp() {
         enqueueSnackbar("Password Updated successfully", {
           variant: "success",
         });
-        navigate("/login");
+        navigate(`${__BASE_URL__}/login`);
       })
       .catch(axiosErrHandler);
   };
@@ -103,7 +103,7 @@ function SignUp() {
           </div>
           <div className="card max-w-[30rem] xl:w-[30vw] lg:w-[35vw] md:w-[45vw] sm:w-[55vw] shadow-2xl bg-base-100">
             <IoMdArrowBack
-              onClick={() => navigate("/login")}
+              onClick={() => navigate(`${__BASE_URL__}/login`)}
               className="h-10 w-10 text-primary absolute top-4 left-4"
             />
             <p className="py-6 text-center text-2xl mt-8">Forgot Password</p>

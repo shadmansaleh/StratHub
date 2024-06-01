@@ -42,7 +42,10 @@ function ExpertCard({
       rating={rating}
       description={description}
     >
-      <Link to="/user/consultant" className="btn btn-primary mx-auto my-5 p-4">
+      <Link
+        to={`${__BASE_URL__}/user/consultant`}
+        className="btn btn-primary mx-auto my-5 p-4"
+      >
         More Info
       </Link>
       <button className="btn btn-accent mx-auto my-5 p-4">Hire</button>

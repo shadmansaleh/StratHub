@@ -25,8 +25,8 @@ jobs:
       - name: Build project
         working-directory: ./frontend
         env:
-          VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
-          VITE_BACKEND_URL: ${{ secrets.VITE_BACKEND_URL }}
+          BASE_URL: /StratHub
+          BACKEND_URL: /
         run: npm run build
 
       - name: Upload production-ready build files

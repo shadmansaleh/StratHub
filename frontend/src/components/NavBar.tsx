@@ -9,10 +9,10 @@ function NavBar() {
     <>
       <div className="navbar bg-base-200 shadow-lg">
         <div className="flex-1">
-          <Link to="/" className="text-xl font-normal px-2">
+          <Link to={`${__BASE_URL__}/`} className="text-xl font-normal px-2">
             <img src={logo} alt="strathub-logo" className="h-12 w-12" />
           </Link>
-          <Link to="/">
+          <Link to={`${__BASE_URL__}/`}>
             <h1 className="text-4xl font-normal px-2">StratHub</h1>
           </Link>
         </div>
@@ -55,7 +55,7 @@ function NavBar() {
             />
           </div>
           <Link
-            to="/login"
+            to={`${__BASE_URL__}/login`}
             className="btn btn-md btn-primary text-xl font-light px-6 py-2"
           >
             Login

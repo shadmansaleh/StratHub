@@ -138,7 +138,7 @@ function SignUp() {
             enqueueSnackbar("Account created successfully", {
               variant: "success",
             });
-            navigate("/login");
+            navigate(`${__BASE_URL__}/login`);
           })
           .catch(axiosErrHandler);
       } catch (e) {
@@ -259,7 +259,10 @@ function SignUp() {
               </div>
               <p>
                 Already have an account?{" "}
-                <Link to="/login" className="text-accent hover:underline">
+                <Link
+                  to={`${__BASE_URL__}/login`}
+                  className="text-accent hover:underline"
+                >
                   Sign in
                 </Link>
               </p>

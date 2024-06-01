@@ -49,7 +49,7 @@ function Login() {
           !remember
         );
       enqueueSnackbar("Login successful", { variant: "success" });
-      navigate(`/${role}`);
+      navigate(`${__BASE_URL__}/${role}`);
     } catch (error: AxiosError | any) {
       enqueueSnackbar(`Login failed: ${error?.response?.data?.message}`, {
         variant: "error",
@@ -127,12 +127,18 @@ function Login() {
                 className="btn btn-lg btn-primary text-2xl font-light px-5 py-4 shadow-xl uppercase"
               />
             </div>
-            <Link to="/forgot_password" className="hover:underline">
+            <Link
+              to={`${__BASE_URL__}/forgot_password`}
+              className="hover:underline"
+            >
               forgot password
             </Link>
             <p>
               New to StratHub?{" "}
-              <Link to="/signup" className="text-accent hover:underline">
+              <Link
+                to={`${__BASE_URL__}/signup`}
+                className="text-accent hover:underline"
+              >
                 Create Account
               </Link>
             </p>

@@ -51,7 +51,7 @@ function App() {
 
   const AppRoutes = useRoutes([
     {
-      path: `/`,
+      path: `${__BASE_URL__}/`,
       element: <ProtectedRoute role={Role.NOAUTH} />,
       children: [
         { index: true, element: <LandingPage /> },
@@ -61,7 +61,7 @@ function App() {
       ],
     },
     {
-      path: "/user",
+      path: `${__BASE_URL__}/user`,
       element: (
         <ProtectedRoute role={Role.USER}>
           <HomePage />
@@ -82,7 +82,7 @@ function App() {
       ],
     },
     {
-      path: "/expert",
+      path: `${__BASE_URL__}/expert`,
       element: (
         <ProtectedRoute role={Role.EXPERT}>
           <HomePage />
@@ -100,7 +100,7 @@ function App() {
       ],
     },
     {
-      path: "/admin",
+      path: `${__BASE_URL__}/admin`,
       element: (
         <ProtectedRoute role={Role.ADMIN}>
           <HomePage />
