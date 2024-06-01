@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Recent: React.FC = () => {
   // Mock data for recent activities (replace with actual data from your backend)
@@ -48,12 +49,12 @@ const Recent: React.FC = () => {
       </div>
 
       <footer className="mt-8">
-        <a
-          href="http://localhost:3000/StratHub/expert/profile"
+        <Link
+          to={`${__BASE_URL__}/expert/profile`}
           className="btn btn-outline text-lg text-primary dark:text-primary-light"
         >
           Back to Profile
-        </a>
+        </Link>
       </footer>
     </div>
   );
