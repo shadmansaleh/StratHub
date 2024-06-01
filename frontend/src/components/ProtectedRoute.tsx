@@ -22,19 +22,19 @@ export function ProtectedRoute({
   const retAccept = children ? children : <Outlet />;
   const { auth } = useContext(AuthContext);
   if (role === Role.NOAUTH) {
-    if (auth?.token) return <Navigate to={`/${auth.role}`} />;
+    if (auth?.token) return <Navigate to={`${__BASE_URL__}/${auth.role}`} />;
     return retAccept;
   }
   if (!auth?.token) {
     enqueueSnackbar("Please login to access this page", { variant: "error" });
-    return <Navigate to="/login" />;
+    return <Navigate to={`${__BASE_URL__}/login`} />;
   }
   if (role === Role.AUTH) return retAccept;
   if (auth?.role === role) return retAccept;
   enqueueSnackbar("You do not have permission to access this page", {
     variant: "error",
   });
-  return <Navigate to={`/${auth.role}`} />;
+  return <Navigate to={`${__BASE_URL__}/${auth.role}`} />;
 }
 
 export default ProtectedRoute;

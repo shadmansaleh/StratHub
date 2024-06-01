@@ -31,7 +31,7 @@ const Hero_1 = () => (
         </p>
         <div className="flex justify-center gap-4 flex-col sm:flex-row md:gap-10">
           <Link
-            to="/login"
+            to={`${__BASE_URL__}/login`}
             className="btn btn:md xl:btn-lg btn-primary text-xl xl:text-2xl font-light c-hover-enlarge"
           >
             Get Started
