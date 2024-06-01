@@ -1,11 +1,42 @@
 # StratHub
-A place to unite novices and experts to share knowledge and expertise
 
+A place to unite novices and experts to share knowledge and expertise.
 
+### Setup development environment
 
+#### Requirements:
+
+- NodeJS
+- MongoDB server
+
+#### Procedure:
+
+1. Clone the repo
+
+```sh
+git clone https://https://github.com/shadmansaleh/StratHub/
+```
+
+2. Run setup (One-Time):
+   This will install dependencies and setup required files.
+
+```sh
+npm run setup
+```
+
+3. Configure setup (One-Time):
+   You'll need to fill out `backend/.env` with your information
+
+4. Start server:
+   This will run the react frontend in port 3000 and backend on port 5000.
+   You can access the site with [localhost:3000](http://localhost:3000)
+
+```sh
+npm run dev
+```
 
 ### Credits
-Web project for CSE-326 from team NQuad--
-- [Shadman Saleh](https://github.com/shadmansaleh) (u2004030@student.cuet.ac.bd)
-- [Nahian Chowdhury](https://github.com/nahian00777) (u2004026@student.cuet.ac.bd)
-- [Md. Raihanul Hasan](https://github.com/Icarus-313) (u2004031@student.cuet.ac.bd)
+
+Web project for CSE-326 (Internet Programming)
+
+- [Shadman Saleh](https://github.com/shadmansaleh) (shadmansaleh3@gmail.com)
