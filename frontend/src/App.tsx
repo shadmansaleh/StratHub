@@ -51,7 +51,7 @@ function App() {
 
   const AppRoutes = useRoutes([
     {
-      path: "/",
+      path: `/`,
       element: <ProtectedRoute role={Role.NOAUTH} />,
       children: [
         { index: true, element: <LandingPage /> },
