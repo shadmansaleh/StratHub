@@ -3,6 +3,16 @@ import avater2 from "./assets/woman.png";
 import TextBox from "@/components/TextBox";
 import { IoIosAddCircle } from "react-icons/io";
 
+interface Message {
+  sender: string;
+  message: string;
+  user?: boolean;
+}
+
+interface Messages {
+  [key: string]: Message[];
+}
+
 function Chat() {
   const thread_list = [
     { name: "John Doe", avater: avater1 },
@@ -13,7 +23,7 @@ function Chat() {
     { name: "Kevin Smith", avater: avater2 },
   ];
 
-  const messages = {
+  const messages: Messages = {
     "John Doe": [
       { sender: "John Doe", message: "Hello" },
       { sender: "Kevin Smith", message: "Hi", user: true },

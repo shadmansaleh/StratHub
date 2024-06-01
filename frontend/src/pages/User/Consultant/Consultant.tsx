@@ -85,7 +85,7 @@ function Consultant() {
               <h3>Work</h3>
             </div>
             {work_details.map((work, idx) => (
-              <div className="w-full mx-auto my-2 ml-10">
+              <div key={idx} className="w-full mx-auto my-2 ml-10">
                 <h3 className="text-2xl text-accent font-semibold">
                   {work.company}
                 </h3>
@@ -105,7 +105,10 @@ function Consultant() {
             </div>
             <div className="flex flex-wrap ml-10">
               {skill_list.map((skill, idx) => (
-                <div className="badge badge-outline border-1 mx-2 my-2 p-2">
+                <div
+                  key={idx}
+                  className="badge badge-outline border-1 mx-2 my-2 p-2"
+                >
                   {skill}
                 </div>
               ))}
@@ -142,7 +145,10 @@ function Consultant() {
             <h3 className="text-2xl opacity-75 mb-5">Appointment Times</h3>
             <div className="flex flex-row flex-wrap gap-4 mx-20">
               {appointment_times.map((time, idx) => (
-                <div className="flex  items-center card card-compact shadow-md bg-secondary m-2 p-4">
+                <div
+                  key={idx}
+                  className="flex  items-center card card-compact shadow-md bg-secondary m-2 p-4"
+                >
                   <p className="text-md">
                     {time.from} - {time.to}
                   </p>
@@ -154,7 +160,10 @@ function Consultant() {
             <h3 className="text-2xl opacity-75 mt-10">Reviews</h3>
             <div className="">
               {reviews.map((review, idx) => (
-                <div className="flex flex-col card shadow-md bg-secondary m-6 p-6">
+                <div
+                  key={idx}
+                  className="flex flex-col card shadow-md bg-secondary m-6 p-6"
+                >
                   <div className="flex justify-between items-center">
                     <h3 className="text-lg font-semibold">{review.name}</h3>
                     <form className="rating">

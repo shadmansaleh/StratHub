@@ -36,7 +36,7 @@ function ClientCard({
     <div className=" bg-gradient-to-tl from-primary-content to-neutral w-1/5 min-h-80 m-5 p-2 rounded-box">
       <div className="flex justify-center items-start">
         <div className="w-20 aspect-square rounded-full ml-2 my-2">
-          <img src={demo_profile} alt="profile pic" />
+          <img src={profile_pic || demo_profile} alt="profile pic" />
         </div>
         <div className=" ml-3 my-2">
           <h2 className="text-lg font-bold">{name}</h2>

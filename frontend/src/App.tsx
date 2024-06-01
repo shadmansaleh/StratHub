@@ -1,6 +1,5 @@
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import { useRoutes } from "react-router-dom";
-import useDarkMode from "./hooks/useDarkMode";
 import { SnackbarProvider } from "notistack";
 import { Role, ProtectedRoute } from "./components/ProtectedRoute";
 import { AuthContext } from "./contexts/AuthProvider";
@@ -47,7 +46,6 @@ import AdminVerifyPage from "./pages/Admin/Verify";
 
 function App() {
   // force set to light mode until we get toggle
-  const [_, setDarkMode] = useDarkMode();
   const { auth } = useContext(AuthContext);
   const user_logged_in = auth?.token ? true : false;
 

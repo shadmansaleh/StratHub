@@ -1,5 +1,5 @@
 import TextBox from "../../components/TextBox";
-import { MdCheck, MdDelete, MdEdit, MdInfo } from "react-icons/md";
+import { MdCheck, MdDelete, MdInfo } from "react-icons/md";
 
 function Verify() {
   let verification_requests = [

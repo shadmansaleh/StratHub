@@ -38,7 +38,9 @@ function UserHome() {
                   <BsChatDotsFill className="fixed bottom-8 right-8 text-4xl text-accent cursor-pointer shadow-xl z-10" />
                 </Link>
               )}
-            <Outlet />
+            <div className="relative">
+              <Outlet />
+            </div>
           </div>
         </div>
       </div>

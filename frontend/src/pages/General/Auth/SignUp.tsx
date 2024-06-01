@@ -4,7 +4,7 @@ import { useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 
 import { enqueueSnackbar } from "notistack";
-import { AxiosResponse } from "axios";
+// import { AxiosResponse } from "axios";
 import { useAxios } from "@/hooks/useAxios";
 
 import { useNavigate } from "react-router-dom";

@@ -161,6 +161,7 @@ function Appointments() {
             <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
               {sortOrders.map((item, idx) => (
                 <li
+                  key={idx}
                   onClick={() => setSort([item, Sort[1]])}
                   className="hover:text-accent"
                 >
@@ -218,11 +219,13 @@ function Appointments() {
           Showing {page_length} out of {appointments.length} appointments
         </p>
         <div className="join p-2">
-          <button className="join-item btn btn-sm">1</button>
+          <button className="join-item btn btn-sm" onClick={() => setPage(1)}>
+            1
+          </button>
           <button className="join-item btn btn-sm">2</button>
           <button className="join-item btn  btn-sm btn-disabled">...</button>
-          <button className="join-item btn btn-sm">99</button>
-          <button className="join-item btn btn-sm">100</button>
+          <button className="join-item btn btn-sm">{pages - 1}</button>
+          <button className="join-item btn btn-sm">{pages}</button>
         </div>
       </div>
     </div>

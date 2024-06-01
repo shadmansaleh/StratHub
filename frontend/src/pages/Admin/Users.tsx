@@ -1,4 +1,3 @@
-import React from "react";
 import { MdEdit, MdDelete } from "react-icons/md";
 import TextBox from "../../components/TextBox";
 

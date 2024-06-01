@@ -117,7 +117,7 @@ function SideBar() {
               />
               <span className={`text-xl ${shrinkOnClose} `}>{item.name}</span>
               {sidebarCollapsed && (
-                <span className="z-[100] absolute w-auto p-2 m-2 min-w-max left-20 rounded-md shadow-md text-primary-content bg-primary text-sm transition-all duration-100 scale-0 origin-left group-hover:scale-100">
+                <span className="z-10 absolute w-auto p-2 m-2 min-w-max left-20 rounded-md shadow-md text-primary-content bg-primary text-sm transition-all duration-100 scale-0 origin-left group-hover:scale-100">
                   {item.name}
                 </span>
               )}
