@@ -336,20 +336,33 @@ const Profile = () => {
             </div>
             <hr className="divider w-[90%] mx-auto" />
             <div className="flex flex-row gap-[1%]">
-              <TextBox
-                type="text"
-                placeholder="Hello, I'm a graphic designer with 5 years of experience"
-                label="Description"
-                className="flex-1 [&>label>span]:text-xl [&>label>span]:text-primary [&>label>span]:font-semibold [&>input]:bg-base-50"
-                nobox={!editMode}
-                value={profile_info.description}
-                onChange={formDataFollow("description")}
-              />
+              <div>
+                <label className="label">
+                  <span className="label-text  text-primary font-semibold text-xl">
+                    Description
+                  </span>
+                </label>
+                {!editMode ? (
+                  <div className="text-xl font-lora px-6 py-3 w-full md:w-[80%] mx-auto">
+                    {profile_info.description}
+                  </div>
+                ) : (
+                  <div className="w-full md:w-[80%] mx-auto ">
+                    <textarea
+                      placeholder="Hello, I'm a graphic designer with 5 years of experience"
+                      className="flex-1 bg-base-50  p-6 rounded-xl"
+                      rows={5}
+                      cols={150}
+                      value={profile_info.description}
+                      onChange={formDataFollow("description")}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
 
             {editMode && (
               <>
-                <hr className="divider w-[90%] mx-auto" />
                 <div className="flex flex-row-reverse gap-6">
                   <button className="btn btn-primary" type="submit">
                     Save Changes
