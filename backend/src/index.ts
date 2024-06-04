@@ -4,9 +4,12 @@ import cors from "cors";
 import mongoose from "mongoose";
 import UserRoute from "./routes/UserRoute";
 import AuthRoute from "./routes/AuthRoute";
+import RootRoute from "./routes/RootRoute";
+import StroageRoute from "./routes/StorageRoute";
 import dotenv from "dotenv";
 import LogRequest from "./middlewares/LogRequests";
-import upload from "./middlewares/MulterMiddleware";
+import cookieParser from "cookie-parser";
+
 // import bodyParser from "body-parser";
 
 const app = express();
@@ -22,6 +25,7 @@ const app = express();
 // );
 
 app.use(cors({ origin: true, credentials: true }));
+app.use(cookieParser());
 app.use(express.json());
 
 // parse application/x-www-form-urlencoded
@@ -36,9 +40,8 @@ app.use(express.json());
 app.use("/auth", AuthRoute);
 app.use("/user", UserRoute);
 app.use("/uploads", express.static("public/uploads"));
-app.post("/upload", upload.single("file"), (req, res) => {
-  res.json({ message: "File uploaded", url: req.body.url });
-});
+app.use("/storage", StroageRoute);
+app.use("/", RootRoute);
 
 app.get("/", (req: Request, res: Response) => {
   res.json({ status: "success" });

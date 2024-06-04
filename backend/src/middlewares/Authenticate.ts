@@ -4,13 +4,13 @@ import jwt from "jsonwebtoken";
 import Session from "../models/SessionModel";
 
 export const AuthUser = async (
-  req: types.AuthRequest,
+  req: Request & { user?: types.JWT_USER },
   res: Response,
   next: NextFunction
 ) => {
   const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-  if (token == null)
+  const token = authHeader ? authHeader.split(" ")[1] : req.cookies["token"];
+  if (!token)
     return res.status(401).json({ message: "Authentication Token Missing" });
 
   try {
@@ -22,8 +22,8 @@ export const AuthUser = async (
       return res.status(401).json({ message: "Authentication Token Expired" });
     req.user = jwt_user;
     next();
-  } catch (error) {
-    console.error("Error: ", error);
+  } catch (e) {
+    console.error("Error: ", e);
     return res.status(403).json({ message: "Invalid Token" });
   }
 };

@@ -2,10 +2,11 @@ import { createContext, useState } from "react";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import useSessionStorage from "@/hooks/useSessionStorage";
 import Axios from "axios";
+import Cookies from "js-cookie";
 
 export interface AuthCtxType {
-  token: string;
-  role: string;
+  token: string | null;
+  role: string | null;
 }
 
 interface AuthContextProps {
@@ -28,8 +29,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     lsAuth || ssAuth || { token: null, role: null }
   );
 
-  const authorize = ({ token, role }: AuthCtxType, ephemeral = false) => {
+  const setAuthWrapped = ({ token, role }: AuthCtxType) => {
     setAuth({ token, role });
+    if (auth.token) Cookies.set("token", token, { path: "/" });
+    else Cookies.remove("token", { path: "/" });
+  };
+
+  if (auth.token) Cookies.set("token", auth.token, { path: "/" });
+  else Cookies.remove("token", { path: "/" });
+
+  const authorize = ({ token, role }: AuthCtxType, ephemeral = false) => {
+    setAuthWrapped({ token, role });
     if (!ephemeral) {
       setLsAuth({ token, role });
       setSsAuth(null);
@@ -49,7 +59,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       },
     });
     axios.delete("/auth/logout").catch(console.error);
-    setAuth({ token: null, role: null });
+    setAuthWrapped({ token: null, role: null });
     setSsAuth(null);
     setLsAuth(null);
   };

@@ -138,3 +138,7 @@ dist
 
 # output directory
 dist/
+
+# ignore backend uploads
+public/uploads/
+public/storage/

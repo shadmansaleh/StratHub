@@ -1,0 +1,63 @@
+import { Request, Response } from "express";
+import * as types from "../types/LocalTypes";
+import User from "../models/UserModel";
+import File from "../models/FileModel";
+import fs from "fs/promises";
+
+const relPath = (path: string) => {
+  return ["..", path].join("\\");
+};
+
+export const StorageUploadController = async (
+  req: types.AuthRequest & { file: Express.Multer.File },
+  res: Response
+) => {
+  const file = new File({
+    owner: req?.user?.id,
+    path: req.file.path,
+    fname: req.file.filename,
+    uploadFname: req.file.originalname,
+    filetype: req.file.mimetype,
+    permission: req.body.permission || "private",
+  });
+  await file.save();
+  res.status(200).json({
+    message: "File uploaded",
+    file: file._id,
+  });
+};
+
+export const StorageGetController = async (
+  req: types.AuthRequest,
+  res: Response
+) => {
+  const file = await File.findById(req.params.id).exec();
+  if (!file) return res.status(400).json({ message: "File not found" });
+  if (
+    file?.permission?.toString() === "private" &&
+    file?.owner?.toString() !== req?.user?.id.toString()
+  )
+    res.status(401).json({ message: "Unauthorized" });
+  res.status(200).sendFile(file.path, { root: __dirname + "/../.." });
+};
+
+export const StorageDeleteByID = async (id: string, user?: types.JWT_USER) => {
+  const file = await File.findById(id).exec();
+  if (!file) throw new Error("File not found");
+  if (file?.owner?.toString() !== user?.id.toString())
+    throw new Error("Unauthorized");
+  await fs.unlink(file.path);
+  await File.findByIdAndDelete(id).exec();
+};
+
+export const StorageDeleteController = async (
+  req: types.AuthRequest,
+  res: Response
+) => {
+  try {
+    await StorageDeleteByID(req.params.id, req?.user);
+  } catch (err: any) {
+    return res.status(400).json({ message: err.message });
+  }
+  res.status(200).json({ message: "File deleted" });
+};

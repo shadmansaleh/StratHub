@@ -3,13 +3,28 @@ import useAxios from "@/hooks/useAxios";
 import demo_profile from "@/assets/profile_demo.png";
 import TextBox from "@/components/TextBox";
 import { BsSuitcaseLgFill } from "react-icons/bs";
-import { ProfileInfoType } from "@/pages/User/Profile";
 import { MdAddCircle, MdRemoveCircle } from "react-icons/md";
 import { strCapitalize } from "@/utils/utils";
+import { enqueueSnackbar } from "notistack";
 
+export type ExpertProfileInfoType = {
+  username: string;
+  email: string;
+  profile_pic: string;
+  first_name: string;
+  last_name: string;
+  designation: string;
+  phone: string;
+  location: string;
+  timezone: string;
+  companies: string[];
+  description: string;
+  experience: string;
+  hourly_rate: string;
+};
 const Profile = () => {
   const [loading, setLoading] = useState(true);
-  const [profile_info, setProfileInfo] = useState<ProfileInfoType>({
+  const [profile_info, setProfileInfo] = useState<ExpertProfileInfoType>({
     username: "",
     email: "",
     profile_pic: "",
@@ -20,17 +35,24 @@ const Profile = () => {
     location: "",
     timezone: "",
     companies: [],
+    description: "",
+    experience: "",
+    hourly_rate: "",
   });
+
+  const [saved_profile_info, setSavedProfileInfo] =
+    useState<ExpertProfileInfoType>(profile_info);
 
   const [editMode, setEditMode] = useState(false);
   const { axios, axiosErrHandler } = useAxios();
-  const profilePicRef = useRef<HTMLInputElement>(null);
+  const uploadProfilePicRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     axios
       .get("/user/get_user")
       .then((res) => {
         setProfileInfo(res.data.user);
+        setSavedProfileInfo(res.data.user);
         setLoading(false);
       })
       .catch(axiosErrHandler);
@@ -49,8 +71,12 @@ const Profile = () => {
       .then((res) => {
         setProfileInfo(res.data.user);
         setEditMode(false);
+        enqueueSnackbar("Profile updated successfully", { variant: "success" });
       })
-      .catch(axiosErrHandler);
+      .catch((e) => {
+        axiosErrHandler(e);
+        enqueueSnackbar("Profile update failed", { variant: "error" });
+      });
   };
 
   const handleImageUpload = (e: any) => {
@@ -59,15 +85,21 @@ const Profile = () => {
     formData.append("file", file);
     formData.append("Content-Type", file.type);
     axios
-      .post("/upload", formData, {
+      .post("/storage/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
-        setProfileInfo({ ...profile_info, profile_pic: res.data.url });
+        setProfileInfo({
+          ...profile_info,
+          profile_pic: res.data.file,
+        });
       })
-      .catch(axiosErrHandler);
+      .catch((e) => {
+        axiosErrHandler(e);
+        enqueueSnackbar("Profile picture upload failed", { variant: "error" });
+      });
   };
 
   return (
@@ -85,7 +117,9 @@ const Profile = () => {
                   <img
                     src={
                       profile_info.profile_pic !== ""
-                        ? profile_info.profile_pic
+                        ? __BACKEND_URL__ +
+                          "/storage/" +
+                          profile_info.profile_pic
                         : demo_profile
                     }
                     alt="profile pic"
@@ -94,12 +128,14 @@ const Profile = () => {
               </div>
               <div className="flex flex-col justify-evenly">
                 <h2 className="text-2xl text-primary font-semibold">
-                  {strCapitalize(profile_info.username)}
+                  {strCapitalize(saved_profile_info.username)}
                 </h2>
                 <h3 className="text-xl text-primary">
-                  {profile_info.designation}
+                  {saved_profile_info.designation}
                 </h3>
-                <p className="text-md text-primary">{profile_info.timezone}</p>
+                <p className="text-md text-primary">
+                  {saved_profile_info.timezone}
+                </p>
               </div>
             </div>
             <div className="flex flex-row gap-6">
@@ -107,13 +143,13 @@ const Profile = () => {
                 <div>
                   <button
                     className="btn btn-accent"
-                    onClick={() => profilePicRef.current?.click()}
+                    onClick={() => uploadProfilePicRef.current?.click()}
                   >
                     Upload a photo
                   </button>
                   <input
                     type="file"
-                    ref={profilePicRef}
+                    ref={uploadProfilePicRef}
                     onChange={handleImageUpload}
                     className="hidden"
                   />
@@ -121,7 +157,17 @@ const Profile = () => {
               )}
               <button
                 className={`btn ${editMode ? "btn-error" : "btn-primary"} `}
-                onClick={() => setEditMode(!editMode)}
+                onClick={() => {
+                  if (
+                    editMode &&
+                    profile_info.profile_pic !== saved_profile_info.profile_pic
+                  ) {
+                    axios
+                      .delete("/storage/" + profile_info.profile_pic)
+                      .catch(axiosErrHandler);
+                  }
+                  setEditMode(!editMode);
+                }}
               >
                 {editMode ? "Cancel" : "Edit"}
               </button>
@@ -188,6 +234,27 @@ const Profile = () => {
                 nobox={!editMode}
                 value={profile_info.phone}
                 onChange={formDataFollow("phone")}
+              />
+            </div>
+            <hr className="divider w-[90%] mx-auto" />
+            <div className="flex flex-row gap-[1%]">
+              <TextBox
+                type="text"
+                placeholder="5 years"
+                label="Experience"
+                className="flex-1 [&>label>span]:text-xl [&>label>span]:text-primary [&>label>span]:font-semibold [&>input]:bg-base-50"
+                nobox={!editMode}
+                value={profile_info.experience}
+                onChange={formDataFollow("experience")}
+              />
+              <TextBox
+                type="text"
+                placeholder="50$/hour"
+                label="Hourly Rate"
+                className="flex-1 [&>label>span]:text-xl [&>label>span]:text-primary [&>label>span]:font-semibold [&>input]:bg-base-50"
+                nobox={!editMode}
+                value={profile_info.hourly_rate}
+                onChange={formDataFollow("hourly_rate")}
               />
             </div>
             <hr className="divider w-[90%] mx-auto" />
@@ -267,6 +334,19 @@ const Profile = () => {
                 onChange={formDataFollow("timezone")}
               />
             </div>
+            <hr className="divider w-[90%] mx-auto" />
+            <div className="flex flex-row gap-[1%]">
+              <TextBox
+                type="text"
+                placeholder="Hello, I'm a graphic designer with 5 years of experience"
+                label="Description"
+                className="flex-1 [&>label>span]:text-xl [&>label>span]:text-primary [&>label>span]:font-semibold [&>input]:bg-base-50"
+                nobox={!editMode}
+                value={profile_info.description}
+                onChange={formDataFollow("description")}
+              />
+            </div>
+
             {editMode && (
               <>
                 <hr className="divider w-[90%] mx-auto" />

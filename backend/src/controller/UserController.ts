@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import * as types from "../types/LocalTypes";
 import User from "../models/UserModel";
+import { StorageDeleteByID } from "./StorageController";
 
 export const UserGetController = async (
   req: types.AuthRequest,
@@ -22,6 +23,14 @@ export const UserUpdateController = async (
     .select("-password")
     .exec();
   if (!user) return res.status(400).json({ message: "User not found" });
+
+  if (req.body.profile_pic !== user.profile_pic) {
+    try {
+      await StorageDeleteByID(user.profile_pic, req?.user);
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   for (let key in req.body) {
     if (User.schema.obj.hasOwnProperty(key)) {

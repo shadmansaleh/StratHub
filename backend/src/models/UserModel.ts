@@ -54,11 +54,11 @@ const UserSchema = new mongoose.Schema({
     default: [],
   },
   experience: {
-    type: Number,
+    type: String,
     default: 0,
   },
-  hour_rate: {
-    type: Number,
+  hourly_rate: {
+    type: String,
     default: 0,
   },
   rating: {
@@ -75,7 +75,7 @@ const UserSchema = new mongoose.Schema({
     default: [],
   },
 
-  expertdata: {
+  expert_data: {
     type: {
       ref_docs: {
         type: [String],
@@ -102,10 +102,12 @@ const UserSchema = new mongoose.Schema({
         type: String,
       },
       visibility: {
-        type: ["public", "private"],
+        type: String,
+        enum: ["public", "private"],
       },
       availability: {
-        type: ["active", "away", "busy"],
+        type: String,
+        enum: ["active", "away", "busy"],
       },
     },
     default: {
