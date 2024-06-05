@@ -30,7 +30,7 @@ strongPasswordRegex = new RegExp(".*");
 function SignUp() {
   const [stage, setStage] = useState(1);
   const navigate = useNavigate();
-  const { axios, axiosErrHandler } = useAxios();
+  const { axios } = useAxios();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -85,7 +85,6 @@ function SignUp() {
               verification_passed = false;
             }
           } catch (e) {
-            axiosErrHandler(e);
             verification_passed = false;
           }
         }
@@ -117,7 +116,6 @@ function SignUp() {
               verification_passed = false;
             }
           } catch (e) {
-            axiosErrHandler(e);
             verification_passed = false;
           }
         }
@@ -140,10 +138,8 @@ function SignUp() {
             });
             navigate(`${__BASE_URL__}/login`);
           })
-          .catch(axiosErrHandler);
-      } catch (e) {
-        axiosErrHandler(e);
-      }
+          .catch(() => {});
+      } catch (e) {}
     }
   };
 

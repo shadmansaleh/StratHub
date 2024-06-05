@@ -15,6 +15,32 @@ export const UserGetAllController = async (req: Request, res: Response) => {
   res.status(200).json({ users: users });
 };
 
+export const UserFindUsersController = async (
+  req: types.AuthRequest,
+  res: Response
+) => {
+  const type = req.query.type as string;
+  const catagories = req.query.catagories as string[];
+  const query = req.query.query as string;
+  const users = await User.find({
+    $and: [
+      { role: type || "*" },
+      // { designation: { $in: catagories } },
+      {
+        $or: [
+          { username: { $regex: query, $options: "i" } },
+          { firstname: { $regex: query, $options: "i" } },
+          { lastname: { $regex: query, $options: "i" } },
+          { email: { $regex: query, $options: "i" } },
+        ],
+      },
+    ],
+  })
+    .select("-password")
+    .exec();
+  res.status(200).json({ users: users });
+};
+
 export const UserUpdateController = async (
   req: types.AuthRequest,
   res: Response

@@ -1,7 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TextBox from "@/components/TextBox";
 import ExpertCard from "@/components/ExpertCard";
 import demo_profile from "@/assets/profile_demo.svg";
+import useAxios from "@/hooks/useAxios";
+import { enqueueSnackbar } from "notistack";
+import { act } from "react-dom/test-utils";
+
+type expertData = {
+  name: string;
+  profile_pic: string;
+  expert_in: string;
+  experience: number;
+  rating: number;
+  price: number;
+  description: string;
+};
 
 function Search() {
   const categories = [
@@ -25,19 +38,52 @@ function Search() {
     categories.map(() => false)
   );
 
-  let experts = [];
-  for (let i = 0; i < 15; i++) {
-    experts.push({
-      name: "John Doe",
-      profile_pic: demo_profile,
-      expert_in: "Web Development",
-      experience: 5,
-      rating: 3.5,
-      price: 50,
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    });
-  }
+  const [experts, setExperts] = useState<expertData[]>([]);
+  // let experts = [];
+  // for (let i = 0; i < 15; i++) {
+  //   experts.push({
+  //     name: "John Doe",
+  //     profile_pic: demo_profile,
+  //     expert_in: "Web Development",
+  //     experience: 5,
+  //     rating: 3.5,
+  //     price: 50,
+  //     description:
+  //       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  //   });
+  // }
+
+  const { axios, axiosErrHandler } = useAxios();
+  const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    axios
+      .get("/user/find_users", {
+        params: {
+          type: "expert",
+          catagories: categories.filter((_, idx) => categoryActive[idx]),
+          query: query,
+        },
+      })
+      .then((res) => {
+        console.log(res.data.users);
+        setExperts(
+          res.data.users.map((user: expertData) => ({
+            name: user.name,
+            profile_pic: user.profile_pic,
+            expert_in: user.expert_in,
+            experience: user.experience,
+            rating: user.rating,
+            price: user.price,
+            description: user.description,
+          }))
+        );
+      })
+      .catch((e) => {
+        enqueueSnackbar("Failed to fetch experts", { variant: "error" });
+        axiosErrHandler(e);
+      });
+  }, [categoryActive, query]);
 
   return (
     <>
@@ -49,6 +95,9 @@ function Search() {
           placeholder="Search For Expert Advice"
           label=""
           className="w-[70%] mx-auto my-10 h-16 [&>input]:h-16 [&>input]:border-2 [&>input]:border-primary"
+          onChange={(e) => {
+            setQuery(e.target.value);
+          }}
         />
         <div className="flex justify-center items-center">
           <ul className=" ml-32 mr-32 flex justify-center items-center flex-wrap">

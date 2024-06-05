@@ -3,6 +3,7 @@ import {
   UserGetController,
   UserGetAllController,
   UserUpdateController,
+  UserFindUsersController,
 } from "../controller/UserController";
 import { UserRole } from "../types/LocalTypes";
 import { AuthUser, AuthRole } from "../middlewares/Authenticate";
@@ -17,5 +18,6 @@ user.get(
   UserGetAllController
 );
 user.post("/update_profile", AuthUser, UserUpdateController);
+user.get("/find_users", AuthUser, UserFindUsersController);
 
 export default user;

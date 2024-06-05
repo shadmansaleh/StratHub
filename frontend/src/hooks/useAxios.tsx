@@ -26,26 +26,35 @@ export const useAxios = () => {
     },
   });
 
-  const axiosErrHandler = (err: AxiosError | any) => {
-    const msg = err?.response?.data?.message;
-    const code = err?.response?.status;
-    if (code === 401) {
-      if (clearAuth) {
-        clearAuth();
-        navigate(`${__BASE_URL__}/login`);
+  axios.interceptors.response.use(
+    (response) => response,
+    (err: AxiosError) => {
+      if (Axios.isCancel(err)) {
+        window.console.log("Request canceled", err.message);
       }
-      enqueueSnackbar(`Login Expired`, {
-        variant: "info",
-      });
-    } else if (code === 403) {
-      enqueueSnackbar(`Request Error: Blame Dev :| ${msg}`, {
-        variant: "error",
-      });
-      navigate(`${__BASE_URL__}/login`);
-    } else if (msg) {
-      enqueueSnackbar(msg, { variant: "error" });
+      const msg = err?.response?.data?.message;
+      const code = err?.response?.status;
+      if (code === 401) {
+        if (clearAuth) {
+          clearAuth();
+          navigate(`${__BASE_URL__}/login`);
+        }
+        enqueueSnackbar(`Login Expired`, {
+          variant: "info",
+        });
+      } else if (code === 403) {
+        enqueueSnackbar(`Request Error: Blame Dev :| ${msg}`, {
+          variant: "error",
+        });
+        navigate(`${__BASE_URL__}/login`);
+      } else if (msg) {
+        enqueueSnackbar(msg, { variant: "error" });
+      }
+
+      return Promise.reject(error);
     }
-  };
+  );
+  const axiosErrHandler = (err: AxiosError | any) => {};
   return { axios, axiosErrHandler };
 };
 export default useAxios;

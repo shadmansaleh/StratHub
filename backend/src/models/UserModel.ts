@@ -54,11 +54,11 @@ const UserSchema = new mongoose.Schema({
     default: [],
   },
   experience: {
-    type: String,
+    type: Number,
     default: 0,
   },
   hourly_rate: {
-    type: String,
+    type: Number,
     default: 0,
   },
   rating: {

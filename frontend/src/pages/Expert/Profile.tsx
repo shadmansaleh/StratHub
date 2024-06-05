@@ -19,8 +19,8 @@ export type ExpertProfileInfoType = {
   timezone: string;
   companies: string[];
   description: string;
-  experience: string;
-  hourly_rate: string;
+  experience: number;
+  hourly_rate: number;
 };
 const Profile = () => {
   const [loading, setLoading] = useState(true);
@@ -36,8 +36,8 @@ const Profile = () => {
     timezone: "",
     companies: [],
     description: "",
-    experience: "",
-    hourly_rate: "",
+    experience: 0,
+    hourly_rate: 0,
   });
 
   const [saved_profile_info, setSavedProfileInfo] =
@@ -58,11 +58,12 @@ const Profile = () => {
       .catch(axiosErrHandler);
   }, []);
 
-  const formDataFollow =
-    (field: string, dataName = "value") =>
-    (e: any) => {
-      setProfileInfo({ ...profile_info, [field]: e.target[dataName] });
-    };
+  const formDataFollow = (field: string, type?: string) => (e: any) => {
+    let value = e.target.value;
+    if (type && type === "number")
+      value = parseFloat(e.target.value.replace(/[^0-9.]/g, ""));
+    setProfileInfo({ ...profile_info, [field]: value });
+  };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -244,17 +245,17 @@ const Profile = () => {
                 label="Experience"
                 className="flex-1 [&>label>span]:text-xl [&>label>span]:text-primary [&>label>span]:font-semibold [&>input]:bg-base-50"
                 nobox={!editMode}
-                value={profile_info.experience}
-                onChange={formDataFollow("experience")}
+                value={profile_info.experience.toString()}
+                onChange={formDataFollow("experience", "number")}
               />
               <TextBox
                 type="text"
-                placeholder="50$/hour"
+                placeholder="50"
                 label="Hourly Rate"
                 className="flex-1 [&>label>span]:text-xl [&>label>span]:text-primary [&>label>span]:font-semibold [&>input]:bg-base-50"
                 nobox={!editMode}
-                value={profile_info.hourly_rate}
-                onChange={formDataFollow("hourly_rate")}
+                value={profile_info.hourly_rate.toString()}
+                onChange={formDataFollow("hourly_rate", "number")}
               />
             </div>
             <hr className="divider w-[90%] mx-auto" />
