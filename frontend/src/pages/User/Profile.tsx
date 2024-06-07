@@ -156,6 +156,7 @@ const Profile = () => {
                     axios
                       .delete("/storage/" + profile_info.profile_pic)
                       .catch(axiosErrHandler);
+                    setProfileInfo(saved_profile_info);
                   }
                   setEditMode(!editMode);
                 }}

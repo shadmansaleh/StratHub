@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { globalStorage as secureStorage } from "../middlewares/MulterMiddleware";
+import { secureStorage } from "../middlewares/MulterMiddleware";
 import { AuthUser, AuthRole } from "../middlewares/Authenticate";
 import {
   StorageUploadController,

@@ -115,6 +115,7 @@ const UserSchema = new mongoose.Schema({
       dark_mode: false,
       language: "english",
       visibility: "public",
+      availability: "active",
     },
   },
 });

@@ -5,6 +5,7 @@ import demo_profile from "@/assets/profile_demo.svg";
 import useAxios from "@/hooks/useAxios";
 import { enqueueSnackbar } from "notistack";
 import { act } from "react-dom/test-utils";
+import useQuery from "@/hooks/useQuery";
 
 type expertData = {
   name: string;
@@ -15,6 +16,7 @@ type expertData = {
   price: number;
   description: string;
   id: string;
+  is_favorite: boolean;
 };
 
 function Search() {
@@ -57,7 +59,13 @@ function Search() {
   const { axios, axiosErrHandler } = useAxios();
   const [query, setQuery] = useState("");
 
+  const { data: favorites, isLoading: favoritesLoading } = useQuery<
+    { id: string }[]
+  >("user/favorites", {
+    filter: (data) => data.favorites,
+  });
   useEffect(() => {
+    // if (favoritesLoading) return;
     axios
       .get("/user/find_users", {
         params: {
@@ -70,6 +78,7 @@ function Search() {
       })
       .then((res) => {
         console.log(res.data.users);
+
         setExperts(
           res.data.users.map((user: any) => ({
             id: user._id,
@@ -80,6 +89,9 @@ function Search() {
             rating: user.rating,
             price: user.price,
             description: user.description,
+            is_favorite: favoritesLoading
+              ? false
+              : favorites?.some((fav) => fav === user._id),
           }))
         );
       })
@@ -87,7 +99,7 @@ function Search() {
         enqueueSnackbar("Failed to fetch experts", { variant: "error" });
         axiosErrHandler(e);
       });
-  }, [categoryActive, query]);
+  }, [categoryActive, query, favorites]);
 
   return (
     <>
@@ -132,17 +144,18 @@ function Search() {
           </p>
         </div>
         <div className="flex justify-center items-center flex-wrap w-[90%] m-auto gap-[1rem] my-20">
-          {experts.map((client, idx) => (
+          {experts.map((expert, idx) => (
             <ExpertCard
               key={idx}
-              id={client.id}
-              name={client.name}
-              profile_pic={client.profile_pic}
-              expert_in={client.expert_in}
-              experience={client.experience}
-              rating={client.rating}
-              price={client.price}
-              description={client.description}
+              id={expert.id}
+              name={expert.name}
+              profile_pic={expert.profile_pic}
+              expert_in={expert.expert_in}
+              experience={expert.experience}
+              rating={expert.rating}
+              price={expert.price}
+              description={expert.description}
+              is_favorite={expert.is_favorite}
             />
           ))}
         </div>

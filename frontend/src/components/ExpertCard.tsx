@@ -10,6 +10,8 @@ interface ExpertCardProps {
   rating: number;
   description: string;
   id: string;
+  is_favorite: boolean;
+  only_favorite_visible?: boolean;
 }
 
 function ExpertCard({
@@ -21,11 +23,16 @@ function ExpertCard({
   rating,
   description,
   id,
+  is_favorite,
+  only_favorite_visible,
 }: ExpertCardProps) {
   return (
     <ProfileCard
       name={name}
       profile_pic={profile_pic}
+      is_favorite={is_favorite}
+      only_favorite_visible={only_favorite_visible}
+      id={id}
       info={
         <>
           <p className="text-sm">
