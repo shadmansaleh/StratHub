@@ -20,24 +20,45 @@ export const UserFindUsersController = async (
   res: Response
 ) => {
   const type = req.query.type as string;
-  const catagories = req.query.catagories as string[];
+  const catagories: string[] = (req.query.catagories as string)
+    ? JSON.parse(req.query.catagories as string)
+    : [];
   const query = req.query.query as string;
-  const users = await User.find({
-    $and: [
-      { role: type || "*" },
-      // { designation: { $in: catagories } },
-      {
-        $or: [
-          { username: { $regex: query, $options: "i" } },
-          { firstname: { $regex: query, $options: "i" } },
-          { lastname: { $regex: query, $options: "i" } },
-          { email: { $regex: query, $options: "i" } },
-        ],
-      },
-    ],
-  })
-    .select("-password")
-    .exec();
+  let users = null;
+  if (catagories.length > 0) {
+    users = await User.find({
+      $and: [
+        { role: type || "*" },
+        { designation: { $in: catagories.length > 0 ? catagories : ["*"] } },
+        {
+          $or: [
+            { username: { $regex: query, $options: "i" } },
+            { first_name: { $regex: query, $options: "i" } },
+            { last_name: { $regex: query, $options: "i" } },
+            { email: { $regex: query, $options: "i" } },
+          ],
+        },
+      ],
+    })
+      .select("-password")
+      .exec();
+  } else {
+    users = await User.find({
+      $and: [
+        { role: type || "*" },
+        {
+          $or: [
+            { username: { $regex: query, $options: "i" } },
+            { first_name: { $regex: query, $options: "i" } },
+            { last_name: { $regex: query, $options: "i" } },
+            { email: { $regex: query, $options: "i" } },
+          ],
+        },
+      ],
+    })
+      .select("-password")
+      .exec();
+  }
   res.status(200).json({ users: users });
 };
 

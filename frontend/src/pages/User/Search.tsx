@@ -14,6 +14,7 @@ type expertData = {
   rating: number;
   price: number;
   description: string;
+  id: string;
 };
 
 function Search() {
@@ -61,17 +62,20 @@ function Search() {
       .get("/user/find_users", {
         params: {
           type: "expert",
-          catagories: categories.filter((_, idx) => categoryActive[idx]),
+          catagories: JSON.stringify(
+            categories.filter((_, idx) => categoryActive[idx])
+          ),
           query: query,
         },
       })
       .then((res) => {
         console.log(res.data.users);
         setExperts(
-          res.data.users.map((user: expertData) => ({
-            name: user.name,
+          res.data.users.map((user: any) => ({
+            id: user._id,
+            name: user.first_name + " " + user.last_name,
             profile_pic: user.profile_pic,
-            expert_in: user.expert_in,
+            expert_in: user.designation,
             experience: user.experience,
             rating: user.rating,
             price: user.price,
@@ -131,6 +135,7 @@ function Search() {
           {experts.map((client, idx) => (
             <ExpertCard
               key={idx}
+              id={client.id}
               name={client.name}
               profile_pic={client.profile_pic}
               expert_in={client.expert_in}

@@ -24,9 +24,14 @@ const FileSchema = new mongoose.Schema({
   },
   permission: {
     type: String,
-    enum: ["private", "public"],
+    enum: ["private", "public", "restricted"],
     required: true,
     default: "private",
+  },
+  permission_allowlist: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "User",
+    default: [],
   },
 });
 

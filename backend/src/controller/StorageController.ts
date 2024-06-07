@@ -12,6 +12,10 @@ export const StorageUploadController = async (
   req: types.AuthRequest & { file: Express.Multer.File },
   res: Response
 ) => {
+  const allow_list =
+    req.body.permission === "restricted"
+      ? User.find({ username: { $in: req.body.allow_list } })
+      : [];
   const file = new File({
     owner: req?.user?.id,
     path: req.file.path,
@@ -19,6 +23,7 @@ export const StorageUploadController = async (
     uploadFname: req.file.originalname,
     filetype: req.file.mimetype,
     permission: req.body.permission || "private",
+    permission_allowlist: allow_list,
   });
   await file.save();
   res.status(200).json({
@@ -38,6 +43,11 @@ export const StorageGetController = async (
     file?.owner?.toString() !== req?.user?.id.toString()
   )
     res.status(401).json({ message: "Unauthorized" });
+  if (
+    file?.permission?.toString() === "restricted" &&
+    !file.permission_allowlist.some((user) => user.toString() === req?.user?.id)
+  )
+    return res.status(401).json({ message: "Unauthorized" });
   res.status(200).sendFile(file.path, { root: __dirname + "/../.." });
 };
 

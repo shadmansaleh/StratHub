@@ -74,6 +74,7 @@ const Profile = () => {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("Content-Type", file.type);
+    formData.append("permission", "public");
     axios
       .post("/storage/upload", formData, {
         headers: {

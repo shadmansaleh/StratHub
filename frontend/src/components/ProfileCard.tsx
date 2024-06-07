@@ -1,4 +1,4 @@
-import demo_profile from "@/assets/profile_demo.png";
+import demo_profile from "@/assets/profile_demo.svg";
 import { ReactNode } from "react";
 
 interface ProfileCard {
@@ -34,11 +34,16 @@ function ProfileCard({
     }
   }
   return (
-    <div className=" bg-gradient-to-tl from-primary-content to-neutral w-1/5 min-h-80 m-5 p-2 rounded-box">
+    <div className=" bg-gradient-to-tl from-primary-content to-neutral min-h-80 m-5 p-2 rounded-box w-[20rem] h-[24rem]">
       <div className="flex justify-center items-start">
         <div className="w-20 aspect-square rounded-full ml-2 my-2">
           <img
-            src={profile_pic ? profile_pic : demo_profile}
+            src={
+              profile_pic
+                ? __BACKEND_URL__ + "/storage/" + profile_pic
+                : demo_profile
+            }
+            className="rounded-full w-20 h-20 object-cover"
             alt="profile pic"
           />
         </div>
@@ -48,7 +53,7 @@ function ProfileCard({
         </div>
       </div>
       {/* rating bar */}
-      {rating && (
+      {rating !== undefined && (
         <div className="m-2 flex justify-center items-center">
           <form className="rating">
             {rating_star}

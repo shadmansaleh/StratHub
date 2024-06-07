@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useAxios } from "@/hooks/useAxios";
 
-export default function useQuery(url: string, options?: any) {
-  const [data, setData] = useState<any>(null);
+export default function useQuery<data_type>(url: string, options?: any) {
+  const [data, setData] = useState<data_type | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<any>(null);
   const { axios } = useAxios();
