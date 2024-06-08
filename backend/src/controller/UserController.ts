@@ -8,7 +8,8 @@ export const UserGetController = async (
   req: types.AuthRequest,
   res: Response
 ) => {
-  const user = await User.findById(req?.user?.id).select("-password").exec();
+  const id = (req.query.id as string) || req?.user?.id;
+  const user = await User.findById(id).select("-password").exec();
   res.status(200).json({ message: "User found", user: user });
 };
 export const UserGetAllController = async (req: Request, res: Response) => {

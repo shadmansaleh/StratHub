@@ -45,6 +45,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  city: {
+    type: String,
+    default: "",
+  },
   timezone: {
     type: String,
     default: "",
@@ -88,6 +92,61 @@ const UserSchema = new mongoose.Schema({
       ref_docs: [],
       approved: false,
     },
+  },
+
+  reviews: {
+    type: [
+      {
+        name: String,
+        rating: Number,
+        review: String,
+      },
+    ],
+    default: [],
+  },
+
+  links: {
+    type: {
+      site: {
+        type: String,
+      },
+      linkedin: {
+        type: String,
+      },
+    },
+    default: {
+      site: "",
+      linkedin: "",
+    },
+  },
+
+  skill_list: {
+    type: [String],
+    default: [],
+  },
+
+  work_details: {
+    type: [
+      {
+        company: String,
+        designation: String,
+        start_date: Date,
+        end_date: Date,
+        location: String,
+        description: String,
+      },
+    ],
+    default: [],
+  },
+
+  appointment_times: {
+    type: [
+      {
+        from: Date,
+        to: Date,
+      },
+    ],
+    default: [],
   },
 
   settings: {
