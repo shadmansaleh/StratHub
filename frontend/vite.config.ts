@@ -15,6 +15,14 @@ export default defineConfig(({ command, mode }) => {
       alias: {
         "@": resolve(__dirname, "src"),
         "#root": resolve(__dirname),
+        "@backedntypes": resolve(
+          __dirname,
+          "..",
+          "backend",
+          "src",
+          "types",
+          "LocalTypes"
+        ),
       },
     },
     define: {

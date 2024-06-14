@@ -7,6 +7,7 @@ import {
   UserFavoritesController,
   UserAddFavoriteController,
   UserRemoveFavoriteController,
+  UserAddReviewController,
 } from "../controller/UserController";
 import { UserRole } from "../types/LocalTypes";
 import { AuthUser, AuthRole } from "../middlewares/Authenticate";
@@ -25,5 +26,6 @@ user.get("/find_users", AuthUser, UserFindUsersController);
 user.get("/favorites", AuthUser, UserFavoritesController);
 user.post("/add_favorite", AuthUser, UserAddFavoriteController);
 user.post("/remove_favorite", AuthUser, UserRemoveFavoriteController);
+user.post("/add_review", AuthUser, UserAddReviewController);
 
 export default user;

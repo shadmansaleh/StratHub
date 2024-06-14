@@ -11,6 +11,8 @@ export default function useQuery<data_type = any>(
   const [error, setError] = useState<any>(null);
   const { axios } = useAxios();
   const { config, filter } = opt || {};
+  const [reloadKey, setReloadKey] = useState(0);
+  const reload = () => setReloadKey((prev) => prev + 1);
 
   useEffect(() => {
     let ignore = false;
@@ -18,7 +20,6 @@ export default function useQuery<data_type = any>(
       try {
         const res = await axios.get(url, config);
         if (ignore) return;
-        console.log(url, res.data);
         setData(filter ? filter(res.data) : res.data);
         setIsLoading(false);
       } catch (err) {
@@ -33,7 +34,7 @@ export default function useQuery<data_type = any>(
     return () => {
       ignore = true;
     };
-  }, [url]);
+  }, [url, reloadKey]);
 
-  return { data, isLoading, error };
+  return { data, isLoading, error, reload };
 }

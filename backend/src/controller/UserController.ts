@@ -150,3 +150,20 @@ export const UserRemoveFavoriteController = async (
   }
   res.status(200).json({ message: "Favorite removed" });
 };
+
+export const UserAddReviewController = async (
+  req: types.AuthRequest,
+  res: Response
+) => {
+  const id = req.body.target;
+  const user = await User.findById(id).exec();
+  if (!user) return res.status(400).json({ message: "User not found" });
+  const review = {
+    name: req.body.name,
+    rating: req.body.rating,
+    review: req.body.review,
+  };
+  user.reviews.push(review);
+  await user.save();
+  res.status(200).json({ message: "Review added" });
+};

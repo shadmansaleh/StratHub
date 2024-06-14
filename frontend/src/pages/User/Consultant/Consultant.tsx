@@ -4,6 +4,8 @@ import useQuery from "@/hooks/useQuery";
 import { strCapitalize } from "@/utils/utils";
 import { IoLocationOutline } from "react-icons/io5";
 import { useSearchParams } from "react-router-dom";
+import { useRef } from "react";
+import useAxios from "@/hooks/useAxios";
 
 type userData = {
   profile_pic: string;
@@ -36,7 +38,29 @@ type userData = {
   }>;
 };
 
+const RatingStars = (rating: number, key: string, readonly: boolean) => {
+  let rating_star = [];
+  if (rating !== undefined) {
+    for (let i = 1; i <= 5; i++) {
+      rating_star.push(
+        <input
+          key={i}
+          type="radio"
+          name={`rating-${key}`}
+          className={`mask mask-star-2 bg-blue-600 dark:bg-blue-400`}
+          defaultChecked={i === Math.round(rating)}
+          value={i}
+          readOnly={readonly}
+        />
+      );
+    }
+  }
+  return rating_star;
+};
+
 function Consultant() {
+  const { axios } = useAxios();
+
   // const work_details = [
   //   {
   //     company: "Google",
@@ -91,7 +115,11 @@ function Consultant() {
 
   const [searchParams] = useSearchParams();
 
-  const { data: consultant, isLoading } = useQuery<userData>("/user/get_user", {
+  const {
+    data: consultant,
+    isLoading,
+    reload: relaodConsultant,
+  } = useQuery<userData>("/user/get_user", {
     config: {
       params: { id: searchParams.get("id") },
     },
@@ -116,23 +144,37 @@ function Consultant() {
     },
   });
 
+  const { data: userinfo, userInfoLoading } = useQuery<{
+    name: string;
+  }>("/user/get_user", {
+    filter: (res) => {
+      return {
+        name: strCapitalize(res.user.first_name + " " + res.user.last_name),
+      };
+    },
+  });
+
   if (isLoading || consultant === null) return <Loading />;
 
-  let rating_star = [];
-  if (consultant.rating !== undefined) {
-    for (let i = 1; i <= 5; i++) {
-      rating_star.push(
-        <input
-          key={i}
-          type="radio"
-          name={`rating-${i}`}
-          className={`mask mask-star-2 bg-blue-400`}
-          checked={i === Math.round(consultant.rating)}
-          readOnly
-        />
-      );
+  const submit_review = async (e: any) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    let rating: number = 0;
+    if (data.get("rating-review-rating") !== null)
+      rating = parseInt(data.get("rating-review-rating") as string);
+    const review = data.get("review");
+
+    const res = await axios.post("/user/add_review", {
+      target: searchParams.get("id"),
+      name: userinfo?.name,
+      review: review,
+      rating: rating,
+    });
+    if (res.status === 200) {
+      e.target.reset();
+      relaodConsultant();
     }
-  }
+  };
 
   return (
     <>
@@ -196,7 +238,7 @@ function Consultant() {
             {consultant.rating && (
               <div className="my-2 flex justify-start items-center">
                 <form className="rating translate-y-[30%] mx-4">
-                  {rating_star}
+                  {RatingStars(consultant.rating, "rating", true)}
                 </form>
               </div>
             )}
@@ -220,28 +262,6 @@ function Consultant() {
                   <p className="text-md">
                     {time.from} - {time.to}
                   </p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <h3 className="text-2xl opacity-75 mt-10">Reviews</h3>
-            <div className="">
-              {consultant.reviews.map((review, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col card shadow-md bg-secondary m-6 p-6"
-                >
-                  <div className="flex justify-between items-center">
-                    <h3 className="text-lg font-semibold">{review.name}</h3>
-                    <form className="rating">
-                      {rating_star}
-                      <p className="text-sm text-primary m-2">
-                        {review.rating}
-                      </p>
-                    </form>
-                  </div>
-                  <p className="text-lg">{review.review}</p>
                 </div>
               ))}
             </div>
@@ -298,6 +318,59 @@ function Consultant() {
                   </div>
                 )}
               </div>
+            </div>
+          </div>
+          {/* reviews */}
+          <div className="flex flex-col">
+            <h3 className="text-2xl opacity-75 mt-10">Reviews</h3>
+            <div className="">
+              {consultant.reviews.map((review, idx) => (
+                <div
+                  key={idx}
+                  className="flex flex-col card shadow-md bg-secondary m-6 p-6"
+                >
+                  <div className="flex justify-between items-center">
+                    <h3 className="text-lg font-semibold">{review.name}</h3>
+                    <form className="rating">
+                      {RatingStars(review.rating, `review-rating-${idx}`, true)}
+                      <p className="text-sm text-primary m-2">
+                        {review.rating}
+                      </p>
+                    </form>
+                  </div>
+                  <p className="text-lg">{review.review}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* review box */}
+          <div className="flex flex-col">
+            {/* input box to write review */}
+            <h3 className="text-2xl opacity-75 mt-10">
+              How was your experience?
+            </h3>
+            <div className="flex flex-col card shadow-md bg-base-200 m-6 p-6">
+              <form className="" onSubmit={submit_review}>
+                <div className="flex justify-between items-center">
+                  <h3 className="text-xl font-normal -translate-y-2">
+                    {userinfo?.name}
+                  </h3>
+                  <div className="rating">
+                    {RatingStars(0, "review-rating", false)}
+                    <p className="text-sm text-primary m-2">Rating</p>
+                  </div>
+                </div>
+                <textarea
+                  className="w-full h-20 p-2 rounded-xl bg-base-100 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-opacity-50"
+                  placeholder="Write your review here"
+                  name="review"
+                ></textarea>
+                <input
+                  type="submit"
+                  className="btn btn-accent text-white dark:text-black mt-2 w-full"
+                  value="Submit Review"
+                />
+              </form>
             </div>
           </div>
         </div>

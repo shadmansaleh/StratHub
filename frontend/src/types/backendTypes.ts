@@ -29,3 +29,13 @@ export enum UserRole {
   EXPERT = "expert",
   USER = "user",
 }
+
+export enum ExpertCategory {
+  DESIGN = "design",
+  MARKETING = "marketing",
+  HEALTH = "health",
+  ENGINEERING = "engineering",
+  LAW = "law",
+  EDUCATION = "education",
+  OTHER = "other",
+}

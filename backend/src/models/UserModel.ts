@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { UserRole } from "../types/LocalTypes";
+import { UserRole, ExpertCategory } from "../types/LocalTypes";
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -94,6 +94,12 @@ const UserSchema = new mongoose.Schema({
     },
   },
 
+  expert_in: {
+    type: String,
+    enum: ExpertCategory,
+    default: "",
+  },
+
   reviews: {
     type: [
       {
@@ -142,8 +148,8 @@ const UserSchema = new mongoose.Schema({
   appointment_times: {
     type: [
       {
-        from: Date,
-        to: Date,
+        from: String,
+        to: String,
       },
     ],
     default: [],

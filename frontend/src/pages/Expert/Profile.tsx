@@ -3,41 +3,71 @@ import useAxios from "@/hooks/useAxios";
 import demo_profile from "@/assets/profile_demo.png";
 import TextBox from "@/components/TextBox";
 import { BsSuitcaseLgFill } from "react-icons/bs";
+import { IoMdPricetag } from "react-icons/io";
 import { MdAddCircle, MdRemoveCircle } from "react-icons/md";
 import { strCapitalize } from "@/utils/utils";
 import { enqueueSnackbar } from "notistack";
+import Loading from "@/components/Loading";
+import { ExpertCategory } from "@/types/backendTypes";
 
+/*
+appointment time
+city
+expert in
+linkedin
+site
+skills
+work details
+ */
 export type ExpertProfileInfoType = {
-  username: string;
-  email: string;
-  profile_pic: string;
-  first_name: string;
-  last_name: string;
-  designation: string;
-  phone: string;
-  location: string;
-  timezone: string;
-  companies: string[];
+  appointment_times: Array<{ from: string; to: string }>;
+  city: string;
   description: string;
+  designation: string;
+  expert_in: string;
+  email: string;
   experience: number;
+  first_name: string;
   hourly_rate: number;
+  last_name: string;
+  location: string;
+  phone: string;
+  profile_pic: string;
+  timezone: string;
+  username: string;
+  skill_list: Array<string>;
+  links: { linkedin: string; site: string };
+  work_details: Array<{
+    company: string;
+    designation: string;
+    start_date: string;
+    end_date: string;
+    location: string;
+    description: string;
+  }>;
 };
+
 const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [profile_info, setProfileInfo] = useState<ExpertProfileInfoType>({
-    username: "",
-    email: "",
-    profile_pic: "",
-    first_name: "",
-    last_name: "",
-    designation: "",
-    phone: "",
-    location: "",
-    timezone: "",
-    companies: [],
+    appointment_times: [],
+    city: "",
     description: "",
+    designation: "",
+    expert_in: "",
+    email: "",
     experience: 0,
+    first_name: "",
     hourly_rate: 0,
+    last_name: "",
+    location: "",
+    phone: "",
+    profile_pic: "",
+    timezone: "",
+    username: "",
+    skill_list: [],
+    links: { linkedin: "", site: "" },
+    work_details: [],
   });
 
   const [saved_profile_info, setSavedProfileInfo] =
@@ -57,6 +87,8 @@ const Profile = () => {
       })
       .catch(axiosErrHandler);
   }, []);
+
+  if (loading || profile_info === null) return <Loading />;
 
   const formDataFollow = (field: string, type?: string) => (e: any) => {
     let value = e.target.value;
@@ -216,6 +248,30 @@ const Profile = () => {
                 onChange={formDataFollow("designation")}
               />
             </div>
+            <div className="flex flex-col gap-[1%]">
+              <label htmlFor="" className="label">
+                <span className="label-text text-primary font-semibold text-xl">
+                  Expert in
+                </span>
+              </label>
+              <details className="dropdown px-4">
+                <summary className="m-1 btn btn-outline font-normal">
+                  {profile_info.expert_in}
+                </summary>
+                <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                  {Object.values(ExpertCategory).map((category, idx) => (
+                    <li
+                      key={idx}
+                      onClick={() =>
+                        setProfileInfo({ ...profile_info, expert_in: category })
+                      }
+                    >
+                      <a>{strCapitalize(category)}</a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </div>
             <hr className="divider w-[90%] mx-auto" />
             <div className="flex flex-row gap-[1%]">
               <TextBox
@@ -259,10 +315,12 @@ const Profile = () => {
               />
             </div>
             <hr className="divider w-[90%] mx-auto" />
-            <h3 className="text-xl font-semibold text-primary">Companies</h3>
+            <h3 className="text-xl font-semibold text-primary">
+              Work Experience
+            </h3>
             <div>
               <ul className="flex flex-col gap-6 my-6 ml-10">
-                {profile_info.companies.map((company, idx) => (
+                {profile_info.work_details.map((info, idx: number) => (
                   <li key={idx} className="flex flex-row gap-2 ">
                     <BsSuitcaseLgFill
                       size="1.5rem"
@@ -270,33 +328,120 @@ const Profile = () => {
                     />
                     {editMode ? (
                       <>
-                        <TextBox
-                          placeholder=""
-                          value={profile_info.companies[idx]}
-                          onChange={(e) => {
-                            const companiesCopy = [...profile_info.companies];
-                            companiesCopy[idx] = e.target.value;
-                            setProfileInfo({
-                              ...profile_info,
-                              companies: companiesCopy,
-                            });
-                          }}
-                        />
+                        <div className="flex flex-row gap-2 flex-wrap">
+                          <TextBox
+                            placeholder="Company Name (eg. Google)"
+                            value={info.company}
+                            className="flex-1 [&>label>span]:text-xl [&>label>span]:text-primary [&>label>span]:font-semibold [&>input]:bg-base-50"
+                            onChange={(e) => {
+                              const work_details_copy = [
+                                ...profile_info.work_details,
+                              ];
+                              work_details_copy[idx].company = e.target.value;
+                              setProfileInfo({
+                                ...profile_info,
+                                work_details: work_details_copy,
+                              });
+                            }}
+                          />
+                          <TextBox
+                            placeholder="Designation (eg. Graphic Designer)"
+                            value={info.designation}
+                            className="flex-1 [&>label>span]:text-xl [&>label>span]:text-primary [&>label>span]:font-semibold [&>input]:bg-base-50"
+                            onChange={(e) => {
+                              const work_details_copy = [
+                                ...profile_info.work_details,
+                              ];
+                              work_details_copy[idx].designation =
+                                e.target.value;
+                              setProfileInfo({
+                                ...profile_info,
+                                work_details: work_details_copy,
+                              });
+                            }}
+                          />
+                          <TextBox
+                            placeholder="Start Date (eg. 2020-01-01)"
+                            value={info.start_date}
+                            className="flex-1 [&>label>span]:text-xl [&>label>span]:text-primary [&>label>span]:font-semibold [&>input]:bg-base-50"
+                            onChange={(e) => {
+                              const work_details_copy = [
+                                ...profile_info.work_details,
+                              ];
+                              work_details_copy[idx].start_date =
+                                e.target.value;
+                              setProfileInfo({
+                                ...profile_info,
+                                work_details: work_details_copy,
+                              });
+                            }}
+                          />
+                          <TextBox
+                            placeholder="End Date (eg. 2021-01-01)"
+                            value={info.end_date}
+                            className="flex-1 [&>label>span]:text-xl [&>label>span]:text-primary [&>label>span]:font-semibold [&>input]:bg-base-50"
+                            onChange={(e) => {
+                              const work_details_copy = [
+                                ...profile_info.work_details,
+                              ];
+                              work_details_copy[idx].end_date = e.target.value;
+                              setProfileInfo({
+                                ...profile_info,
+                                work_details: work_details_copy,
+                              });
+                            }}
+                          />
+                          <TextBox
+                            placeholder="Location"
+                            value={info.location}
+                            className="flex-1 [&>label>span]:text-xl [&>label>span]:text-primary [&>label>span]:font-semibold [&>input]:bg-base-50"
+                            onChange={(e) => {
+                              const work_details_copy = [
+                                ...profile_info.work_details,
+                              ];
+                              work_details_copy[idx].location = e.target.value;
+                              setProfileInfo({
+                                ...profile_info,
+                                work_details: work_details_copy,
+                              });
+                            }}
+                          />
+                          <TextBox
+                            placeholder="Description (eg. I was a graphic designer)"
+                            value={info.description}
+                            className="flex-1 [&>label>span]:text-xl [&>label>span]:text-primary [&>label>span]:font-semibold [&>input]:bg-base-50"
+                            onChange={(e) => {
+                              const work_details_copy = [
+                                ...profile_info.work_details,
+                              ];
+                              work_details_copy[idx].description =
+                                e.target.value;
+                              setProfileInfo({
+                                ...profile_info,
+                                work_details: work_details_copy,
+                              });
+                            }}
+                          />
+                        </div>
                         <MdRemoveCircle
                           size="1.5rem"
                           className="m-3 text-error"
                           onClick={() => {
-                            const companiesCopy = [...profile_info.companies];
-                            companiesCopy.splice(idx, 1);
+                            const work_details_copy = [
+                              ...profile_info.work_details,
+                            ];
+                            work_details_copy.splice(idx, 1);
                             setProfileInfo({
                               ...profile_info,
-                              companies: companiesCopy,
+                              work_details: work_details_copy,
                             });
                           }}
                         />
                       </>
                     ) : (
-                      <span className="text-lg text-primary">{company}</span>
+                      <span className="text-lg text-primary">
+                        {info.company}
+                      </span>
                     )}
                   </li>
                 ))}
@@ -304,11 +449,171 @@ const Profile = () => {
               {editMode && (
                 <MdAddCircle
                   size="1.5rem"
-                  className="mx-10 text-accent"
+                  className="mx-10 text-accent -translate-y-4"
                   onClick={() => {
                     setProfileInfo({
                       ...profile_info,
-                      companies: [...profile_info.companies, ""],
+                      work_details: [
+                        ...profile_info.work_details,
+                        {
+                          company: "",
+                          designation: "",
+                          start_date: "",
+                          end_date: "",
+                          location: "",
+                          description: "",
+                        },
+                      ],
+                    });
+                  }}
+                />
+              )}
+            </div>
+            <h3 className="text-xl font-semibold text-primary">Skills</h3>
+            <div>
+              <ul className="flex flex-row flex-wrap gap-6 my-6 ml-10">
+                {profile_info.skill_list.map((skill, idx: number) => (
+                  <li key={idx} className="flex flex-row gap-2 ">
+                    <IoMdPricetag
+                      size="1.5rem"
+                      className={`text-primary ${editMode && "mt-3"}`}
+                    />
+                    {editMode ? (
+                      <>
+                        <div className="flex flex-row gap-2 flex-wrap">
+                          <TextBox
+                            placeholder="skill tags (eg. Graphic Design, Photoshop)"
+                            value={skill}
+                            className="flex-1 [&>label>span]:text-xl [&>label>span]:text-primary [&>label>span]:font-semibold [&>input]:bg-base-50"
+                            onChange={(e) => {
+                              const skills_copy = [...profile_info.skill_list];
+                              skills_copy[idx] = e.target.value;
+                              setProfileInfo({
+                                ...profile_info,
+                                skill_list: skills_copy,
+                              });
+                            }}
+                          />
+                        </div>
+                        <MdRemoveCircle
+                          size="1.5rem"
+                          className="m-3 text-error"
+                          onClick={() => {
+                            const skills_copy = [...profile_info.skill_list];
+                            skills_copy.splice(idx, 1);
+                            setProfileInfo({
+                              ...profile_info,
+                              skill_list: skills_copy,
+                            });
+                          }}
+                        />
+                      </>
+                    ) : (
+                      <span className="text-lg text-primary">
+                        {strCapitalize(skill)}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+              {editMode && (
+                <MdAddCircle
+                  size="1.5rem"
+                  className="mx-10 text-accent -translate-y-4"
+                  onClick={() => {
+                    setProfileInfo({
+                      ...profile_info,
+                      skill_list: [...profile_info.skill_list, ""],
+                    });
+                  }}
+                />
+              )}
+            </div>
+            <hr className="divider w-[90%] mx-auto" />
+            <h3 className="text-xl font-semibold text-primary">
+              Appointment Schedules
+            </h3>
+            <div>
+              <ul className="flex flex-row flex-wrap gap-6 my-6 ml-10">
+                {profile_info.appointment_times.map((time, idx: number) => (
+                  <li key={idx} className="flex flex-row gap-2 ">
+                    <IoMdPricetag
+                      size="1.5rem"
+                      className={`text-primary ${editMode && "mt-3"}`}
+                    />
+                    {editMode ? (
+                      <>
+                        <div className="flex flex-row gap-2 flex-wrap">
+                          <TextBox
+                            placeholder="18:00"
+                            value={time.from}
+                            className="flex-1 [&>label>span]:text-xl [&>label>span]:text-primary [&>label>span]:font-semibold [&>input]:bg-base-50"
+                            onChange={(e) => {
+                              const appointments_copy = [
+                                ...profile_info.appointment_times,
+                              ];
+                              appointments_copy[idx].from = e.target.value;
+                              setProfileInfo({
+                                ...profile_info,
+                                appointment_times: appointments_copy,
+                              });
+                            }}
+                          />
+                          <TextBox
+                            placeholder="20:00"
+                            value={time.to}
+                            className="flex-1 [&>label>span]:text-xl [&>label>span]:text-primary [&>label>span]:font-semibold [&>input]:bg-base-50"
+                            onChange={(e) => {
+                              const appointments_copy = [
+                                ...profile_info.appointment_times,
+                              ];
+                              appointments_copy[idx].to = e.target.value;
+                              setProfileInfo({
+                                ...profile_info,
+                                appointment_times: appointments_copy,
+                              });
+                            }}
+                          />
+                        </div>
+                        <MdRemoveCircle
+                          size="1.5rem"
+                          className="m-3 text-error"
+                          onClick={() => {
+                            const appointments_copy = [
+                              ...profile_info.appointment_times,
+                            ];
+                            appointments_copy.splice(idx, 1);
+                            setProfileInfo({
+                              ...profile_info,
+                              appointment_times: appointments_copy,
+                            });
+                          }}
+                        />
+                      </>
+                    ) : (
+                      <div
+                        key={idx}
+                        className="flex  items-center card card-compact shadow-md bg-secondary m-2 p-4"
+                      >
+                        <p className="text-md">
+                          {time.from} - {time.to}
+                        </p>
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ul>
+              {editMode && (
+                <MdAddCircle
+                  size="1.5rem"
+                  className="mx-10 text-accent -translate-y-4"
+                  onClick={() => {
+                    setProfileInfo({
+                      ...profile_info,
+                      appointment_times: [
+                        ...profile_info.appointment_times,
+                        { from: "", to: "" },
+                      ],
                     });
                   }}
                 />
@@ -318,13 +623,24 @@ const Profile = () => {
             <div className="flex flex-row gap-[1%]">
               <TextBox
                 type="text"
+                placeholder="LA"
+                label="City"
+                className="flex-1 [&>label>span]:text-xl [&>label>span]:text-primary [&>label>span]:font-semibold [&>input]:bg-base-50"
+                nobox={!editMode}
+                value={profile_info.city}
+                onChange={formDataFollow("city")}
+              />
+              <TextBox
+                type="text"
                 placeholder="eg. Cairo, Egypt"
-                label="Location"
+                label="Address"
                 className="flex-1 [&>label>span]:text-xl [&>label>span]:text-primary [&>label>span]:font-semibold [&>input]:bg-base-50"
                 nobox={!editMode}
                 value={profile_info.location}
                 onChange={formDataFollow("location")}
               />
+            </div>
+            <div className="flex flex-row gap-[1%]">
               <TextBox
                 type="text"
                 placeholder="eg. Eastern European Time (EET), Cairo UTC +3"
@@ -333,6 +649,42 @@ const Profile = () => {
                 nobox={!editMode}
                 value={profile_info.timezone}
                 onChange={formDataFollow("timezone")}
+              />
+            </div>
+            <hr className="divider w-[90%] mx-auto" />
+            <label className="label">
+              <span className="label-text text-primary font-semibold text-xl">
+                Links
+              </span>
+            </label>
+            <div className="flex flex-row gap-[1%]">
+              <TextBox
+                type="text"
+                placeholder="eg. linkedin.com/in/alaa_mohamed"
+                label="Linkedin"
+                className="flex-1 [&>label>span]:text-xl [&>label>span]:text-primary [&>label>span]:font-normal [&>input]:bg-base-50"
+                nobox={!editMode}
+                value={profile_info.links.linkedin}
+                onChange={(e) =>
+                  setProfileInfo({
+                    ...profile_info,
+                    links: { ...profile_info.links, linkedin: e.target.value },
+                  })
+                }
+              />
+              <TextBox
+                type="text"
+                placeholder="eg. alaa.com"
+                label="Site"
+                className="flex-1 [&>label>span]:text-xl [&>label>span]:text-primary [&>label>span]:font-normal [&>input]:bg-base-50"
+                nobox={!editMode}
+                value={profile_info.links.site}
+                onChange={(e) =>
+                  setProfileInfo({
+                    ...profile_info,
+                    links: { ...profile_info.links, site: e.target.value },
+                  })
+                }
               />
             </div>
             <hr className="divider w-[90%] mx-auto" />
