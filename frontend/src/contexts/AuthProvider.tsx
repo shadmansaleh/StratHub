@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const setAuthWrapped = ({ token, role }: AuthCtxType) => {
     setAuth({ token, role });
-    if (auth.token) Cookies.set("token", token, { path: "/" });
+    if (auth.token) Cookies.set("token", auth.token, { path: "/" });
     else Cookies.remove("token", { path: "/" });
   };
 

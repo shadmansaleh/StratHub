@@ -4,7 +4,6 @@ import useQuery from "@/hooks/useQuery";
 import { strCapitalize } from "@/utils/utils";
 import { IoLocationOutline } from "react-icons/io5";
 import { useSearchParams } from "react-router-dom";
-import { useRef } from "react";
 import useAxios from "@/hooks/useAxios";
 
 type userData = {
@@ -61,58 +60,6 @@ const RatingStars = (rating: number, key: string, readonly: boolean) => {
 function Consultant() {
   const { axios } = useAxios();
 
-  // const work_details = [
-  //   {
-  //     company: "Google",
-  //     designation: "Software Engineer",
-  //     start_date: "2019-01-01",
-  //     end_date: "2020-01-01",
-  //     location: "Mountain View, CA",
-  //     description: "Worked on the search team",
-  //   },
-  //   {
-  //     company: "Facebook",
-  //     designation: "Software Engineer",
-  //     start_date: "2020-01-01",
-  //     end_date: "2021-01-01",
-  //     location: "Menlo Park, CA",
-  //     description: "Worked on the ads team",
-  //   },
-  // ];
-  // const name = "John Doe";
-  // const city = "San Francisco, CA";
-  // const designation = "Software Engineer";
-  // const rating = 4.5;
-  // const phone = "123-456-7890";
-  // const email = "jondoe@mail.com";
-  // const address = "123, Main Street, San Francisco, CA";
-  // const site = "www.johndoe.com";
-  // const linkedin = "www.linkedin.com/johndoe";
-  // const reviews = [
-  //   {
-  //     name: "Aramis Roy",
-  //     rating: 5,
-  //     review: "Appriciate the help, great consultant",
-  //   },
-  //   {
-  //     name: "Kiran Kumar",
-  //     rating: 4,
-  //     review: "Great consultant, helped me a lot",
-  //   },
-  //   {
-  //     name: "Arshad Ali",
-  //     rating: 5,
-  //     review: "Definitely recommend",
-  //   },
-  // ];
-
-  // const appointment_times = [
-  //   { from: "10:00", to: "13:00" },
-  //   { from: "18:00", to: "22:00" },
-  // ];
-
-  // const skill_list = ["Python", "Java", "C++", "React", "Node.js"];
-
   const [searchParams] = useSearchParams();
 
   const {
@@ -144,7 +91,7 @@ function Consultant() {
     },
   });
 
-  const { data: userinfo, userInfoLoading } = useQuery<{
+  const { data: userinfo } = useQuery<{
     name: string;
   }>("/user/get_user", {
     filter: (res) => {

@@ -42,7 +42,7 @@ export const StorageGetController = async (
     file?.permission?.toString() === "private" &&
     file?.owner?.toString() !== req?.user?.id.toString()
   )
-    res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: "Unauthorized" });
   if (
     file?.permission?.toString() === "restricted" &&
     !file.permission_allowlist.some((user) => user.toString() === req?.user?.id)

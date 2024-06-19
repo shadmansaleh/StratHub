@@ -28,7 +28,7 @@ export const useAxios = () => {
 
   axios.interceptors.response.use(
     (response) => response,
-    (err: AxiosError) => {
+    (err: AxiosError & { response: { data: { message?: string } } }) => {
       if (Axios.isCancel(err)) {
         window.console.log("Request canceled", err.message);
       }
@@ -43,18 +43,16 @@ export const useAxios = () => {
           variant: "info",
         });
       } else if (code === 403) {
-        enqueueSnackbar(`Request Error: Blame Dev :| ${msg}`, {
-          variant: "error",
-        });
+        enqueueSnackbar(`Request Error: Blame Dev :| ${msg}`, {});
         navigate(`${__BASE_URL__}/login`);
       } else if (msg) {
         enqueueSnackbar(msg, { variant: "error" });
       }
 
-      return Promise.reject(error);
+      return Promise.reject(err);
     }
   );
-  const axiosErrHandler = (err: AxiosError | any) => {};
+  const axiosErrHandler = (_: AxiosError | any) => {};
   return { axios, axiosErrHandler };
 };
 export default useAxios;

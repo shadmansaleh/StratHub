@@ -1,5 +1,4 @@
 import ExpertCard from "@/components/ExpertCard";
-import demo_profile from "@/assets/profile_demo.svg";
 import useQuery from "@/hooks/useQuery";
 import Loading from "@/components/Loading";
 

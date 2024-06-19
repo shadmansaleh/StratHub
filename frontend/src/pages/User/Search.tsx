@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import TextBox from "@/components/TextBox";
 import ExpertCard from "@/components/ExpertCard";
-import demo_profile from "@/assets/profile_demo.svg";
 import useAxios from "@/hooks/useAxios";
 import { enqueueSnackbar } from "notistack";
-import { act } from "react-dom/test-utils";
 import useQuery from "@/hooks/useQuery";
 
 type expertData = {
