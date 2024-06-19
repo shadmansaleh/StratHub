@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const MulterMiddleware_1 = require("../middlewares/MulterMiddleware");
+const Authenticate_1 = require("../middlewares/Authenticate");
+const StorageController_1 = require("../controller/StorageController");
+const storage = (0, express_1.Router)();
+storage.post("/upload", Authenticate_1.AuthUser, MulterMiddleware_1.secureStorage.single("file"), StorageController_1.StorageUploadController);
+storage.get("/:id", Authenticate_1.AuthUser, StorageController_1.StorageGetController);
+storage.delete("/:id", Authenticate_1.AuthUser, StorageController_1.StorageDeleteController);
+exports.default = storage;

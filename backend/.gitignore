@@ -137,7 +137,7 @@ dist
 !.vscode/extensions.json
 
 # output directory
-dist/
+# dist/
 
 # ignore backend uploads
 public/uploads/

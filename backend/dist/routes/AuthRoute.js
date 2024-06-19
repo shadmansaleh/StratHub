@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const AuthController_1 = require("../controller/AuthController");
+const Authenticate_1 = require("../middlewares/Authenticate");
+const user = (0, express_1.Router)();
+user.post("/login", AuthController_1.UserLoginController);
+user.delete("/logout", Authenticate_1.AuthUser, AuthController_1.UserLogoutController);
+user.get("/verify_token", Authenticate_1.AuthUser, (_req, res) => res.status(200).json({ message: "Token is valid" }));
+user.post("/register", AuthController_1.UserRegisterController);
+user.get("/username_taken", AuthController_1.UserCheckUsernameTakenController);
+user.get("/email_taken", AuthController_1.UserCheckEmailTakenController);
+user.post("/update_password", AuthController_1.UserUpdatePasswordController);
+exports.default = user;

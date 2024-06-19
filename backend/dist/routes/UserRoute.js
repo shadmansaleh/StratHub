@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const UserController_1 = require("../controller/UserController");
+const LocalTypes_1 = require("../types/LocalTypes");
+const Authenticate_1 = require("../middlewares/Authenticate");
+const user = (0, express_1.Router)();
+user.get("/get_user", Authenticate_1.AuthUser, UserController_1.UserGetController);
+user.get("/all_users", Authenticate_1.AuthUser, (0, Authenticate_1.AuthRole)(LocalTypes_1.UserRole.ADMIN), UserController_1.UserGetAllController);
+user.post("/update_profile", Authenticate_1.AuthUser, UserController_1.UserUpdateController);
+user.get("/find_users", Authenticate_1.AuthUser, UserController_1.UserFindUsersController);
+user.get("/favorites", Authenticate_1.AuthUser, UserController_1.UserFavoritesController);
+user.post("/add_favorite", Authenticate_1.AuthUser, UserController_1.UserAddFavoriteController);
+user.post("/remove_favorite", Authenticate_1.AuthUser, UserController_1.UserRemoveFavoriteController);
+user.post("/add_review", Authenticate_1.AuthUser, UserController_1.UserAddReviewController);
+exports.default = user;
