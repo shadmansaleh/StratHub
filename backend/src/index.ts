@@ -13,6 +13,7 @@ import cookieParser from "cookie-parser";
 // import bodyParser from "body-parser";
 
 const app = express();
+dotenv.config();
 
 // middleware
 // app.use(
@@ -24,7 +25,9 @@ const app = express();
 //   })
 // );
 
-app.use(cors({ origin: true, credentials: true }));
+const ORIGIN_URL = process.env.ORIGIN_URL || "http://localhost:3000";
+
+app.use(cors({ origin: ORIGIN_URL, credentials: true }));
 app.use(cookieParser());
 app.use(express.json());
 
@@ -48,7 +51,6 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 async function main() {
-  dotenv.config();
   const port = process.env.PORT || 5000;
   console.log("Connecting to MongoDB...");
   await mongoose.connect(process.env.DATABASE_URL as string);
