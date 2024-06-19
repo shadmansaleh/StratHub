@@ -62,3 +62,4 @@ function main() {
     });
 }
 main().catch((err) => console.error(err));
+exports.default = app;
