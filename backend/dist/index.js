@@ -23,6 +23,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 // import bodyParser from "body-parser";
 const app = (0, express_1.default)();
+dotenv_1.default.config();
 // middleware
 // app.use(
 //   cors({
@@ -32,7 +33,8 @@ const app = (0, express_1.default)();
 //     allowedHeaders: ["Content-Type", "Authorization"],
 //   })
 // );
-app.use((0, cors_1.default)({ origin: true, credentials: true }));
+const ORIGIN_URL = process.env.ORIGIN_URL || "http://localhost:3000";
+app.use((0, cors_1.default)({ origin: ORIGIN_URL, credentials: true }));
 app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.json());
 // parse application/x-www-form-urlencoded
@@ -51,7 +53,6 @@ app.get("/", (req, res) => {
 });
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        dotenv_1.default.config();
         const port = process.env.PORT || 5000;
         console.log("Connecting to MongoDB...");
         yield mongoose_1.default.connect(process.env.DATABASE_URL);
