@@ -7,5 +7,10 @@
         "config": { "includeFiles": ["dist/**"] }
     }
   ],
-  "rewrites": [{ "source": "/(.*)", "destination": "/dist/index.js" }]
+  "rewrites": [{ "source": "/(.*)", "destination": "/dist/index.js" }],
+  "functions": {
+    "dist/**/*": {
+      "maxDuration": 60
+    }
+  }
 }
