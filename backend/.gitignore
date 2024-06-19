@@ -142,3 +142,4 @@ dist
 # ignore backend uploads
 public/uploads/
 public/storage/
+.vercel
