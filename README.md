@@ -37,8 +37,7 @@ npm run dev
 
 ### Demo
 
-You can checkout the frontend at [strathub.vercel.app](https://strathub.vercel.app/).
-However currently the backend isn't hosted anywhere so full functionality can't be observed through this link.
+You can check it out at [strathub.vercel.app](https://strathub.vercel.app/).
 
 ### Screenshots
 
