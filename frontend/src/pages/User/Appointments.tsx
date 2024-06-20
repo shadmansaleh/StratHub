@@ -2,139 +2,65 @@ import { useState } from "react";
 import { CiExport } from "react-icons/ci";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import TextBox from "@/components/TextBox";
+import useQuery from "@/hooks/useQuery";
+import Loading from "@/components/Loading";
+import { strCapitalize } from "@/utils/utils";
+import moment from "moment";
+
+type Appointment = {
+  date: String;
+  service: String;
+  expert_name: String;
+  client_name: String;
+  time: String;
+  duration: String;
+  status: String;
+};
 
 function Appointments() {
-  const appointments = [
-    {
-      date: "2021-09-01",
-      service: "Web Development",
-      expert_name: "John Doe",
-      duration: "30min",
-      status: "Completed",
+  const { data: userinfo, isLoading: userInfoLoading } = useQuery<{
+    name: string;
+    id: string;
+  }>("/user/get_user", {
+    filter: (res) => {
+      return {
+        name: strCapitalize(res.user.first_name + " " + res.user.last_name),
+        id: res.user._id,
+      };
     },
-    {
-      date: "2021-09-02",
-      service: "Health Checkup",
-      expert_name: "John Doe",
-      duration: "30min",
-      status: "Pending",
+  });
+
+  const { data: appointments, isLoading: appointmentsLoading } = useQuery<
+    Appointment[]
+  >("/user/appointments", {
+    config: {
+      params: {
+        client: userinfo?.id,
+      },
     },
-    {
-      date: "2021-09-03",
-      service: "Legal Advice",
-      expert_name: "John Doe",
-      duration: "30min",
-      status: "Pending",
-    },
-    {
-      date: "2021-09-04",
-      service: "Web Development",
-      expert_name: "John Doe",
-      duration: "30min",
-      status: "Completed",
-    },
-    {
-      date: "2021-09-05",
-      service: "Business Consultation",
-      expert_name: "John Doe",
-      duration: "30min",
-      status: "Completed",
-    },
-    {
-      date: "2021-09-06",
-      service: "Web Development",
-      expert_name: "John Doe",
-      duration: "30min",
-      status: "Completed",
-    },
-    {
-      date: "2021-09-01",
-      service: "Web Development",
-      expert_name: "John Doe",
-      duration: "30min",
-      status: "Completed",
-    },
-    {
-      date: "2021-09-02",
-      service: "Health Checkup",
-      expert_name: "John Doe",
-      duration: "30min",
-      status: "Pending",
-    },
-    {
-      date: "2021-09-03",
-      service: "Legal Advice",
-      expert_name: "John Doe",
-      duration: "30min",
-      status: "Pending",
-    },
-    {
-      date: "2021-09-04",
-      service: "Web Development",
-      expert_name: "John Doe",
-      duration: "30min",
-      status: "Completed",
-    },
-    {
-      date: "2021-09-05",
-      service: "Business Consultation",
-      expert_name: "John Doe",
-      duration: "30min",
-      status: "Completed",
-    },
-    {
-      date: "2021-09-06",
-      service: "Web Development",
-      expert_name: "John Doe",
-      duration: "30min",
-      status: "Completed",
-    },
-    {
-      date: "2021-09-01",
-      service: "Web Development",
-      expert_name: "John Doe",
-      duration: "30min",
-      status: "Completed",
-    },
-    {
-      date: "2021-09-02",
-      service: "Health Checkup",
-      expert_name: "John Doe",
-      duration: "30min",
-      status: "Pending",
-    },
-    {
-      date: "2021-09-03",
-      service: "Legal Advice",
-      expert_name: "John Doe",
-      duration: "30min",
-      status: "Pending",
-    },
-    {
-      date: "2021-09-04",
-      service: "Web Development",
-      expert_name: "John Doe",
-      duration: "30min",
-      status: "Completed",
-    },
-    {
-      date: "2021-09-05",
-      service: "Business Consultation",
-      expert_name: "John Doe",
-      duration: "30min",
-      status: "Completed",
-    },
-    {
-      date: "2021-09-06",
-      service: "Web Development",
-      expert_name: "John Doe",
-      duration: "30min",
-      status: "Completed",
-    },
-  ];
+    filter: (data) =>
+      data.appointments.map((app: any) => ({
+        date: moment(app.date).format("YYYY-MM-DD"),
+        service: app.service,
+        expert_name: strCapitalize(
+          app.expert.first_name + " " + app.expert.last_name
+        ),
+        client_name: strCapitalize(
+          app.client.first_name + " " + app.client.last_name
+        ),
+        time: moment(app.start_time, "HH:mm").format("hh:mm A"),
+        duration: app.duration,
+        status: app.status,
+      })),
+    follow: [userinfo?.id],
+    blockers: [userInfoLoading],
+  });
+
   const sortOrders = ["Date", "Name", "Duration", "Status"];
   const [Sort, setSort] = useState([sortOrders[0], true]);
   const [page, setPage] = useState(1);
+  if (appointmentsLoading || appointments === null || userInfoLoading)
+    return <Loading />;
   let page_length = 15;
   let pages = Math.ceil(appointments.length / page_length);
   return (
@@ -188,13 +114,19 @@ function Appointments() {
       <table className="table w-full mt-10">
         <thead>
           <tr className="">
-            {["Date", "Service", "Expert Name", "Duration", "Status"].map(
-              (item, idx) => (
-                <th key={idx} className="font-serif text-xl text-accent">
-                  {item}
-                </th>
-              )
-            )}
+            {[
+              "Date",
+              "Service",
+              "Client Name",
+              "Expert Name",
+              "Time",
+              "Duration",
+              "Status",
+            ].map((item, idx) => (
+              <th key={idx} className="font-serif text-xl text-accent">
+                {item}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
@@ -207,7 +139,9 @@ function Appointments() {
               <tr key={idx} className="hover py-6">
                 <td>{item.date}</td>
                 <td>{item.service}</td>
+                <td>{item.client_name}</td>
                 <td>{item.expert_name}</td>
+                <td>{item.time}</td>
                 <td>{item.duration}</td>
                 <td>{item.status}</td>
               </tr>
@@ -216,16 +150,21 @@ function Appointments() {
       </table>
       <div className="mt-10 flex flex-row justify-between">
         <p>
-          Showing {page_length} out of {appointments.length} appointments
+          Showing {Math.min(page_length * page, appointments.length)} out of{" "}
+          {appointments.length} appointments
         </p>
         <div className="join p-2">
-          <button className="join-item btn btn-sm" onClick={() => setPage(1)}>
-            1
-          </button>
-          <button className="join-item btn btn-sm">2</button>
-          <button className="join-item btn  btn-sm btn-disabled">...</button>
-          <button className="join-item btn btn-sm">{pages - 1}</button>
-          <button className="join-item btn btn-sm">{pages}</button>
+          {Array.from({ length: pages }, (_, i) => (
+            <button
+              key={i}
+              className={`join-item btn btn-sm ${
+                i + 1 === page ? "btn-accent" : ""
+              }`}
+              onClick={() => setPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
         </div>
       </div>
     </div>

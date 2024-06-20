@@ -3,7 +3,6 @@ import * as types from "../types/LocalTypes";
 import User from "../models/UserModel";
 import Appointment from "../models/AppointmentModel";
 import { StorageDeleteByID } from "./StorageController";
-import { set } from "mongoose";
 
 export const UserGetController = async (
   req: types.AuthRequest,
@@ -48,13 +47,6 @@ export const UserUpdateController = async (
       }
     }
     await user.save();
-    // const user = await User.findByIdAndUpdate(
-    //   req?.user?.id,
-    //   { $set: req.body },
-    //   { new: true }
-    // )
-    //   .select("-password")
-    //   .exec();
     res.status(200).json({ message: "Profile updated", user: user });
   } catch (e: any) {
     console.error(e.message);
@@ -206,17 +198,32 @@ export const UserAddReviewController = async (
   }
 };
 
-export const UserGetBookingController = async (
+export const UserGetAppointmentsController = async (
   req: types.AuthRequest,
   res: Response
 ) => {
-  const id = req.query.id as string;
+  const expert = req.query.expert as string;
   const date = req.query.date as string;
-  if (!id) return res.status(400).json({ message: "ID not provided" });
-  let query: { expert: string; date?: string } = { expert: id };
+  const client = req.query.client as string;
+  const start_time_only = req.query.start_time_only as string;
+  if (!expert && !client)
+    return res.status(400).json({ message: "ID not provided" });
+  let query: { expert?: string; date?: string; client?: string } = {};
   if (date) query.date = date;
+  if (client) query.client = client;
+  if (expert) query.expert = expert;
   try {
-    const appointments = await Appointment.find({ expert: id, date: date });
+    let appointments = null;
+    if (start_time_only === "true") {
+      appointments = (
+        await Appointment.find(query).select("start_time").exec()
+      ).map((app) => app.start_time);
+    } else {
+      appointments = await Appointment.find(query)
+        .populate("expert", "first_name last_name")
+        .populate("client", "first_name last_name")
+        .exec();
+    }
     return res.status(200).json({ appointments: appointments });
   } catch (e: any) {
     console.error(e.message);
@@ -224,23 +231,24 @@ export const UserGetBookingController = async (
   }
 };
 
-export const UserSetBookingController = async (
+export const UserSetAppointmentsController = async (
   req: types.AuthRequest,
   res: Response
 ) => {
-  const id = req.body.id as string;
+  const expert = req.body.expert as string;
   const date = req.body.date as string;
   const start_time = req.body.start_time as string;
   const duration = req.body.duration as number;
+  const service = req.body.service as string;
 
-  if (!id || !date || !start_time || !duration)
+  if (!expert || !date || !start_time || !duration || !service)
     return res.status(400).json({ message: "Missing data" });
 
   try {
     const existing = await Appointment.findOne({
       date: date,
       start_time: start_time,
-      expert: id,
+      expert: expert,
     });
     if (existing)
       return res.status(400).json({ message: "Slot already booked" });
@@ -248,8 +256,9 @@ export const UserSetBookingController = async (
     await new Appointment({
       date: date,
       start_time: start_time,
-      expert: id,
+      expert: expert,
       client: req?.user?.id,
+      service: service,
       duration: duration,
       status: "pending",
     }).save();

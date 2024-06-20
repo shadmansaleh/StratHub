@@ -8,6 +8,7 @@ export default function useQuery<data_type = any>(
     config?: AxiosRequestConfig;
     filter?: (data: any) => data_type;
     follow?: Array<any>;
+    blockers?: Array<any>;
   }
 ) {
   const [data, setData] = useState<data_type | null>(null);
@@ -18,7 +19,7 @@ export default function useQuery<data_type = any>(
   const [reloadKey, setReloadKey] = useState(0);
   const reload = () => setReloadKey((prev) => prev + 1);
   const follow = opt?.follow || [];
-
+  const blockers = opt?.blockers || [];
   useEffect(() => {
     let ignore = false;
     const handleFetch = async () => {
@@ -35,11 +36,11 @@ export default function useQuery<data_type = any>(
       }
     };
 
-    handleFetch();
+    if (blockers.length === 0 || blockers.every((item) => !item)) handleFetch();
     return () => {
       ignore = true;
     };
-  }, [url, reloadKey, ...follow]);
+  }, [url, reloadKey, ...follow, ...blockers]);
 
   return { data, setData, isLoading, error, reload };
 }

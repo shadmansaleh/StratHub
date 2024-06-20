@@ -67,7 +67,7 @@ function ProfileCard({
 
   if (only_favorite_visible && !is_favorite_state) return <></>;
   return (
-    <div className=" bg-gradient-to-tl from-primary-content to-neutral min-h-80 m-5 py-2 px-6 rounded-box w-[22rem] h-[24rem]">
+    <div className=" bg-gradient-to-tl from-primary-content to-neutral min-h-80 m-5 py-2 px-6 rounded-box w-[20rem] h-[28rem]">
       <div className="flex justify-center items-start">
         <div className="aspect-square rounded-full ml-2 my-2">
           <img
@@ -105,6 +105,7 @@ function ProfileCard({
       {/* rating bar */}
       {rating !== undefined && (
         <div className="m-2 flex justify-center items-center">
+          <h3 className="px-4 font-semibold">Rating</h3>
           <form className="rating">
             {rating_star}
             <p className="text-sm text-primary m-2">{rating}</p>

@@ -24,6 +24,10 @@ const AppointmentSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  service: {
+    type: String,
+    required: true,
+  },
   status: {
     type: ["pending", "completed", "cancelled"],
     required: true,

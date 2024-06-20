@@ -9,6 +9,7 @@ import { useState } from "react";
 import moment from "moment";
 import { IoMdClose } from "react-icons/io";
 import { enqueueSnackbar } from "notistack";
+import { twMerge } from "tailwind-merge";
 
 type userData = {
   profile_pic: string;
@@ -106,12 +107,10 @@ function Consultant() {
 
   const { data: userinfo } = useQuery<{
     name: string;
-    profile_pic: string;
   }>("/user/get_user", {
     filter: (res) => {
       return {
         name: strCapitalize(res.user.first_name + " " + res.user.last_name),
-        profile_pic: res.user.profile_pic,
       };
     },
   });
@@ -120,14 +119,15 @@ function Consultant() {
     data: bookedSlots,
     isLoading: bookedSlotsLoading,
     reload: reloadBookedSlots,
-  } = useQuery<string[]>("/user/get_booking", {
+  } = useQuery<string[]>("/user/appointments", {
     config: {
       params: {
-        id: searchParams.get("id"),
+        expert: searchParams.get("id"),
         date: appointmentDate,
+        start_time_only: "true",
       },
     },
-    filter: (res) => res.appointments.map((app: any) => app.start_time),
+    filter: (res) => res.appointments,
     follow: [appointmentDate],
   });
 
@@ -155,18 +155,18 @@ function Consultant() {
     if (appointmentData === null) return;
     const duration = moment
       .duration(
-        moment(appointmentData.start_time, "HH:mm").diff(
-          moment(appointmentData.end_time, "HH:mm")
+        moment(appointmentData.end_time, "HH:mm").diff(
+          moment(appointmentData.start_time, "HH:mm")
         )
       )
       .asMinutes();
-    const res = await axios.post("/user/set_booking", {
-      id: searchParams.get("id") as string,
+    const res = await axios.post("/user/appointments", {
+      expert: searchParams.get("id") as string,
       date: appointmentDate,
       start_time: appointmentData.start_time,
       duration: duration,
+      service: consultant?.designation,
     });
-    console.log(res);
     if (res.status === 200) {
       enqueueSnackbar("Appointment Booked", { variant: "success" });
       reloadBookedSlots();
@@ -350,16 +350,14 @@ function Consultant() {
               {consultant.appointment_times.map((time, idx) => (
                 <div
                   key={idx}
-                  className={`flex  items-center card card-compact m-2 p-4 ${
+                  className={twMerge(
+                    "flex items-center card card-compact m-2 p-4",
                     bookedSlots?.includes(time.from)
                       ? "shadow-none bg-gray-400 dark:bg-gray-700 cursor-not-allowed"
-                      : "shadow-md bg-secondary cursor-pointer "
-                  } 
-                  ${
+                      : "shadow-md bg-secondary cursor-pointer ",
                     appointmentData?.start_time === time.from &&
-                    "bg-accent text-accent-content border-primary border-2 -translate-y-2 shadow-xl"
-                  }
-                  `}
+                      "bg-accent text-accent-content border-primary border-2 -translate-y-2 shadow-xl"
+                  )}
                   onClick={() => {
                     if (bookedSlots?.includes(time.from)) return;
                     setAppointmentData({
