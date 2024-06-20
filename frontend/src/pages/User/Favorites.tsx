@@ -54,7 +54,7 @@ function Favorites() {
       <div className=" w-[95%] mx-auto">
         <h1 className="text-3xl text-primary pt-2 pb-0">Favorites</h1>
         <hr className="divider w-[12rem]" />
-        <div className="flex justify-center items-center flex-wrap w-[90%] m-auto gap-[1rem] my-20">
+        <div className="flex justify-start items-start flex-wrap w-[90%] m-auto gap-[1rem] my-20">
           {favoritesLoading && <Loading />}
           {favorites?.map((client, idx) => (
             <ExpertCard

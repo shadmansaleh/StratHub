@@ -141,7 +141,7 @@ function Search() {
             Explore, and choose the best advisor for you and Glorify Your Skill
           </p>
         </div>
-        <div className="flex justify-center items-center flex-wrap w-[90%] m-auto gap-[1rem] my-20">
+        <div className="flex justify-start items-start flex-wrap w-[90%] m-auto gap-[1rem] my-20">
           {experts.map((expert, idx) => (
             <ExpertCard
               key={idx}

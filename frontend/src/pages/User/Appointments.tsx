@@ -151,42 +151,34 @@ function Appointments() {
                 <td>{item.time}</td>
                 <td>{item.duration}</td>
                 <td>
-                  <details className="dropdown">
-                    <summary className="m-1 btn btn-ghost font-normal">
-                      {item.status}
-                    </summary>
-                    <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                      {["pending", "completed", "cancelled"].map(
-                        (status_item, status_idx) => (
-                          <li
-                            className="hover:text-accent cursor-pointer text-md"
-                            key={status_idx}
-                            onClick={async () => {
-                              const res = await axios.post(
-                                "/user/update_appointment",
-                                {
-                                  id: item.id,
-                                  status: status_item,
-                                }
-                              );
-                              if (res.status === 200) {
-                                enqueueSnackbar("Appointment updated", {
-                                  variant: "success",
-                                });
-                                reloadAppointments();
-                              } else {
-                                enqueueSnackbar("Error updating appointment", {
-                                  variant: "error",
-                                });
-                              }
-                            }}
-                          >
-                            {strCapitalize(status_item)}
-                          </li>
-                        )
-                      )}
-                    </ul>
-                  </details>
+                  <select
+                    className="select select-ghost max-w-[10rem]"
+                    defaultValue={item.status}
+                    onChange={async (e) => {
+                      const res = await axios.post("/user/update_appointment", {
+                        id: item.id,
+                        status: e.target.value,
+                      });
+                      if (res.status === 200) {
+                        enqueueSnackbar("Appointment updated", {
+                          variant: "success",
+                        });
+                        reloadAppointments();
+                      } else {
+                        enqueueSnackbar("Error updating appointment", {
+                          variant: "error",
+                        });
+                      }
+                    }}
+                  >
+                    {["pending", "completed", "cancelled"].map(
+                      (status_item, status_idx) => (
+                        <option key={status_idx} value={status_item}>
+                          {strCapitalize(status_item)}
+                        </option>
+                      )
+                    )}
+                  </select>
                 </td>
               </tr>
             ))}
