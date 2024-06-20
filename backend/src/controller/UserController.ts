@@ -274,7 +274,7 @@ export const UserAppointmentUpdateStatus = async (
   res: Response
 ) => {
   const id = req.body.id as string;
-  const status = req.body.status as AppointmentStatus;
+  const status = req.body.status as types.AppointmentStatus;
   if (!id || !status) return res.status(400).json({ message: "Missing data" });
   if (!["pending", "completed", "cancelled"].includes(status))
     return res.status(400).json({ message: "Invalid status" });

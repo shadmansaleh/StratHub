@@ -4,7 +4,7 @@ import { AuthContext } from "@/contexts/AuthProvider";
 import logo from "@/assets/logo.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IconType } from "react-icons";
-import { FaUser, FaHeart, FaHistory, FaSearch } from "react-icons/fa";
+import { FaUser, FaHeart, FaSearch } from "react-icons/fa";
 import { MdLogout, MdDashboard, MdManageAccounts } from "react-icons/md";
 import { IoMdSettings, IoIosPeople } from "react-icons/io";
 import { AiFillSchedule } from "react-icons/ai";

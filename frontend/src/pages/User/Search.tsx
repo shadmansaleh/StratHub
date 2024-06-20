@@ -4,6 +4,7 @@ import ExpertCard from "@/components/ExpertCard";
 import useAxios from "@/hooks/useAxios";
 import { enqueueSnackbar } from "notistack";
 import useQuery from "@/hooks/useQuery";
+import { ExpertCategory } from "@/types/backendTypes";
 
 type expertData = {
   name: string;
@@ -18,22 +19,7 @@ type expertData = {
 };
 
 function Search() {
-  const categories = [
-    "Explore",
-    "Learning",
-    "Health",
-    "Desging System",
-    "Mobile Design",
-    "Desging System",
-    "Desging System",
-    "Desging System",
-    "Desging System",
-    "Mobile Design",
-    "Mobile Design",
-    "Mobile Design",
-    "Mobile Design",
-    "Desging System",
-  ];
+  const categories = Object.values(ExpertCategory);
 
   const [categoryActive, setCategoryActive] = useState(
     categories.map(() => false)
