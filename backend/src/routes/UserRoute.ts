@@ -8,6 +8,8 @@ import {
   UserAddFavoriteController,
   UserRemoveFavoriteController,
   UserAddReviewController,
+  UserGetBookingController,
+  UserSetBookingController,
 } from "../controller/UserController";
 import { UserRole } from "../types/LocalTypes";
 import { AuthUser, AuthRole } from "../middlewares/Authenticate";
@@ -27,5 +29,7 @@ user.get("/favorites", AuthUser, UserFavoritesController);
 user.post("/add_favorite", AuthUser, UserAddFavoriteController);
 user.post("/remove_favorite", AuthUser, UserRemoveFavoriteController);
 user.post("/add_review", AuthUser, UserAddReviewController);
+user.get("/get_booking", AuthUser, UserGetBookingController);
+user.post("/set_booking", AuthUser, UserSetBookingController);
 
 export default user;

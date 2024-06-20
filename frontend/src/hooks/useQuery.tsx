@@ -4,7 +4,11 @@ import { AxiosRequestConfig } from "axios";
 
 export default function useQuery<data_type = any>(
   url: string,
-  opt?: { config?: AxiosRequestConfig; filter?: (data: any) => data_type }
+  opt?: {
+    config?: AxiosRequestConfig;
+    filter?: (data: any) => data_type;
+    follow?: Array<any>;
+  }
 ) {
   const [data, setData] = useState<data_type | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -13,6 +17,7 @@ export default function useQuery<data_type = any>(
   const { config, filter } = opt || {};
   const [reloadKey, setReloadKey] = useState(0);
   const reload = () => setReloadKey((prev) => prev + 1);
+  const follow = opt?.follow || [];
 
   useEffect(() => {
     let ignore = false;
@@ -34,7 +39,7 @@ export default function useQuery<data_type = any>(
     return () => {
       ignore = true;
     };
-  }, [url, reloadKey]);
+  }, [url, reloadKey, ...follow]);
 
-  return { data, isLoading, error, reload };
+  return { data, setData, isLoading, error, reload };
 }

@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
+import { start } from "repl";
 
 const AppointmentSchema = new mongoose.Schema({
-  Date: {
+  date: {
     type: Date,
     required: true,
   },
-  Service: {
+  start_time: {
     type: String,
     required: true,
   },
