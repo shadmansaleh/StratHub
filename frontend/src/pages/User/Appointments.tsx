@@ -6,18 +6,22 @@ import useQuery from "@/hooks/useQuery";
 import Loading from "@/components/Loading";
 import { strCapitalize } from "@/utils/utils";
 import moment from "moment";
+import useAxios from "@/hooks/useAxios";
+import { enqueueSnackbar } from "notistack";
 
 type Appointment = {
-  date: String;
-  service: String;
-  expert_name: String;
-  client_name: String;
-  time: String;
-  duration: String;
-  status: String;
+  id: string;
+  date: string;
+  service: string;
+  expert_name: string;
+  client_name: string;
+  time: string;
+  duration: string;
+  status: string;
 };
 
 function Appointments() {
+  const { axios } = useAxios();
   const { data: userinfo, isLoading: userInfoLoading } = useQuery<{
     name: string;
     id: string;
@@ -30,9 +34,11 @@ function Appointments() {
     },
   });
 
-  const { data: appointments, isLoading: appointmentsLoading } = useQuery<
-    Appointment[]
-  >("/user/appointments", {
+  const {
+    data: appointments,
+    isLoading: appointmentsLoading,
+    reload: reloadAppointments,
+  } = useQuery<Appointment[]>("/user/appointments", {
     config: {
       params: {
         client: userinfo?.id,
@@ -40,6 +46,7 @@ function Appointments() {
     },
     filter: (data) =>
       data.appointments.map((app: any) => ({
+        id: app._id,
         date: moment(app.date).format("YYYY-MM-DD"),
         service: app.service,
         expert_name: strCapitalize(
@@ -143,7 +150,44 @@ function Appointments() {
                 <td>{item.expert_name}</td>
                 <td>{item.time}</td>
                 <td>{item.duration}</td>
-                <td>{item.status}</td>
+                <td>
+                  <details className="dropdown">
+                    <summary className="m-1 btn btn-ghost font-normal">
+                      {item.status}
+                    </summary>
+                    <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                      {["pending", "completed", "cancelled"].map(
+                        (status_item, status_idx) => (
+                          <li
+                            className="hover:text-accent cursor-pointer text-md"
+                            key={status_idx}
+                            onClick={async () => {
+                              const res = await axios.post(
+                                "/user/update_appointment",
+                                {
+                                  id: item.id,
+                                  status: status_item,
+                                }
+                              );
+                              if (res.status === 200) {
+                                enqueueSnackbar("Appointment updated", {
+                                  variant: "success",
+                                });
+                                reloadAppointments();
+                              } else {
+                                enqueueSnackbar("Error updating appointment", {
+                                  variant: "error",
+                                });
+                              }
+                            }}
+                          >
+                            {strCapitalize(status_item)}
+                          </li>
+                        )
+                      )}
+                    </ul>
+                  </details>
+                </td>
               </tr>
             ))}
         </tbody>

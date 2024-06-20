@@ -10,6 +10,7 @@ import {
   UserAddReviewController,
   UserGetAppointmentsController,
   UserSetAppointmentsController,
+  UserAppointmentUpdateStatus,
 } from "../controller/UserController";
 import { UserRole } from "../types/LocalTypes";
 import { AuthUser, AuthRole } from "../middlewares/Authenticate";
@@ -31,5 +32,6 @@ user.post("/remove_favorite", AuthUser, UserRemoveFavoriteController);
 user.post("/add_review", AuthUser, UserAddReviewController);
 user.get("/appointments", AuthUser, UserGetAppointmentsController);
 user.post("/appointments", AuthUser, UserSetAppointmentsController);
+user.post("/update_appointment", AuthUser, UserAppointmentUpdateStatus);
 
 export default user;

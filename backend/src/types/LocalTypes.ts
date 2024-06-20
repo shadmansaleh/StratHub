@@ -47,3 +47,9 @@ export enum ExpertCategory {
   OTHER = "other",
   NONE = "",
 }
+
+export enum AppointmentStatus {
+  PENDING = "pending",
+  COMPLETED = "completed",
+  CANCELLED = "cancelled",
+}

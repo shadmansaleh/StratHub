@@ -215,9 +215,9 @@ export const UserGetAppointmentsController = async (
   try {
     let appointments = null;
     if (start_time_only === "true") {
-      appointments = (
-        await Appointment.find(query).select("start_time").exec()
-      ).map((app) => app.start_time);
+      appointments = (await Appointment.find(query).select("start_time").exec())
+        .filter((app) => app.status !== types.AppointmentStatus.CANCELLED)
+        .map((app) => app.start_time);
     } else {
       appointments = await Appointment.find(query)
         .populate("expert", "first_name last_name")
@@ -266,5 +266,32 @@ export const UserSetAppointmentsController = async (
   } catch (e: any) {
     console.error(e.message);
     return res.status(400).json({ message: "Error setting appointment" });
+  }
+};
+
+export const UserAppointmentUpdateStatus = async (
+  req: types.AuthRequest,
+  res: Response
+) => {
+  const id = req.body.id as string;
+  const status = req.body.status as AppointmentStatus;
+  if (!id || !status) return res.status(400).json({ message: "Missing data" });
+  if (!["pending", "completed", "cancelled"].includes(status))
+    return res.status(400).json({ message: "Invalid status" });
+  try {
+    const appointment = await Appointment.findById(id).exec();
+    if (!appointment)
+      return res.status(400).json({ message: "Appointment not found" });
+    if (
+      appointment.client.toString() !== req?.user?.id &&
+      appointment.expert.toString() !== req?.user?.id
+    )
+      return res.status(400).json({ message: "Unauthorized" });
+    appointment.status = status;
+    await appointment.save();
+    return res.status(200).json({ message: "Appointment updated" });
+  } catch (e: any) {
+    console.error(e.message);
+    return res.status(400).json({ message: "Error updating appointment" });
   }
 };

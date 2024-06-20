@@ -13,12 +13,12 @@ const AppointmentSchema = new mongoose.Schema({
   expert: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    require: true,
+    required: true,
   },
   client: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    require: true,
+    required: true,
   },
   duration: {
     type: Number,
@@ -29,7 +29,8 @@ const AppointmentSchema = new mongoose.Schema({
     required: true,
   },
   status: {
-    type: ["pending", "completed", "cancelled"],
+    type: String,
+    enum: ["pending", "completed", "cancelled"],
     required: true,
   },
 });
