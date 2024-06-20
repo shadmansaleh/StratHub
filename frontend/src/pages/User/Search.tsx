@@ -85,7 +85,7 @@ function Search() {
             expert_in: user.designation,
             experience: user.experience,
             rating: user.rating,
-            price: user.price,
+            price: user.hourly_rate,
             description: user.description,
             is_favorite: favoritesLoading
               ? false

@@ -67,16 +67,16 @@ function ProfileCard({
 
   if (only_favorite_visible && !is_favorite_state) return <></>;
   return (
-    <div className=" bg-gradient-to-tl from-primary-content to-neutral min-h-80 m-5 p-2 rounded-box w-[20rem] h-[24rem]">
+    <div className=" bg-gradient-to-tl from-primary-content to-neutral min-h-80 m-5 py-2 px-6 rounded-box w-[22rem] h-[24rem]">
       <div className="flex justify-center items-start">
-        <div className="w-20 aspect-square rounded-full ml-2 my-2">
+        <div className="aspect-square rounded-full ml-2 my-2">
           <img
             src={
               profile_pic
                 ? __BACKEND_URL__ + "/storage/" + profile_pic
                 : demo_profile
             }
-            className="rounded-full w-20 h-20 object-cover"
+            className="rounded-full w-24 h-24 object-cover"
             alt="profile pic"
           />
         </div>
@@ -114,8 +114,12 @@ function ProfileCard({
       <div>
         {description && (
           <>
-            <h2 className="text-sm font-bold">description</h2>
-            <p className="text-sm text-primary">{description}</p>
+            <h2 className="text-sm font-bold">Description</h2>
+            <p className="text-sm text-primary">
+              {description.length < 150
+                ? description
+                : description.substring(0, 150) + "..."}
+            </p>
           </>
         )}
         <div className="flex justify-center">{children}</div>

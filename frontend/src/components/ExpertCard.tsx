@@ -44,7 +44,7 @@ function ExpertCard({
           </p>
           {/* <p className="text-sm text-secondary">Rating: <span className=" text-primary">4.5</span></p> */}
           <p className="text-sm">
-            Price: <span className=" text-primary">${price}/hr</span>
+            Price: <span className=" text-primary">{price}$/hr</span>
           </p>
         </>
       }
@@ -53,11 +53,10 @@ function ExpertCard({
     >
       <Link
         to={`${__BASE_URL__}/user/consultant?id=${id}`}
-        className="btn btn-primary mx-4 my-5 p-4"
+        className="btn btn-primary mx-4 my-5 p-4 w-8/12"
       >
         More Info
       </Link>
-      <button className="btn btn-accent mx-4 my-5 p-4">Hire</button>
     </ProfileCard>
   );
 }
