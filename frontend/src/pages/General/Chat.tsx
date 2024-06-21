@@ -51,6 +51,7 @@ function Chat() {
     [key: string]: string;
   }>({});
   const messageBox = useRef<HTMLInputElement>(null);
+  const messageSection = useRef<HTMLDivElement>(null);
 
   const user = global?.user;
 
@@ -137,6 +138,7 @@ function Chat() {
       });
       if (res.status === 200) {
         setThreadText({ ...threadText, [currentThreadID]: "" });
+        messageBox.current!.value = "";
         reloadConversation();
         reloadThreadList();
       }
@@ -154,6 +156,15 @@ function Chat() {
     currentThreadID = id;
     if (messageBox.current) messageBox.current.value = threadText[id] || "";
   };
+
+  // scroll to bottom of messages
+  useEffect(() => {
+    messageSection.current?.scrollTo(0, messageSection.current?.scrollHeight);
+    // messageSection.current?.scrollIntoView({
+    //   behavior: "instant",
+    //   block: "end",
+    // });
+  }, [messages]);
 
   if (threadListLoading || threadList === null) return <Loading />;
 
@@ -205,7 +216,10 @@ function Chat() {
       <div className="flex flex-col flex-1 relative">
         <div className="flex flex-col overflow-hidden">
           <h2 className="text-3xl p-2 text-accent">Messages</h2>
-          <div className="flex flex-col h-[78vh] overflow-x-hidden overflow-y-auto no-scrollbar">
+          <div
+            className="flex flex-col h-[78vh] overflow-x-hidden overflow-y-auto no-scrollbar"
+            ref={messageSection}
+          >
             {/* messages */}
             {messages_loading || !user?.id ? (
               <Loading />
@@ -252,6 +266,9 @@ function Chat() {
             type="text"
             placeholder="Message"
             ref={messageBox}
+            onKeyDown={(e) => {
+              if (!e.ctrlKey && e.key === "Enter") sendMessage(e);
+            }}
             className="input input-bordered bg-transparent mt-auto flex-1 mx-4"
           />
           <input
