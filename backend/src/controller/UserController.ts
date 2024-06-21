@@ -206,9 +206,11 @@ export const UserGetAppointmentsController = async (
   const date = req.query.date as string;
   const client = req.query.client as string;
   const start_time_only = req.query.start_time_only as string;
-  if (!expert && !client)
+  const user = req.query.user as string;
+  if (!expert && !client && !user)
     return res.status(400).json({ message: "ID not provided" });
-  let query: { expert?: string; date?: string; client?: string } = {};
+  let query: any = {};
+  if (user) query = { ["$or"]: [{ expert: user }, { client: user }] };
   if (date) query.date = date;
   if (client) query.client = client;
   if (expert) query.expert = expert;

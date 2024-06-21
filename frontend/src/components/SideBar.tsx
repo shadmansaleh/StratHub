@@ -5,7 +5,7 @@ import logo from "@/assets/logo.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IconType } from "react-icons";
 import { FaUser, FaHeart, FaSearch } from "react-icons/fa";
-import { MdLogout, MdDashboard, MdManageAccounts } from "react-icons/md";
+import { MdLogout, MdDashboard } from "react-icons/md";
 import { IoMdSettings, IoIosPeople } from "react-icons/io";
 import { AiFillSchedule } from "react-icons/ai";
 import { BsPersonFillCheck, BsChatDotsFill } from "react-icons/bs";
@@ -54,7 +54,8 @@ function SideBar() {
   const expert_sidebar_items: SideBarItem[] = [
     { name: "Dashboard", icon: MdDashboard, key: "dashboard" },
     { name: "Profile", icon: FaUser, key: "profile" },
-    { name: "Clients", icon: MdManageAccounts, key: "clients" },
+    { name: "Appointments", icon: AiFillSchedule, key: "appointments" },
+    // { name: "Clients", icon: MdManageAccounts, key: "clients" },
     // { name: "Recent", icon: FaHistory, key: "recent" },
     { name: "Chat", icon: BsChatDotsFill, key: "chat" },
     { name: "Settings", icon: IoMdSettings, key: "settings" },

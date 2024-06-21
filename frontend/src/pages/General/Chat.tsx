@@ -1,6 +1,5 @@
 import useQuery from "@/hooks/useQuery";
 import demo_profile_pic from "@/assets/profile_demo.svg";
-import TextBox from "@/components/TextBox";
 import { IoIosAddCircle } from "react-icons/io";
 import { useContext, useEffect, useRef, useState } from "react";
 import { GlobalContext } from "@/contexts/GlobalProvider";

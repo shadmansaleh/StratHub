@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CiExport } from "react-icons/ci";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import TextBox from "@/components/TextBox";
@@ -8,6 +8,7 @@ import { strCapitalize } from "@/utils/utils";
 import moment from "moment";
 import useAxios from "@/hooks/useAxios";
 import { enqueueSnackbar } from "notistack";
+import { GlobalContext } from "@/contexts/GlobalProvider";
 
 type Appointment = {
   id: string;
@@ -22,17 +23,19 @@ type Appointment = {
 
 function Appointments() {
   const { axios } = useAxios();
-  const { data: userinfo, isLoading: userInfoLoading } = useQuery<{
-    name: string;
-    id: string;
-  }>("/user/get_user", {
-    filter: (res) => {
-      return {
-        name: strCapitalize(res.user.first_name + " " + res.user.last_name),
-        id: res.user._id,
-      };
-    },
-  });
+  const { global } = useContext(GlobalContext);
+  const userinfo = global?.user;
+  // const { data: userinfo, isLoading: userInfoLoading } = useQuery<{
+  //   name: string;
+  //   id: string;
+  // }>("/user/get_user", {
+  //   filter: (res) => {
+  //     return {
+  //       name: strCapitalize(res.user.first_name + " " + res.user.last_name),
+  //       id: res.user._id,
+  //     };
+  //   },
+  // });
 
   const {
     data: appointments,
@@ -41,7 +44,7 @@ function Appointments() {
   } = useQuery<Appointment[]>("/user/appointments", {
     config: {
       params: {
-        client: userinfo?.id,
+        user: userinfo?.id,
       },
     },
     filter: (data) =>
@@ -60,13 +63,13 @@ function Appointments() {
         status: app.status,
       })),
     follow: [userinfo?.id],
-    blockers: [userInfoLoading],
+    blockers: [!userinfo],
   });
 
   const sortOrders = ["Date", "Name", "Duration", "Status"];
   const [Sort, setSort] = useState([sortOrders[0], true]);
   const [page, setPage] = useState(1);
-  if (appointmentsLoading || appointments === null || userInfoLoading)
+  if (appointmentsLoading || appointments === null || !userinfo)
     return <Loading />;
   let page_length = 15;
   let pages = Math.ceil(appointments.length / page_length);

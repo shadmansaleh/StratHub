@@ -15,10 +15,10 @@ import SignUpPage from "./pages/General/Auth/SignUp";
 import ResetPasswordPage from "./pages/General/Auth/ResetPassword";
 import HomePage from "./pages/General/Home";
 import ChatPage from "./pages/General/Chat";
+import AppointmentsPage from "./pages/General/Appointments";
 import NotFound404 from "./pages/General/NotFound404";
 
 // User-pages
-import UserAppointmentsPage from "./pages/User/Appointments";
 import UserConsultantPage from "./pages/User/Consultant";
 // import UserDashboardPage from "./pages/User/Dashboard";
 import UserFavoritesPage from "./pages/User/Favorites";
@@ -30,7 +30,7 @@ import UserSettingsPage from "./pages/User/Settings";
 
 // Expert-pages
 import ExpertDashboardPage from "./pages/Expert/Dashboard";
-import ExpertClientsPage from "./pages/Expert/Clients";
+// import ExpertClientsPage from "./pages/Expert/Clients";
 import ExpertMeetPage from "./pages/Expert/Meet";
 import ExpertProfilePage from "./pages/Expert/Profile";
 // import ExpertRecentPage from "./pages/Expert/Recent";
@@ -72,7 +72,7 @@ function App() {
         // { path: "dashboard", element: <UserDashboardPage /> },
         { path: "search", element: <UserSearchPage /> },
         { path: "profile", element: <UserProfilePage /> },
-        { path: "appointments", element: <UserAppointmentsPage /> },
+        { path: "appointments", element: <AppointmentsPage /> },
         { path: "favorites", element: <UserFavoritesPage /> },
         // { path: "history", element: <UserHistoryPage /> },
         { path: "chat", element: <ChatPage /> },
@@ -92,7 +92,8 @@ function App() {
         { index: true, element: <ExpertDashboardPage /> },
         { path: "dashboard", element: <ExpertDashboardPage /> },
         { path: "profile", element: <ExpertProfilePage /> },
-        { path: "clients", element: <ExpertClientsPage /> },
+        // { path: "clients", element: <ExpertClientsPage /> },
+        { path: "appointments", element: <AppointmentsPage /> },
         // { path: "recent", element: <ExpertRecentPage /> },
         { path: "chat", element: <ChatPage /> },
         { path: "settings", element: <ExpertSettingsPage /> },
