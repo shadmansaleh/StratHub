@@ -22,7 +22,7 @@ import UserAppointmentsPage from "./pages/User/Appointments";
 import UserConsultantPage from "./pages/User/Consultant";
 // import UserDashboardPage from "./pages/User/Dashboard";
 import UserFavoritesPage from "./pages/User/Favorites";
-import UserHistoryPage from "./pages/User/History";
+// import UserHistoryPage from "./pages/User/History";
 import UserMeetPage from "./pages/User/Meet";
 import UserProfilePage from "./pages/User/Profile";
 import UserSearchPage from "./pages/User/Search";
@@ -33,7 +33,7 @@ import ExpertDashboardPage from "./pages/Expert/Dashboard";
 import ExpertClientsPage from "./pages/Expert/Clients";
 import ExpertMeetPage from "./pages/Expert/Meet";
 import ExpertProfilePage from "./pages/Expert/Profile";
-import ExpertRecentPage from "./pages/Expert/Recent";
+// import ExpertRecentPage from "./pages/Expert/Recent";
 import ExpertSettingsPage from "./pages/Expert/Settings";
 
 // Admin-pages

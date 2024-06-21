@@ -5,10 +5,12 @@ import mongoose from "mongoose";
 import UserRoute from "./routes/UserRoute";
 import AuthRoute from "./routes/AuthRoute";
 import RootRoute from "./routes/RootRoute";
+import ChatRoute from "./routes/ChatRoute";
 import StroageRoute from "./routes/StorageRoute";
 import dotenv from "dotenv";
 import LogRequest from "./middlewares/LogRequests";
 import cookieParser from "cookie-parser";
+import { AuthUser } from "./middlewares/Authenticate";
 
 // import bodyParser from "body-parser";
 
@@ -43,7 +45,8 @@ app.use(express.json());
 app.use("/auth", AuthRoute);
 app.use("/user", UserRoute);
 app.use("/uploads", express.static("public/uploads"));
-app.use("/storage", StroageRoute);
+app.use("/storage", AuthUser, StroageRoute);
+app.use("/chat", AuthUser, ChatRoute);
 app.use("/", RootRoute);
 
 app.get("/", (req: Request, res: Response) => {

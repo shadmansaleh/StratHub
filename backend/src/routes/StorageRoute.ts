@@ -11,12 +11,11 @@ const storage = Router();
 
 storage.post(
   "/upload",
-  AuthUser,
   secureStorage.single("file"),
   StorageUploadController as any
 );
 
-storage.get("/:id", AuthUser, StorageGetController);
-storage.delete("/:id", AuthUser, StorageDeleteController);
+storage.get("/:id", StorageGetController);
+storage.delete("/:id", StorageDeleteController);
 
 export default storage;

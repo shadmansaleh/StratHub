@@ -3,7 +3,7 @@ import Loading from "@/components/Loading";
 import useQuery from "@/hooks/useQuery";
 import { strCapitalize } from "@/utils/utils";
 import { IoLocationOutline } from "react-icons/io5";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import useAxios from "@/hooks/useAxios";
 import { useState } from "react";
 import moment from "moment";
@@ -65,6 +65,7 @@ const RatingStars = (rating: number, key: string, readonly: boolean) => {
 
 function Consultant() {
   const { axios } = useAxios();
+  const navigate = useNavigate();
   const [appointmentDate, setAppointmentDate] = useState<string>(
     new Date().toISOString().split("T")[0]
   );
@@ -173,6 +174,18 @@ function Consultant() {
     }
     setAppointmentData(null);
     setShowOverlay(false);
+  };
+
+  const gotoChat = async () => {
+    const res = await axios.get("/chat/find_thread", {
+      params: {
+        user: searchParams.get("id"),
+      },
+    });
+    console.log(res);
+    if (res.status === 200) {
+      navigate(`/user/chat?id=${res.data.thread_id}`);
+    }
   };
 
   if (isLoading || consultant === null || bookedSlotsLoading)
@@ -329,7 +342,9 @@ function Consultant() {
             >
               Get Appointment
             </button>
-            <button className="btn btn-secondary">Message</button>
+            <button className="btn btn-secondary" onClick={gotoChat}>
+              Message
+            </button>
             <button className="btn btn-secondary">Contact</button>
           </div>
           {/* appointment times */}

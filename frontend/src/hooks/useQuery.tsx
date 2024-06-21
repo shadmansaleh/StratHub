@@ -37,6 +37,7 @@ export default function useQuery<data_type = any>(
     };
 
     if (blockers.length === 0 || blockers.every((item) => !item)) handleFetch();
+    else setIsLoading(false);
     return () => {
       ignore = true;
     };

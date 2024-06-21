@@ -1,13 +1,19 @@
 import { createContext, useState } from "react";
 
-export interface GlobalCtxType {
-  sidebarKey: string | null;
-}
+export type GlobalCtxType = {
+  sidebarKey?: string | null;
+  user?: {
+    id: string;
+    name: string;
+    first_name: string;
+    last_name: string;
+  };
+};
 
-interface GlobalContextProps {
+type GlobalContextProps = {
   global: GlobalCtxType | null;
   setGlobal: ((global: GlobalCtxType) => void) | null;
-}
+};
 
 export const GlobalContext = createContext<GlobalContextProps>({
   global: null,
@@ -15,7 +21,7 @@ export const GlobalContext = createContext<GlobalContextProps>({
 });
 
 export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
-  const [global, setGlobal] = useState<GlobalCtxType>({ sidebarKey: null });
+  const [global, setGlobal] = useState<GlobalCtxType>({});
 
   return (
     <GlobalContext.Provider value={{ global, setGlobal }}>

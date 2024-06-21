@@ -7,6 +7,8 @@ import NavBarFloating from "@/components/NavBarfloating";
 import { BsChatDotsFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { AuthContext } from "@/contexts/AuthProvider";
+import { GlobalContext } from "@/contexts/GlobalProvider";
+import { strCapitalize } from "@/utils/utils";
 
 interface User {
   username?: string;
@@ -15,9 +17,36 @@ interface User {
 }
 
 function UserHome() {
-  const { axios, axiosErrHandler } = useAxios();
+  const { axios } = useAxios();
+  const { global, setGlobal } = useContext(GlobalContext);
   useEffect(() => {
-    axios.get("/auth/verify_token").catch(axiosErrHandler);
+    let ignore = false;
+    async function init() {
+      try {
+        await axios.get("/auth/verify_token");
+        // if (ignore) return;
+        const user_res = await axios.get("/user/get_user");
+        // if (ignore) return;
+        if (user_res.status !== 200) throw new Error("User not found");
+        let user = user_res.data.user;
+        if (!setGlobal) return;
+        setGlobal({
+          ...global,
+          user: {
+            id: user._id,
+            name: strCapitalize(user.first_name + " " + user.last_name),
+            first_name: user.first_name,
+            last_name: user.last_name,
+          },
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    init();
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   const loc = useLocation();
@@ -31,7 +60,7 @@ function UserHome() {
         <SideBar />
         <div className="flex flex-col w-full bg-base-100">
           <NavBarFloating />
-          <div className="mx-auto my-6 w-[98%] h-full overflow-y-auto overflow-x-hidden">
+          <div className="mx-auto mt-4 w-[98%] h-full overflow-y-auto overflow-x-hidden">
             {(auth?.role === "user" || auth?.role === "expert") &&
               !["chat", "consultant"].includes(cur_key) && (
                 <Link to={`${__BASE_URL__}/${auth.role}/chat`}>
