@@ -25,7 +25,8 @@ npm run setup
 ```
 
 3. Configure setup (One-Time):
-   You'll need to fill out `backend/.env` with your information
+   You'll need to fill out `backend/.env` and `frontend/.env.example` with your information.
+   Read the comments in those files to see what you need.
 
 4. Start server:
    This will run the react frontend in port 3000 and backend on port 5000.
