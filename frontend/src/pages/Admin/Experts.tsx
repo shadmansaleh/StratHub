@@ -1,50 +1,29 @@
 import { MdEdit, MdDelete } from "react-icons/md";
 import TextBox from "../../components/TextBox";
+import useQuery from "@/hooks/useQuery";
+import Loading from "@/components/Loading";
+import { strCapitalize } from "@/utils/utils";
+import { useState } from "react";
 
 function Experts() {
-  let experts = [
-    {
-      name: "Erik Roberts",
-      email: "john@mail.com",
+  const { data: experts, isLoading } = useQuery<
+    { name: string; email: string }[]
+  >("/user/all_users", {
+    filter: (data) => {
+      return data.users
+        .filter((user: any) => user.role === "expert")
+        .map((user: any) => ({
+          name: strCapitalize(user.first_name + " " + user.last_name),
+          email: user.email,
+        }));
     },
-    {
-      name: "Jane Doe",
-      email: "john@mail.com",
-    },
+  });
 
-    {
-      name: "Erik Roberts",
-      email: "john@mail.com",
-    },
-    {
-      name: "Jane Doe",
-      email: "john@mail.com",
-    },
-    {
-      name: "Erik Roberts",
-      email: "john@mail.com",
-    },
-    {
-      name: "Jane Doe",
-      email: "john@mail.com",
-    },
-    {
-      name: "Erik Roberts",
-      email: "john@mail.com",
-    },
-    {
-      name: "Erik Roberts",
-      email: "john@mail.com",
-    },
-    {
-      name: "Jane Doe",
-      email: "john@mail.com",
-    },
-    {
-      name: "Jane Doe",
-      email: "john@mail.com",
-    },
-  ];
+  const page_length = 15;
+  const [page, setPage] = useState(1);
+
+  if (isLoading || !experts) return <Loading />;
+  const pages = Math.ceil(experts.length / page_length);
 
   return (
     <div className="w-[95%] mx-auto">
@@ -68,31 +47,45 @@ function Experts() {
           </tr>
         </thead>
         <tbody>
-          {experts.map((user, index) => (
-            <tr key={index} className="hover">
-              <td>{index + 1}</td>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td className="flex gap-2">
-                <div className="tooltip tooltip-primary" data-tip="Edit">
-                  <MdEdit className="text-accent cursor-pointer" />
-                </div>
-                <div className="tooltip tooltip-primary" data-tip="Delete">
-                  <MdDelete className="text-error cursor-pointer" />
-                </div>
-              </td>
-            </tr>
-          ))}
+          {experts
+            .slice(
+              page_length * (page - 1),
+              Math.min(page_length * page, experts.length)
+            )
+            .map((user, index) => (
+              <tr key={index} className="hover">
+                <td>{index + 1}</td>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td className="flex gap-2">
+                  <div className="tooltip tooltip-primary" data-tip="Edit">
+                    <MdEdit className="text-accent cursor-pointer" />
+                  </div>
+                  <div className="tooltip tooltip-primary" data-tip="Delete">
+                    <MdDelete className="text-error cursor-pointer" />
+                  </div>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
       <div className="mt-10 flex flex-row justify-between">
-        <p>Showing 10 out of 78 experts</p>
+        <p>
+          Showing {Math.min(page_length * page, experts.length)} out of{" "}
+          {experts.length} appointments
+        </p>
         <div className="join p-2">
-          <button className="join-item btn btn-sm">1</button>
-          <button className="join-item btn btn-sm">2</button>
-          <button className="join-item btn  btn-sm btn-disabled">...</button>
-          <button className="join-item btn btn-sm">99</button>
-          <button className="join-item btn btn-sm">100</button>
+          {Array.from({ length: pages }, (_, i) => (
+            <button
+              key={i}
+              className={`join-item btn btn-sm ${
+                i + 1 === page ? "btn-accent" : ""
+              }`}
+              onClick={() => setPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
         </div>
       </div>
     </div>
