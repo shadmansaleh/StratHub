@@ -11,7 +11,18 @@ function Contact() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-10">
         <div className="col-span-2">
           <h2 className="text-3xl text-accent font-poppins">Contact Form</h2>
-          <form className="mt-5">
+          <form
+            className="mt-5"
+            onSubmit={(e) => {
+              e.preventDefault();
+              enqueueSnackbar(
+                "Sorry Contact Form is not working currently. Please send an Email",
+                {
+                  variant: "error",
+                }
+              );
+            }}
+          >
             <div className="form-control">
               <label htmlFor="name" className="label">
                 Name
@@ -44,18 +55,7 @@ function Contact() {
                 className="textarea textarea-primary"
               ></textarea>
             </div>
-            <button
-              className="btn btn-primary mt-5 w-full"
-              onSubmit={(e) => {
-                e.preventDefault();
-                enqueueSnackbar(
-                  "Sorry, Contact Form not working right now. Please send an email",
-                  { variant: "error" }
-                );
-              }}
-            >
-              Submit
-            </button>
+            <button className="btn btn-primary mt-5 w-full">Submit</button>
           </form>
         </div>
         <div className="col-span-1">
