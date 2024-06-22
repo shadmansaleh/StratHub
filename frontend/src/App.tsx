@@ -17,6 +17,9 @@ import HomePage from "./pages/General/Home";
 import ChatPage from "./pages/General/Chat";
 import AppointmentsPage from "./pages/General/Appointments";
 import NotFound404 from "./pages/General/NotFound404";
+import AboutUs from "./pages/General/AboutUs";
+import Services from "./pages/General/Services";
+import Contact from "./pages/General/Contact";
 
 // User-pages
 import UserConsultantPage from "./pages/User/Consultant";
@@ -56,6 +59,9 @@ function App() {
       children: [
         { index: true, element: <LandingPage /> },
         { path: "login", element: <LoginPage /> },
+        { path: "about", element: <AboutUs /> },
+        { path: "services", element: <Services /> },
+        { path: "contact", element: <Contact /> },
         { path: "signup", element: <SignUpPage /> },
         { path: "forgot_password", element: <ResetPasswordPage /> },
       ],

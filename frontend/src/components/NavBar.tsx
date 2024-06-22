@@ -19,25 +19,25 @@ function NavBar() {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal uppercase">
             <li className="">
-              <Link to="">About Us</Link>
+              <Link to="/about">About Us</Link>
             </li>
             <li>
-              <Link to="">Services</Link>
+              <Link to="/services">Services</Link>
             </li>
             <li>
-              <Link to="">Contact</Link>
+              <Link to="/contact">Contact</Link>
             </li>
             <li>
               <details>
                 <summary>More</summary>
-                {/* <ul className="p-2">
+                <ul className="p-2">
                   <li>
-                    <Link to="">Submenu 1</Link>
+                    <Link to="">Coming Soon</Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link to="">Submenu 2</Link>
-                  </li>
-                </ul> */}
+                  </li> */}
+                </ul>
               </details>
             </li>
           </ul>
