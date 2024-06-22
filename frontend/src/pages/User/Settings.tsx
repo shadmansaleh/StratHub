@@ -19,8 +19,8 @@ let strongPasswordRegex = new RegExp(
 );
 
 // disable password verification
-emailRegex = new RegExp(".*");
-strongPasswordRegex = new RegExp(".*");
+// emailRegex = new RegExp(".*");
+// strongPasswordRegex = new RegExp(".*");
 
 const Settings: React.FC = () => {
   // Sample user data

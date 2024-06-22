@@ -26,7 +26,7 @@ export default function useQuery<data_type = any>(
   const blockers = opt?.blockers || [];
   const onCompleted = opt?.onCompleted;
   // const cacheKey = "Query:" + url + JSON.stringify(config);
-  // let cacheInvalidator: NodeJS.Timeout | null = null;
+  // let cacheInvalidator: any = null;
   useEffect(() => {
     let ignore = false;
     const handleFetch = async () => {

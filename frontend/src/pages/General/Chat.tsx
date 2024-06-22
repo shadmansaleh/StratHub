@@ -183,8 +183,8 @@ function Chat() {
 
   // update messages every in every CONVERSATION_POLL_RATE seconds only when UI is in focus
   useEffect(() => {
-    let conversation_poll_interval: NodeJS.Timeout;
-    let thread_list_poll_interval: NodeJS.Timeout;
+    let conversation_poll_interval: any;
+    let thread_list_poll_interval: any;
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {

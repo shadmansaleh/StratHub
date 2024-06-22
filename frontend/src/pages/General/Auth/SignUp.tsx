@@ -24,8 +24,8 @@ let strongPasswordRegex = new RegExp(
 );
 
 // prevent username & password check during account creation
-usernameRegex = new RegExp(".*");
-strongPasswordRegex = new RegExp(".*");
+// usernameRegex = new RegExp(".*");
+// strongPasswordRegex = new RegExp(".*");
 
 function SignUp() {
   const [stage, setStage] = useState(1);
