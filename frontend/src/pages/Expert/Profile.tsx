@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import useAxios from "@/hooks/useAxios";
-import demo_profile from "@/assets/profile_demo.png";
+import demo_profile from "@/assets/profile_demo.svg";
 import TextBox from "@/components/TextBox";
 import { BsSuitcaseLgFill } from "react-icons/bs";
 import { IoMdPricetag } from "react-icons/io";

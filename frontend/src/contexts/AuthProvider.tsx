@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const clearAuth = () => {
     const axios = Axios.create({
-      baseURL: "http://localhost:5000",
+      baseURL: __BACKEND_URL__,
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",
