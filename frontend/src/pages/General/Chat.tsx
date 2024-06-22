@@ -8,7 +8,7 @@ import Loading from "@/components/Loading";
 import { useSearchParams } from "react-router-dom";
 import useAxios from "@/hooks/useAxios";
 
-const CONVERSATION_POLL_RATE = 5; // every 10 seconds
+const CONVERSATION_POLL_RATE = 10; // every 10 seconds
 const THREAD_LIST_POLL_RATE = 60; // every minute
 
 type Message = {
@@ -54,6 +54,7 @@ function Chat() {
   }>({});
   const messageBox = useRef<HTMLInputElement>(null);
   const messageSection = useRef<HTMLDivElement>(null);
+  let poll_skip = 0;
 
   const user = global?.user;
 
@@ -158,6 +159,7 @@ function Chat() {
         from: user?.id,
       });
       if (res.status === 200) {
+        poll_skip = Date.now();
         update_messages();
         setThreadText({ ...threadText, [currentThreadID]: "" });
         messageBox.current!.value = "";
@@ -179,31 +181,52 @@ function Chat() {
     if (messageBox.current) messageBox.current.value = threadText[id] || "";
   };
 
-  // update messages every in every CONVERSATION_POLL_RATE seconds
+  // update messages every in every CONVERSATION_POLL_RATE seconds only when UI is in focus
   useEffect(() => {
-    const conversation_poll_interval = setInterval(() => {
-      update_messages();
-    }, CONVERSATION_POLL_RATE * 1000);
-    return () => clearInterval(conversation_poll_interval);
+    let conversation_poll_interval: NodeJS.Timeout;
+    let thread_list_poll_interval: NodeJS.Timeout;
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        if (poll_skip + 1000 * CONVERSATION_POLL_RATE < Date.now()) {
+          update_messages();
+          reloadThreadList();
+        }
+        messageSection.current?.scrollTo(
+          0,
+          messageSection.current?.scrollHeight
+        );
+        conversation_poll_interval = setInterval(() => {
+          if (poll_skip + 1000 * CONVERSATION_POLL_RATE < Date.now())
+            update_messages();
+        }, CONVERSATION_POLL_RATE * 1000);
+
+        thread_list_poll_interval = setInterval(() => {
+          if (poll_skip + 1000 * THREAD_LIST_POLL_RATE < Date.now())
+            reloadThreadList();
+        }, THREAD_LIST_POLL_RATE * 1000);
+      } else {
+        clearInterval(conversation_poll_interval);
+        clearInterval(thread_list_poll_interval);
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    handleVisibilityChange();
+
+    return () => {
+      clearInterval(conversation_poll_interval);
+      clearInterval(thread_list_poll_interval);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, [currentThreadID]);
-  // update thread list in THREAD_LIST_POLL_RATE seconds
-  useEffect(() => {
-    const thread_list_poll_interval = setInterval(() => {
-      reloadThreadList();
-    }, THREAD_LIST_POLL_RATE * 1000);
-    return () => clearInterval(thread_list_poll_interval);
-  }, []);
 
   // scroll to bottom of messages
   useEffect(() => {
     messageSection.current?.scrollTo(0, messageSection.current?.scrollHeight);
-    // messageSection.current?.scrollIntoView({
-    //   behavior: "instant",
-    //   block: "end",
-    // });
   }, [messages]);
 
-  if (threadListLoading || threadList === null) return <Loading />;
+  if (threadList === null) return <Loading />;
 
   return (
     <div className="flex gap-10">

@@ -49,7 +49,6 @@ function Search() {
     filter: (data) => data.favorites,
   });
   useEffect(() => {
-    // if (favoritesLoading) return;
     axios
       .get("/user/find_users", {
         params: {
@@ -61,8 +60,6 @@ function Search() {
         },
       })
       .then((res) => {
-        console.log(res.data.users);
-
         setExperts(
           res.data.users.map((user: any) => ({
             id: user._id,
@@ -127,7 +124,7 @@ function Search() {
             Explore, and choose the best advisor for you and Glorify Your Skill
           </p>
         </div>
-        <div className="flex justify-start items-start flex-wrap w-[90%] m-auto gap-[1rem] my-20">
+        <div className="flex justify-center items-center flex-wrap w-[90%] m-auto gap-[1rem] my-20">
           {experts.map((expert, idx) => (
             <ExpertCard
               key={idx}

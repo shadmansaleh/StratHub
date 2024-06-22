@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
 export const LogRequest = (req: Request, res: Response, next: NextFunction) => {
-  console.log(req.method, " - Time: ", Date.now());
+  console.log(req.method, ":", req.path, " - Time: ", Date.now());
   next();
 };
 

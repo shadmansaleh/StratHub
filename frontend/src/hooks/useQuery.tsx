@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useAxios } from "@/hooks/useAxios";
 import { AxiosRequestConfig } from "axios";
 
+const CACHE_TIME = 1000;
+
 export default function useQuery<data_type = any>(
   url: string,
   opt?: {
@@ -25,13 +27,37 @@ export default function useQuery<data_type = any>(
   const follow = opt?.follow || [];
   const blockers = opt?.blockers || [];
   const onCompleted = opt?.onCompleted;
+  // const cacheKey = "Query:" + url + JSON.stringify(config);
+  // let cacheInvalidator: NodeJS.Timeout | null = null;
   useEffect(() => {
     let ignore = false;
     const handleFetch = async () => {
       try {
-        const res = await axios.get(url, config);
+        // if (!stateLess) setIsLoading(true);
+
+        // /* Caching */
+        // const cacheData = localStorage.getItem(cacheKey);
+        // if (cacheData) {
+        //   if (ignore) return;
+        //   local_data = JSON.parse(cacheData);
+        //   if (!stateLess) {
+        //     setData(local_data);
+        //     setIsLoading(false);
+        //   }
+        //   if (onCompleted) onCompleted(local_data as data_type);
+        //   return;
+        // }
+
+        let res = await axios.get(url, config);
         if (ignore) return;
         local_data = filter ? filter(res.data) : res.data;
+
+        // /* Caching */
+        // localStorage.setItem(cacheKey, JSON.stringify(local_data));
+        // cacheInvalidator = setTimeout(() => {
+        //   localStorage.removeItem(cacheKey);
+        // }, CACHE_TIME);
+
         if (!stateLess) {
           setData(local_data);
           setIsLoading(false);
@@ -47,8 +73,10 @@ export default function useQuery<data_type = any>(
 
     if (blockers.length === 0 || blockers.every((item) => !item)) handleFetch();
     else setIsLoading(false);
+
     return () => {
       ignore = true;
+      // if (cacheInvalidator) clearTimeout(cacheInvalidator);
     };
   }, [url, reloadKey, ...follow, ...blockers]);
 

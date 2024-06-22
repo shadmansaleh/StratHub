@@ -11,23 +11,13 @@ import dotenv from "dotenv";
 import LogRequest from "./middlewares/LogRequests";
 import cookieParser from "cookie-parser";
 import { AuthUser } from "./middlewares/Authenticate";
+import ErrorHandler from "./middlewares/ErrorHandler";
 // import { Server } from "socket.io";
 
 // import bodyParser from "body-parser";
 
 const app = express();
 dotenv.config();
-
-// middleware
-// app.use(
-//   cors({
-//     origin: "http://localhost:3000",
-//     // origin: "*",
-//     methods: ["GET", "POST", "PUT", "DELETE"],
-//     allowedHeaders: ["Content-Type", "Authorization"],
-//   })
-// );
-
 const ORIGIN_URL = process.env.ORIGIN_URL || "http://localhost:3000";
 
 app.use(cors({ origin: ORIGIN_URL, credentials: true }));
@@ -53,6 +43,8 @@ app.use("/", RootRoute);
 app.get("/", (req: Request, res: Response) => {
   res.json({ status: "success" });
 });
+
+app.use(ErrorHandler);
 
 async function main() {
   const PORT = process.env.PORT ? parseInt(process.env.PORT) : 5000;
