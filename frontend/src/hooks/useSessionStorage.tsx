@@ -6,7 +6,7 @@ const useSessionStorage = (key: string, initialValue?: any) => {
       const item = window.sessionStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return initialValue;
     }
   });
@@ -24,7 +24,7 @@ const useSessionStorage = (key: string, initialValue?: any) => {
         window.sessionStorage.setItem(key, JSON.stringify(valueToStore));
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   return [storedValue, setValue];

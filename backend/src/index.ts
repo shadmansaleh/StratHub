@@ -12,11 +12,15 @@ import LogRequest from "./middlewares/LogRequests";
 import cookieParser from "cookie-parser";
 import { AuthUser } from "./middlewares/Authenticate";
 import ErrorHandler from "./middlewares/ErrorHandler";
+import RateLimiter from "./middlewares/RateLimiter";
+
 // import { Server } from "socket.io";
 
 // import bodyParser from "body-parser";
 
 const app = express();
+app.use(RateLimiter(100));
+
 dotenv.config();
 const ORIGIN_URL = process.env.ORIGIN_URL || "http://localhost:3000";
 

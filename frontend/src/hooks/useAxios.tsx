@@ -30,7 +30,7 @@ export const useAxios = () => {
     (response) => response,
     (err: AxiosError & { response: { data: { message?: string } } }) => {
       if (Axios.isCancel(err)) {
-        window.console.log("Request canceled", err.message);
+        console.error("Request canceled", err.message);
       }
       const msg = err?.response?.data?.message;
       const code = err?.response?.status;

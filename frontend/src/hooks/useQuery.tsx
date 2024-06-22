@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { useAxios } from "@/hooks/useAxios";
 import { AxiosRequestConfig } from "axios";
 
-const CACHE_TIME = 1000;
-
 export default function useQuery<data_type = any>(
   url: string,
   opt?: {

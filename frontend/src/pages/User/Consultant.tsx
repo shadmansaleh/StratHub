@@ -182,7 +182,6 @@ function Consultant() {
         user: searchParams.get("id"),
       },
     });
-    console.log(res);
     if (res.status === 200) {
       navigate(`/user/chat?id=${res.data.thread_id}`);
     }

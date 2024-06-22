@@ -60,7 +60,7 @@ function Chat() {
 
   const {
     data: threadList,
-    isLoading: threadListLoading,
+    // isLoading: threadListLoading,
     reload: reloadThreadList,
   } = useQuery<thread_info[]>("/chat/thread_list", {
     blockers: [!user],

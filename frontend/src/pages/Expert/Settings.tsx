@@ -32,36 +32,9 @@ const Settings = () => {
   const [importantEmails, setImportantEmails] = useState(false);
   const [emailDigest, setEmailDigest] = useState(false);
 
-  const saveChanges = () => {
-    console.log("Settings saved:", {
-      name,
-      email,
-      password,
-      phoneNumber,
-      location,
-      timezone,
-      currentPassword,
-      newPassword,
-      confirmNewPassword,
-      notification,
-      availability,
-      twoFactorAuth,
-      language,
-      emailNotification,
-      importantEmails,
-      emailDigest,
-    });
-  };
-
-  const exportData = () => {
-    // Logic to export data
-    console.log("Data exported successfully!");
-  };
-
-  const deleteAccount = () => {
-    // Logic to delete account
-    console.log("Account deleted successfully!");
-  };
+  const saveChanges = () => {};
+  const exportData = () => {};
+  const deleteAccount = () => {};
 
   return (
     <div className="bg-base-100 dark:bg-base-800 text-base-content dark:text-base-100 w-[95%] mx-auto pb-10">

@@ -26,20 +26,6 @@ function Search() {
   );
 
   const [experts, setExperts] = useState<expertData[]>([]);
-  // let experts = [];
-  // for (let i = 0; i < 15; i++) {
-  //   experts.push({
-  //     name: "John Doe",
-  //     profile_pic: demo_profile,
-  //     expert_in: "Web Development",
-  //     experience: 5,
-  //     rating: 3.5,
-  //     price: 50,
-  //     description:
-  //       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  //   });
-  // }
-
   const { axios, axiosErrHandler } = useAxios();
   const [query, setQuery] = useState("");
 
