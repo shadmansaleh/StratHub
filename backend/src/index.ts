@@ -11,6 +11,7 @@ import dotenv from "dotenv";
 import LogRequest from "./middlewares/LogRequests";
 import cookieParser from "cookie-parser";
 import { AuthUser } from "./middlewares/Authenticate";
+// import { Server } from "socket.io";
 
 // import bodyParser from "body-parser";
 
@@ -54,13 +55,14 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 async function main() {
-  const port = process.env.PORT || 5000;
+  const PORT = process.env.PORT ? parseInt(process.env.PORT) : 5000;
+  // const io = new Server(PORT);
   console.log("Connecting to MongoDB...");
   await mongoose.connect(process.env.DATABASE_URL as string);
   console.log("Connected to MongoDB");
 
-  app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+  app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
   });
 }
 
