@@ -20,7 +20,7 @@ function UserHome() {
   const { axios } = useAxios();
   const { global, setGlobal } = useContext(GlobalContext);
   useEffect(() => {
-    let ignore = false;
+    // let ignore = false;
     async function init() {
       try {
         await axios.get("/auth/verify_token");
@@ -45,7 +45,7 @@ function UserHome() {
     }
     init();
     return () => {
-      ignore = true;
+      // ignore = true;
     };
   }, []);
 
