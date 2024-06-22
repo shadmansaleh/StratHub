@@ -5,6 +5,7 @@ import useAxios from "@/hooks/useAxios";
 import { enqueueSnackbar } from "notistack";
 import useQuery from "@/hooks/useQuery";
 import { ExpertCategory } from "@/types/backendTypes";
+import { strCapitalize } from "@/utils/utils";
 
 type expertData = {
   name: string;
@@ -49,7 +50,10 @@ function Search() {
         setExperts(
           res.data.users.map((user: any) => ({
             id: user._id,
-            name: user.first_name + " " + user.last_name,
+            name:
+              user.first_name !== ""
+                ? strCapitalize(user.first_name + " " + user.last_name)
+                : user.username,
             profile_pic: user.profile_pic,
             expert_in: user.designation,
             experience: user.experience,

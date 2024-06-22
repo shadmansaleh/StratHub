@@ -87,7 +87,10 @@ function Consultant() {
     filter: (res) => {
       const user = res.user as any;
       return {
-        name: strCapitalize(user.first_name + " " + user.last_name),
+        name:
+          user.first_name !== ""
+            ? strCapitalize(user.first_name + " " + user.last_name)
+            : user.username,
         profile_pic: user.profile_pic,
         city: user.city,
         designation: user.designation,
@@ -111,7 +114,10 @@ function Consultant() {
   }>("/user/get_user", {
     filter: (res) => {
       return {
-        name: strCapitalize(res.user.first_name + " " + res.user.last_name),
+        name:
+          res.user.first_name !== ""
+            ? strCapitalize(res.user.first_name + " " + res.user.last_name)
+            : res.user.username,
       };
     },
   });

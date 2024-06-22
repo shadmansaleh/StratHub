@@ -52,12 +52,15 @@ function Appointments() {
         id: app._id,
         date: moment(app.date).format("YYYY-MM-DD"),
         service: app.service,
-        expert_name: strCapitalize(
-          app.expert.first_name + " " + app.expert.last_name
-        ),
-        client_name: strCapitalize(
-          app.client.first_name + " " + app.client.last_name
-        ),
+        expert_name:
+          app.expert.first_name !== ""
+            ? strCapitalize(app.expert.first_name + " " + app.expert.last_name)
+            : app.expert.username,
+        client_name:
+          app.client.first_name !== ""
+            ? strCapitalize(app.client.first_name + " " + app.client.last_name)
+            : app.client.username,
+
         time: moment(app.start_time, "HH:mm").format("hh:mm A"),
         duration: app.duration,
         status: app.status,

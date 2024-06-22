@@ -258,8 +258,8 @@ const UserGetAppointmentsController = (req, res) => __awaiter(void 0, void 0, vo
         }
         else {
             appointments = yield AppointmentModel_1.default.find(query)
-                .populate("expert", "first_name last_name")
-                .populate("client", "first_name last_name")
+                .populate("expert", "first_name last_name username")
+                .populate("client", "first_name last_name username")
                 .exec();
         }
         return res.status(200).json({ appointments: appointments });

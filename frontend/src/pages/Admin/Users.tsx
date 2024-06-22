@@ -13,7 +13,10 @@ function Users() {
       return data.users
         .filter((user: any) => user.role === "user")
         .map((user: any) => ({
-          name: strCapitalize(user.first_name + " " + user.last_name),
+          name:
+            user.first_name !== ""
+              ? strCapitalize(user.first_name + " " + user.last_name)
+              : user.username,
           email: user.email,
         }));
     },

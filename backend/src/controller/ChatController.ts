@@ -19,11 +19,11 @@ export const ChatGetThreadListController = async (
       .populate([
         {
           path: "user1",
-          select: "first_name last_name profile_pic",
+          select: "first_name last_name profile_pic username",
         },
         {
           path: "user2",
-          select: "first_name last_name profile_pic",
+          select: "first_name last_name profile_pic username",
         },
         {
           path: "last_message",

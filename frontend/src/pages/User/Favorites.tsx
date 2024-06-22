@@ -1,6 +1,7 @@
 import ExpertCard from "@/components/ExpertCard";
 import useQuery from "@/hooks/useQuery";
 import Loading from "@/components/Loading";
+import { strCapitalize } from "@/utils/utils";
 
 type expertData = {
   name: string;
@@ -24,7 +25,10 @@ function Favorites() {
     },
     filter: (data) =>
       data.favorites.map((favorite: any) => ({
-        name: favorite.first_name + " " + favorite.last_name,
+        name:
+          favorite.first_name !== ""
+            ? strCapitalize(favorite.first_name + " " + favorite.last_name)
+            : favorite.username,
         id: favorite._id,
         profile_pic: favorite.profile_pic,
         expert_in: favorite.designation,

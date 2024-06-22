@@ -13,7 +13,10 @@ function Experts() {
       return data.users
         .filter((user: any) => user.role === "expert")
         .map((user: any) => ({
-          name: strCapitalize(user.first_name + " " + user.last_name),
+          name:
+            user.first_name !== ""
+              ? strCapitalize(user.first_name + " " + user.last_name)
+              : user.username,
           email: user.email,
         }));
     },

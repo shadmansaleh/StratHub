@@ -27,12 +27,14 @@ type thread_info = {
     first_name: string;
     last_name: string;
     profile_pic: string;
+    username: string;
   };
   user2: {
     id: string;
     first_name: string;
     last_name: string;
     profile_pic: string;
+    username: string;
   };
   last_message: string | null;
   last_message_status: "sent" | "seen";
@@ -71,13 +73,18 @@ function Chat() {
           me === "user1" ? thread.user2.first_name : thread.user1.first_name;
         const last_name =
           me === "user1" ? thread.user2.last_name : thread.user1.last_name;
+        const username =
+          me === "user1" ? thread.user2.username : thread.user1.username;
         let status = thread.last_message?.status || "seen";
         if (status === "sent" && thread.last_message.sender === user?.id) {
           status = "seen";
         }
         return {
           id: thread._id,
-          name: strCapitalize(first_name + " " + last_name),
+          name:
+            first_name !== ""
+              ? strCapitalize(first_name + " " + last_name)
+              : username,
           avatar:
             me == "user1"
               ? profile_pic(thread.user2.profile_pic)
@@ -89,12 +96,14 @@ function Chat() {
             first_name: thread.user1.first_name,
             last_name: thread.user1.last_name,
             profile_pic: profile_pic(thread.user1.profile_pic),
+            username: thread.user1.username,
           },
           user2: {
             id: thread.user2._id,
             first_name: thread.user2.first_name,
             last_name: thread.user2.last_name,
             profile_pic: profile_pic(thread.user2.profile_pic),
+            username: thread.user2.username,
           },
           me: me,
         };
