@@ -8,6 +8,9 @@ import Loading from "@/components/Loading";
 import { useSearchParams } from "react-router-dom";
 import useAxios from "@/hooks/useAxios";
 
+const CONVERSATION_POLL_RATE = 5; // every 10 seconds
+const THREAD_LIST_POLL_RATE = 60; // every minute
+
 type Message = {
   sender: string;
   content: string;
@@ -100,6 +103,7 @@ function Chat() {
 
   const {
     data: messages,
+    setData: setMessages,
     isLoading: messages_loading,
     reload: reloadConversation,
   } = useQuery<Message[]>("/chat/get_conversation", {
@@ -112,6 +116,24 @@ function Chat() {
     follow: [currentThreadID],
     filter: (data: any) => {
       return data.conversation;
+    },
+  });
+
+  const { reload: update_messages } = useQuery<Message[]>("/chat/poll_thread", {
+    config: {
+      params: {
+        id: currentThreadID,
+      },
+    },
+    blockers: [!currentThreadID, messages_loading],
+    stateLess: true,
+    filter: (data: any) => {
+      if (messages_loading) return [];
+      return data.updates;
+    },
+    onCompleted: (data) => {
+      if (data.length === 0) return;
+      setMessages(messages ? [...messages, ...data] : data);
     },
   });
 
@@ -136,9 +158,9 @@ function Chat() {
         from: user?.id,
       });
       if (res.status === 200) {
+        update_messages();
         setThreadText({ ...threadText, [currentThreadID]: "" });
         messageBox.current!.value = "";
-        reloadConversation();
         reloadThreadList();
       }
     } catch (e) {
@@ -153,8 +175,24 @@ function Chat() {
     });
     setSearchParams({ id: id });
     currentThreadID = id;
+    reloadConversation();
     if (messageBox.current) messageBox.current.value = threadText[id] || "";
   };
+
+  // update messages every in every CONVERSATION_POLL_RATE seconds
+  useEffect(() => {
+    const conversation_poll_interval = setInterval(() => {
+      update_messages();
+    }, CONVERSATION_POLL_RATE * 1000);
+    return () => clearInterval(conversation_poll_interval);
+  }, [currentThreadID]);
+  // update thread list in THREAD_LIST_POLL_RATE seconds
+  useEffect(() => {
+    const thread_list_poll_interval = setInterval(() => {
+      reloadThreadList();
+    }, THREAD_LIST_POLL_RATE * 1000);
+    return () => clearInterval(thread_list_poll_interval);
+  }, []);
 
   // scroll to bottom of messages
   useEffect(() => {

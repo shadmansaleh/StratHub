@@ -44,7 +44,7 @@ export const ChatGetConversationController = async (
   if (!id) return res.status(400).json({ message: "Thread ID not given" });
   try {
     let thread = await Chat.findById(id)
-      .select("user1 user2 conversation")
+      .select("user1 user2 conversation msg_updates")
       .exec();
     if (!thread) return res.status(404).json({ message: "Thread not found" });
     if (
@@ -53,7 +53,14 @@ export const ChatGetConversationController = async (
     )
       return res.status(401).json({ message: "Unauthorized" });
     await thread.populate("conversation");
-
+    if (thread.user1.toString() === req.user.id) {
+      await thread.populate("msg_updates", "user1");
+      thread.msg_updates.user1 = [] as any;
+    } else {
+      await thread.populate("msg_updates", "user2");
+      thread.msg_updates.user2 = [] as any;
+    }
+    await thread.save();
     return res.status(200).json({ conversation: thread.conversation });
   } catch (e: any) {
     console.error("Error: ", e.message);
@@ -91,8 +98,10 @@ export const ChatSendController = async (
     };
 
     chat.conversation.push(msg);
+    chat.msg_updates.user1.push(msg);
+    chat.msg_updates.user2.push(msg);
     chat.last_message = msg;
-    chat.save();
+    await chat.save();
     return res.status(200).json({ message: "Message sent" });
   } catch (e: any) {
     console.error("Error: ", e.message);
@@ -126,13 +135,48 @@ export const ChatFindThreadController = async (
         user1: user1,
         user2: user2,
       });
-      thread.save();
+      await thread.save();
       new_thread = true;
     }
     if (!thread) throw new Error("Thread not found and could not be created");
     return res
       .status(200)
       .json({ new_thread: new_thread, thread: thread, thread_id: thread._id });
+  } catch (e: any) {
+    console.error("Error: ", e.message);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const ChatGetConversationUpdatesController = async (
+  req: types.AuthRequest,
+  res: Response
+) => {
+  const id = req.query.id;
+  const user = req?.user?.id;
+  if (!id) return res.status(400).json({ message: "Thread ID not given" });
+  try {
+    let thread = await Chat.findById(id)
+      .select("user1 user2 msg_updates")
+      .exec();
+    if (!thread) return res.status(404).json({ message: "Thread not found" });
+    if (
+      thread?.user1?.toString() !== user &&
+      thread?.user2?.toString() !== user
+    )
+      return res.status(401).json({ message: "Unauthorized" });
+    let updates = [];
+    if (thread.user1.toString() === user) {
+      await thread.populate("msg_updates", "user1");
+      updates = thread.msg_updates.user1;
+      thread.msg_updates.user1 = [] as any;
+    } else {
+      await thread.populate("msg_updates", "user1");
+      updates = thread.msg_updates.user2;
+      thread.msg_updates.user2 = [] as any;
+    }
+    await thread.save();
+    return res.status(200).json({ updates: updates });
   } catch (e: any) {
     console.error("Error: ", e.message);
     return res.status(500).json({ message: "Internal Server Error" });
