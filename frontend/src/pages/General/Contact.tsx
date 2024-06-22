@@ -4,11 +4,11 @@ import { enqueueSnackbar } from "notistack";
 
 function Contact() {
   return (
-    <div className="container mx-auto my-10 h-[100vh] w-full">
+    <div className="container mx-auto my-10 min-h-[100vh] w-full">
       <h1 className="text-5xl font-semibold text-center mt-20 mb-40 font-poppins">
         Contact Us
       </h1>
-      <div className="grid grid-cols-4 gap-10">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-10">
         <div className="col-span-2">
           <h2 className="text-3xl text-accent font-poppins">Contact Form</h2>
           <form className="mt-5">
@@ -62,7 +62,7 @@ function Contact() {
           <img
             src={avatar}
             alt="dev-image"
-            className="w-full aspect-square rounded-full translate-x-32"
+            className="w-full aspect-square rounded-full relative xl:left-[35%] top-[10%] shadow-2xl"
           />
         </div>
         <div className="col-span-1 text-right">
@@ -83,7 +83,7 @@ function Contact() {
           </div>
           <div className="mt-5">
             <h3 className="text-xl font-semibold ">Phone</h3>
-            <p className=" text-right">+123 456 7890</p>
+            <p className=" text-right">+123-456-7890</p>
           </div>
           <div className="mt-5">
             <h3 className="text-xl font-semibold">Address</h3>
