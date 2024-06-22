@@ -18,21 +18,18 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const UserRoute_1 = __importDefault(require("./routes/UserRoute"));
 const AuthRoute_1 = __importDefault(require("./routes/AuthRoute"));
 const RootRoute_1 = __importDefault(require("./routes/RootRoute"));
+const ChatRoute_1 = __importDefault(require("./routes/ChatRoute"));
 const StorageRoute_1 = __importDefault(require("./routes/StorageRoute"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const Authenticate_1 = require("./middlewares/Authenticate");
+const ErrorHandler_1 = __importDefault(require("./middlewares/ErrorHandler"));
+const RateLimiter_1 = __importDefault(require("./middlewares/RateLimiter"));
+// import { Server } from "socket.io";
 // import bodyParser from "body-parser";
 const app = (0, express_1.default)();
+app.use((0, RateLimiter_1.default)(100));
 dotenv_1.default.config();
-// middleware
-// app.use(
-//   cors({
-//     origin: "http://localhost:3000",
-//     // origin: "*",
-//     methods: ["GET", "POST", "PUT", "DELETE"],
-//     allowedHeaders: ["Content-Type", "Authorization"],
-//   })
-// );
 const ORIGIN_URL = process.env.ORIGIN_URL || "http://localhost:3000";
 app.use((0, cors_1.default)({ origin: ORIGIN_URL, credentials: true }));
 app.use((0, cookie_parser_1.default)());
@@ -46,19 +43,22 @@ app.use(express_1.default.json());
 app.use("/auth", AuthRoute_1.default);
 app.use("/user", UserRoute_1.default);
 app.use("/uploads", express_1.default.static("public/uploads"));
-app.use("/storage", StorageRoute_1.default);
+app.use("/storage", Authenticate_1.AuthUser, StorageRoute_1.default);
+app.use("/chat", Authenticate_1.AuthUser, ChatRoute_1.default);
 app.use("/", RootRoute_1.default);
 app.get("/", (req, res) => {
     res.json({ status: "success" });
 });
+app.use(ErrorHandler_1.default);
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        const port = process.env.PORT || 5000;
+        const PORT = process.env.PORT ? parseInt(process.env.PORT) : 5000;
+        // const io = new Server(PORT);
         console.log("Connecting to MongoDB...");
         yield mongoose_1.default.connect(process.env.DATABASE_URL);
         console.log("Connected to MongoDB");
-        app.listen(port, () => {
-            console.log(`Server running at http://localhost:${port}`);
+        app.listen(PORT, () => {
+            console.log(`Server running at http://localhost:${PORT}`);
         });
     });
 }

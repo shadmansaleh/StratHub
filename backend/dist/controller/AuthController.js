@@ -22,23 +22,29 @@ const UserRegisterController = (req, res) => __awaiter(void 0, void 0, void 0, f
     if (!username || !email || !password || !role) {
         return res.status(400).json({ message: "Please enter all fields" });
     }
-    const user = yield UserModel_1.default.findOne({ email: email }).exec();
-    if (user != null)
-        return res.status(400).json({ message: "Email already exists" });
     try {
-        const salt = yield bcrypt_1.default.genSalt(10);
-        const hashedPassword = yield bcrypt_1.default.hash(password, salt);
-        const newUser = new UserModel_1.default({
-            username,
-            email,
-            password: hashedPassword,
-            role,
-        });
-        yield newUser.save();
-        res.status(201).json({ message: "User created" });
+        const user = yield UserModel_1.default.findOne({ email: email }).exec();
+        if (user != null)
+            return res.status(400).json({ message: "Email already exists" });
+        try {
+            const salt = yield bcrypt_1.default.genSalt(10);
+            const hashedPassword = yield bcrypt_1.default.hash(password, salt);
+            const newUser = new UserModel_1.default({
+                username,
+                email,
+                password: hashedPassword,
+                role,
+            });
+            yield newUser.save();
+            res.status(201).json({ message: "User created" });
+        }
+        catch (error) {
+            console.error("Error: ", error);
+            res.status(500).json({ message: "Server error" });
+        }
     }
-    catch (error) {
-        console.error("Error: ", error);
+    catch (e) {
+        console.error("Error: ", e.message);
         res.status(500).json({ message: "Server error" });
     }
 });
@@ -48,18 +54,24 @@ const UserUpdatePasswordController = (req, res) => __awaiter(void 0, void 0, voi
     if (!email || !password) {
         return res.status(400).json({ message: "Please enter all fields" });
     }
-    const user = yield UserModel_1.default.findOne({ email: email }).exec();
-    if (user == null)
-        return res.status(400).json({ message: "Email Not found" });
     try {
-        const salt = yield bcrypt_1.default.genSalt(10);
-        const hashedPassword = yield bcrypt_1.default.hash(password, salt);
-        user.password = hashedPassword;
-        yield user.save();
-        res.status(200).json({ message: "Password Updated" });
+        const user = yield UserModel_1.default.findOne({ email: email }).exec();
+        if (user == null)
+            return res.status(400).json({ message: "Email Not found" });
+        try {
+            const salt = yield bcrypt_1.default.genSalt(10);
+            const hashedPassword = yield bcrypt_1.default.hash(password, salt);
+            user.password = hashedPassword;
+            yield user.save();
+            res.status(200).json({ message: "Password Updated" });
+        }
+        catch (error) {
+            console.error("Error: ", error);
+            res.status(500).json({ message: "Server error" });
+        }
     }
-    catch (error) {
-        console.error("Error: ", error);
+    catch (e) {
+        console.error("Error: ", e.message);
         res.status(500).json({ message: "Server error" });
     }
 });
@@ -70,13 +82,13 @@ const UserLoginController = (req, res) => __awaiter(void 0, void 0, void 0, func
         return res.status(400).json({ message: "Please enter all fields" });
     }
     let user;
-    if (email)
-        user = (yield UserModel_1.default.findOne({ email: email }).exec());
-    else
-        user = (yield UserModel_1.default.findOne({ username: username }).exec());
-    if (user == null)
-        return res.status(400).json({ message: "User does not exist" });
     try {
+        if (email)
+            user = (yield UserModel_1.default.findOne({ email: email }).exec());
+        else
+            user = (yield UserModel_1.default.findOne({ username: username }).exec());
+        if (user == null)
+            return res.status(400).json({ message: "User does not exist" });
         if (yield bcrypt_1.default.compare(password, user.password)) {
             const jwt_user = {
                 name: user.username,
@@ -99,8 +111,8 @@ const UserLoginController = (req, res) => __awaiter(void 0, void 0, void 0, func
             res.status(400).json({ message: "Invalid credentials" });
         }
     }
-    catch (error) {
-        console.error("Error: ", error);
+    catch (e) {
+        console.error("Error: ", e.message);
         res.status(500).json({ message: "Server error" });
     }
 });
@@ -109,27 +121,45 @@ const UserLogoutController = (req, res) => __awaiter(void 0, void 0, void 0, fun
     var _a;
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
-    const sessions = (yield SessionModel_1.default.find({ id: (_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.id, token: token }));
-    sessions.forEach((session) => __awaiter(void 0, void 0, void 0, function* () {
-        yield SessionModel_1.default.deleteOne({ _id: session._id });
-    }));
-    res.status(200).json({ message: "Logout Successful" });
+    try {
+        const sessions = (yield SessionModel_1.default.find({ id: (_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.id, token: token }));
+        sessions.forEach((session) => __awaiter(void 0, void 0, void 0, function* () {
+            yield SessionModel_1.default.deleteOne({ _id: session._id });
+        }));
+        res.status(200).json({ message: "Logout Successful" });
+    }
+    catch (e) {
+        console.error("Error: ", e.message);
+        res.status(500).json({ message: "Server error" });
+    }
 });
 exports.UserLogoutController = UserLogoutController;
 const UserCheckUsernameTakenController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username } = req.query;
     if (!username)
         return res.status(400).json({ message: "Please enter all fields" });
-    const user = yield UserModel_1.default.findOne({ username: username }).exec();
-    res.status(200).json({ taken: user != null });
+    try {
+        const user = yield UserModel_1.default.findOne({ username: username }).exec();
+        res.status(200).json({ taken: user != null });
+    }
+    catch (e) {
+        console.error("Error: ", e.message);
+        res.status(500).json({ message: "Server error" });
+    }
 });
 exports.UserCheckUsernameTakenController = UserCheckUsernameTakenController;
 const UserCheckEmailTakenController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = req.query;
     if (!email)
         return res.status(400).json({ message: "Please enter all fields" });
-    const user = yield UserModel_1.default.findOne({ email: email }).exec();
-    res.status(200).json({ taken: user != null });
+    try {
+        const user = yield UserModel_1.default.findOne({ email: email }).exec();
+        res.status(200).json({ taken: user != null });
+    }
+    catch (e) {
+        console.error(e.message);
+        res.status(500).json({ message: "Server error" });
+    }
 });
 exports.UserCheckEmailTakenController = UserCheckEmailTakenController;
 exports.default = {

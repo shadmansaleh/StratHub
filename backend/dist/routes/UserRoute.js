@@ -13,4 +13,7 @@ user.get("/favorites", Authenticate_1.AuthUser, UserController_1.UserFavoritesCo
 user.post("/add_favorite", Authenticate_1.AuthUser, UserController_1.UserAddFavoriteController);
 user.post("/remove_favorite", Authenticate_1.AuthUser, UserController_1.UserRemoveFavoriteController);
 user.post("/add_review", Authenticate_1.AuthUser, UserController_1.UserAddReviewController);
+user.get("/appointments", Authenticate_1.AuthUser, UserController_1.UserGetAppointmentsController);
+user.post("/appointments", Authenticate_1.AuthUser, UserController_1.UserSetAppointmentsController);
+user.post("/update_appointment", Authenticate_1.AuthUser, UserController_1.UserAppointmentUpdateStatus);
 exports.default = user;

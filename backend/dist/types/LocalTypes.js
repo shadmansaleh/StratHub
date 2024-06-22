@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ExpertCategory = exports.UserRole = void 0;
+exports.AppointmentStatus = exports.ExpertCategory = exports.UserRole = void 0;
 var UserRole;
 (function (UserRole) {
     UserRole["ADMIN"] = "admin";
@@ -18,3 +18,9 @@ var ExpertCategory;
     ExpertCategory["OTHER"] = "other";
     ExpertCategory["NONE"] = "";
 })(ExpertCategory || (exports.ExpertCategory = ExpertCategory = {}));
+var AppointmentStatus;
+(function (AppointmentStatus) {
+    AppointmentStatus["PENDING"] = "pending";
+    AppointmentStatus["COMPLETED"] = "completed";
+    AppointmentStatus["CANCELLED"] = "cancelled";
+})(AppointmentStatus || (exports.AppointmentStatus = AppointmentStatus = {}));

@@ -6,30 +6,35 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Appointment = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const AppointmentSchema = new mongoose_1.default.Schema({
-    Date: {
+    date: {
         type: Date,
         required: true,
     },
-    Service: {
+    start_time: {
         type: String,
         required: true,
     },
     expert: {
         type: mongoose_1.default.Schema.Types.ObjectId,
         ref: "User",
-        require: true,
+        required: true,
     },
     client: {
         type: mongoose_1.default.Schema.Types.ObjectId,
         ref: "User",
-        require: true,
+        required: true,
     },
     duration: {
         type: Number,
         required: true,
     },
+    service: {
+        type: String,
+        required: true,
+    },
     status: {
-        type: ["pending", "completed", "cancelled"],
+        type: String,
+        enum: ["pending", "completed", "cancelled"],
         required: true,
     },
 });
