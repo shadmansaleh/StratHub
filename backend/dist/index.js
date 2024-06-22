@@ -21,6 +21,7 @@ const RootRoute_1 = __importDefault(require("./routes/RootRoute"));
 const ChatRoute_1 = __importDefault(require("./routes/ChatRoute"));
 const StorageRoute_1 = __importDefault(require("./routes/StorageRoute"));
 const dotenv_1 = __importDefault(require("dotenv"));
+// import LogRequest from "./middlewares/LogRequests";
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const Authenticate_1 = require("./middlewares/Authenticate");
 const ErrorHandler_1 = __importDefault(require("./middlewares/ErrorHandler"));
