@@ -1,5 +1,5 @@
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import avatar from "@/assets/contact_avatar.jpg";
+import avatar from "@/assets/contact_avatar.webp";
 import { enqueueSnackbar } from "notistack";
 
 function Contact() {

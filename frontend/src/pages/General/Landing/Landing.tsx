@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import hero_img from "./assets/hero_img.png";
-import hero_img2 from "./assets/hero_img2.png";
+import hero_img from "./assets/hero_img.webp";
+import hero_img2 from "./assets/hero_img2.webp";
 import desc_logo1 from "./assets/desc_card_logo1.png";
 import desc_logo2 from "./assets/desc_card_logo2.png";
 import desc_logo3 from "./assets/desc_card_logo3.png";
