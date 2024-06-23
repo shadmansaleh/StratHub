@@ -4,7 +4,7 @@ import { enqueueSnackbar } from "notistack";
 
 function Contact() {
   return (
-    <div className="container mx-auto my-10 min-h-[100vh] w-full">
+    <div className="container mx-auto my-10 min-h-[100vh] w-[90%]">
       <h1 className="text-5xl font-semibold text-center mt-20 mb-40 font-poppins">
         Contact Us
       </h1>
