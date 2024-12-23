@@ -80,5 +80,3 @@ Note: The data shown in screenshots are dummy data. Showing UI of the website
 Web project for CSE-326 (Internet Programming)
 
 - [Shadman Saleh](https://github.com/shadmansaleh) (shadmansaleh3@gmail.com)
-- [Nahian Chowdhury]()
-- [MD. Raihanul Hasan]()
