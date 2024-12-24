@@ -1,4 +1,6 @@
-const colors = require("tailwindcss/colors");
+import colors from "tailwindcss/colors"
+import daisyui from "daisyui"
+import typography from "@tailwindcss/typography"
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
@@ -36,7 +38,7 @@ module.exports = {
       },
     },
   },
-  plugins: [require("@tailwindcss/typography"), require("daisyui")],
+  plugins: [typography, daisyui],
   daisyui: {
     themes: [
       {

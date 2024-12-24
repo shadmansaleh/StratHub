@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"  # The Vite dev server will be accessible at http://localhost:3000
+    depends_on:
+      - backend
+    environment:
+      - BASE_URL=
+      - BACKEND_URL=http://localhost:5000  # Ensure Vite points to the backend
+
+  backend:
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"  # The backend will be accessible at http://localhost:5000
+    depends_on:
+      - mongodb
+    environment:
+      - DATABASE_URL=mongodb://mongodb:27017/StratHubDB  # MongoDB URI
+      - ORIGIN_URL="http://localhost:4173"
+      - PORT=5000
+      - JWT_ACCESS_TOKEN_SECRET="89dd103d00a25989d192ae10dd7ede7fd43ac60e065d4c48d20b37d66d203e7f034dcbaa27f8005dcd717ce824e13c0bf8ea15a7d80a2c1cbc64a077b00bb5f4"
+    command: npm run dev  # Run the backend in dev mode with nodemon
+
+  mongodb:
+    image: mongo  # Use the official MongoDB image
+    ports:
+      - "27017:27017"  # Expose the MongoDB port (default: 27017)
+    volumes:
+      - mongodb-data:/data/db  # Persist MongoDB data in a volume
+    environment:
+      - MONGO_OPTS=--verbosity=0
+
+volumes:
+  mongodb-data:
+
